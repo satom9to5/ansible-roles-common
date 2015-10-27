@@ -1,0 +1,31 @@
+- name: automake source file check
+  ignore_errors: yes
+  command: test -f {{ automake_path }}.tar.gz
+  register: automake_source_check
+
+- name: automake download
+  when: automake_source_check.rc != 0
+  get_url: >
+    url=http://ftp.gnu.org/gnu/automake/{{ automake_fullname }}.tar.gz
+    dest={{ automake_path }}.tar.gz
+
+- name: automake source directory check
+  ignore_errors: yes
+  command: test -d {{ automake_path }}
+  register: automake_dir_check
+
+- name: automake source directory remove
+  when: automake_dir_check.rc == 0
+  file: >
+    path={{ automake_path }}
+    state=absent
+
+- name: automake unarchive
+  shell: cd /usr/local/src && tar xvzf {{ automake_path }}.tar.gz
+
+- name: automake install
+  shell: |
+    cd {{ automake_path }}
+    ./configure
+    make prefix=/usr
+    make install prefix=/usr

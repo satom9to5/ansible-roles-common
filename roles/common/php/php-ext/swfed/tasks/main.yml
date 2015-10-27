@@ -1,0 +1,42 @@
+- name: SWFEditor source directory check
+  command: test -d /usr/local/src/php-ext/swfed-{{ swfed_version }}
+  register: swfeditor_dir_check
+  failed_when: swfeditor_dir_check.rc not in [0,1]
+
+- name: SWFEditor source directory remove
+  when: swfeditor_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/php-ext/swfed-{{ swfed_version }}
+    state=absent
+
+- name: SWFEditor source file check
+  command: test -d /usr/local/src/php-ext/swfed-{{ swfed_version }}.tar.gz
+  register: swfeditor_source_check
+  failed_when: swfeditor_source_check.rc not in [0,1]
+
+- name: SWFEditor source download
+  when: swfeditor_source_check.rc != 0
+  get_url: >
+    url="http://sourceforge.jp/frs/redir.php?m=jaist&f=%2Fswfed%2F60548%2Fswfed-{{ swfed_version }}.tar.gz"
+    dest=/usr/local/src/php-ext/swfed-{{ swfed_version }}.tar.gz
+
+- name: SWFEditor source decompress
+  ignore_errors: yes
+  shell:  |
+    cd /usr/local/src/php-ext
+    tar xvzf swfed-{{ swfed_version }}.tar.gz
+    
+- name: SWFEditor install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    cd /usr/local/src/php-ext/swfed-{{ swfed_version }}/src
+    phpize
+    ./configure
+    make
+    make install
+
+- name: copy swfed.ini
+  template: >
+    src=swfed.ini.j2
+    dest={{ installed_php_dir }}/etc/conf.d/swfed.ini

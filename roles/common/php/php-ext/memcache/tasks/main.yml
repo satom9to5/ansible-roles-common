@@ -1,0 +1,42 @@
+- name: Memcache Extension source directory check
+  command: test -d /usr/local/src/php-ext/memcache-{{ memcache_ext_version }}
+  register: memcache_dir_check
+  failed_when: memcache_dir_check.rc not in [0,1]
+
+- name: Memcache Extension source directory remove
+  when: memcache_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/php-ext/memcache-{{ memcache_ext_version }}
+    state=absent
+
+- name: Memcache Extension source file check
+  command: test -d /usr/local/src/php-ext/memcache-{{ memcache_ext_version }}.tar.gz
+  register: memcache_source_check
+  failed_when: memcache_source_check.rc not in [0,1]
+
+- name: Memcache Extension source download
+  when: memcache_source_check.rc != 0
+  get_url: >
+    url="http://pecl.php.net/get/memcache-{{ memcache_ext_version }}.tgz"
+    dest=/usr/local/src/php-ext/memcache-{{ memcache_ext_version }}.tar.gz
+
+- name: Memcache Extension source decompress
+  ignore_errors: yes
+  shell:  |
+    cd /usr/local/src/php-ext
+    tar xvzf memcache-{{ memcache_ext_version }}.tar.gz
+    
+- name: Memcache Extention install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    cd /usr/local/src/php-ext/memcache-{{ memcache_ext_version }}
+    phpize
+    ./configure
+    make
+    make install
+
+- name: copy memcache.ini
+  template: >
+    src=memcache.ini.j2
+    dest={{ installed_php_dir }}/etc/conf.d/memcache.ini

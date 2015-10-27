@@ -1,0 +1,5 @@
+- name: Jenkins install
+  ignore_errors: yes
+  yum: >
+    name=jenkins
+    state=latest

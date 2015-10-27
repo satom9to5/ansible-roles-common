@@ -1,0 +1,16 @@
+- name: confirm PHP Extension version
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    php -i | grep 'PHP Extension =>' | awk '{ print $4 }'
+  register: php_extension_ver
+
+- name: PHP source directory check
+  command: test -d /usr/local/src/php-ext
+  register: php_source_dir_check
+  failed_when: php_source_dir_check.rc not in [0,1]
+
+- name: PHP source directory create
+  when: php_source_dir_check.rc == 1
+  file: >
+    path=/usr/local/src/php-ext
+    state=directory

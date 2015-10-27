@@ -1,0 +1,28 @@
+[mysqld]
+character-set-server=utf8
+skip-external-locking
+key_buffer_size = 512M
+innodb_buffer_pool_size = 2G
+max_allowed_packet = 1M
+table_open_cache = 1024
+sort_buffer_size = 8M
+read_buffer_size = 8M
+innodb_log_file_size = 1G
+read_rnd_buffer_size = 256K
+net_buffer_length = 2K
+thread_stack = 128K
+innodb_file_per_table
+open_files_limit = 10000
+innodb_open_files = 8000
+server-id       = 1
+
+[mysqldump]
+quick
+max_allowed_packet = 16M
+
+[myisamchk]
+key_buffer_size = 8M
+sort_buffer_size = 8M
+
+[mysqlhotcopy]
+interactive-timeout

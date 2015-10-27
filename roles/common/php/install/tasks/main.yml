@@ -1,0 +1,51 @@
+- name: php depends library install
+  ignore_errors: yes
+  yum: name={{ item }} state=latest
+  with_items:
+    - autoconf213
+    - bison
+    - httpd-devel
+    - libxml2-devel
+    - bzip2-devel
+    - giflib-devel
+    - libjpeg-turbo-devel
+    - libpng-devel
+    - freetype-devel
+    - readline-devel
+    - libxslt-devel
+    - libtool-ltdl-devel
+    - libtidy-devel
+
+- name: php depends library install (epel repo)
+  ignore_errors: yes
+  yum: name={{ item }} state=latest enablerepo=epel
+  with_items:
+    - re2c
+    - libmcrypt-devel
+
+- name: copy php-build configure_options 
+  template: >
+    src=default_configure_options.j2
+    dest={{ php_build_dir }}/share/php-build/default_configure_options  
+
+- name: php install
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    phpenv install {{ php_version }}
+
+- name: PHP Version fix
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    phpenv global {{ php_version }}
+    phpenv rehash
+
+- name: change PHP date.timezone setting
+  command: >
+    sed -i 's|^.*date.timezone.*|date.timezone="Asia/Tokyo"|g' {{ installed_php_dir }}/etc/php.ini
+    removes={{ installed_php_dir }}/etc/php.ini
+
+- name: change pear path
+  ignore_errors: yes
+  shell: |
+    rm -f /usr/share/pear
+    ln -s {{ installed_php_dir }}/lib/php /usr/share/pear 

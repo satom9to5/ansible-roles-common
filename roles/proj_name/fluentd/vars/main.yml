@@ -1,0 +1,2 @@
+proj_name_root_path: /product/proj_name/
+proj_name_log_path: "{{ proj_name_root_path }}codeigniter/application/logs/"

@@ -1,0 +1,19 @@
+---
+driver:
+  name: docker
+
+provisioner:
+  name: ansible_playbook
+  hosts: docker_php55_test
+  roles_path: roles
+  playbook: proj_name_setup.yml
+
+platforms:
+  - name: centos-6.4
+    driver_config:
+      privileged: true
+
+suites:
+  - name: default
+    run_list:
+    attributes:

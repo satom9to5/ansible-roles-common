@@ -1,0 +1,4 @@
+- name: remi repository add
+  ignore_errors: yes
+  command: rpm -ivh {{ remi_base_url }}remi-release-{{ ansible_distribution_major_version }}.rpm
+  tags: remi

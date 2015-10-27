@@ -1,0 +1,3 @@
+anyenv/source_pathは、～envを全てインストール後に実行
+この中ではsourceコマンドでPATH読込を行う
+※metaで複数指定しててもansibleは1回しか実行しないので

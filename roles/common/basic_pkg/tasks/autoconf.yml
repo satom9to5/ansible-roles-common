@@ -1,0 +1,31 @@
+- name: autoconf source file check
+  ignore_errors: yes
+  command: test -f {{ autoconf_path }}.tar.gz
+  register: autoconf_source_check
+
+- name: autoconf download
+  when: autoconf_source_check.rc != 0
+  get_url: >
+    url=http://ftp.gnu.org/gnu/autoconf/{{ autoconf_fullname }}.tar.gz
+    dest={{ autoconf_path }}.tar.gz
+
+- name: autoconf source directory check
+  ignore_errors: yes
+  command: test -d {{ autoconf_path }}
+  register: autoconf_dir_check
+
+- name: autoconf source directory remove
+  when: autoconf_dir_check.rc == 0
+  file: >
+    path={{ autoconf_path }}
+    state=absent
+
+- name: autoconf unarchive
+  shell: cd /usr/local/src && tar xvzf {{ autoconf_path }}.tar.gz
+
+- name: autoconf install
+  shell: |
+    cd {{ autoconf_path }}
+    ./configure
+    make prefix=/usr
+    make install prefix=/usr

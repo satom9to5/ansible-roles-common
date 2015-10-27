@@ -1,0 +1,25 @@
+- name: useful packages install
+  ignore_errors: yes
+  yum: name={{ item }} state=latest
+  with_items:
+    - which
+    - tar
+    - zip
+    - unzip
+    - bzip2
+    - gcc
+    - gcc-c++
+    - libtool
+    - bash-completion
+    - zsh
+    - telnet
+    - curl
+    - ngrep
+    - nc
+    - nkf
+    - expect
+    - file
+    - vim-enhanced
+
+- include: autoconf.yml 
+- include: automake.yml 

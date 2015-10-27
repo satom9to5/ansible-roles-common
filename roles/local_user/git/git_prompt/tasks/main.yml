@@ -1,0 +1,62 @@
+# 注意：外部から実行しないこと！
+# ユーザーのbashrcを書き換えるため。
+# playbook実行後に「 . /bashrc」を実行して変更を反映させる
+
+- name: git-completion.bash file check
+  ignore_errors: yes
+  command: test -f ~/.git-completion.bash
+  register: git_completion_file_check
+
+- name: git-completion.bash download
+  when: git_completion_file_check.rc != 0
+  get_url: >
+    url={{ git_prompt_base_url }}git-completion.bash
+    dest=~/.git-completion.bash
+
+- name: git-completion read check in .bashrc
+  ignore_errors: yes
+  command: grep 'git-completion.bash' ~/.bashrc
+  register: git_completion_bashrc_check
+
+- name: git-completion setting write .bashrc
+  when: git_completion_bashrc_check.rc != 0
+  shell: |
+    echo ""                                       >> ~/.bashrc
+    echo "if [ -f ~/.git-completion.bash ]; then" >> ~/.bashrc
+    echo "  source ~/.git-completion.bash"        >> ~/.bashrc
+    echo "fi"                                     >> ~/.bashrc
+
+- name: git-prompt.sh file check
+  ignore_errors: yes
+  command: test -f ~/.git-prompt.sh
+  register: git_prompt_file_check
+
+- name: git-prompt.sh file download
+  when: git_prompt_file_check.rc != 0
+  get_url: >
+    url={{ git_prompt_base_url }}git-prompt.sh
+    dest=~/.git-prompt.sh
+
+- name: git-prompt read check in .bashrc
+  ignore_errors: yes
+  command: grep 'git-prompt.sh' ~/.bashrc
+  register: git_prompt_bashrc_check
+
+- name: git-prompt setting write .bashrc
+  when: git_prompt_bashrc_check.rc != 0
+  shell: |
+    echo ""                                 >> ~/.bashrc
+    echo "if [ -f ~/.git-prompt.sh ]; then" >> ~/.bashrc
+    echo "  source ~/.git-prompt.sh"        >> ~/.bashrc
+    echo "fi"                               >> ~/.bashrc
+
+- name: PS1 setting check in .bashrc
+  ignore_errors: yes
+  command: grep PS1 ~/.bashrc
+  register: ps1_bashrc_check
+
+- name: PS1 setting write .bashrc
+  when: ps1_bashrc_check.rc != 0
+  shell: |
+    echo ""                                                                                          >> ~/.bashrc
+    echo "PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w\$(__git_ps1) \n\[\033[01;34m\]\$\[\033[00m\] '" >> ~/.bashrc

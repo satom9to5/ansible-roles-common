@@ -1,0 +1,68 @@
+- name: ncurses-devel install
+  yum: >
+    name=ncurses-devel
+    state=latest
+
+- name: libevent source file check
+  ignore_errors: yes
+  command: test -f {{ libevent_path }}.tar.gz
+  register: libevent_source_check
+
+- name: libevent download
+  when: libevent_source_check.rc != 0
+  get_url: >
+    url=https://sourceforge.net/projects/levent/files/libevent/libevent-{{ libevent_major_version }}/{{ libevent_fullname }}.tar.gz 
+    dest={{ libevent_path }}.tar.gz
+
+- name: libevent source directory check
+  ignore_errors: yes
+  command: test -d {{ libevent_path }}
+  register: libevent_dir_check
+
+- name: libevent source directory remove
+  when: libevent_dir_check.rc == 0
+  file: >
+    path={{ libevent_path }}
+    state=absent
+
+- name: libevent unarchive
+  shell: cd /usr/local/src && tar xvzf {{ libevent_path }}.tar.gz
+
+- name: libevent install
+  shell: |
+    cd {{ libevent_path }}
+    ./configure
+    make prefix=/usr
+    make install prefix=/usr
+
+- name: tmux source file check
+  ignore_errors: yes
+  command: test -f {{ tmux_path }}.tar.gz
+  register: tmux_source_check
+
+- name: tmux download
+  when: tmux_source_check.rc != 0
+  get_url: >
+    url=http://downloads.sourceforge.net/tmux/{{ tmux_fullname }}.tar.gz
+    dest={{ tmux_path }}.tar.gz
+
+- name: tmux source directory check
+  ignore_errors: yes
+  command: test -d {{ tmux_path }}
+  register: tmux_dir_check
+
+- name: tmux source directory remove
+  when: tmux_dir_check.rc == 0
+  file: >
+    path={{ tmux_path }}
+    state=absent
+
+- name: tmux unarchive
+  shell: cd /usr/local/src && tar xvzf {{ tmux_path }}.tar.gz
+
+- name: tmux install
+  shell: |
+    cd {{ tmux_path }}
+    ./configure
+    make
+    make install

@@ -1,0 +1,42 @@
+- name: xdebug extension source directory check
+  command: test -d /usr/local/src/php-ext/xdebug-{{ xdebug_ext_version }}
+  register: xdebug_dir_check
+  failed_when: xdebug_dir_check.rc not in [0,1]
+
+- name: xdebug extension source directory remove
+  when: xdebug_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/php-ext/xdebug-{{ xdebug_ext_version }}
+    state=absent
+
+- name: xdebug extension source file check
+  command: test -d /usr/local/src/php-ext/xdebug-{{ xdebug_ext_version }}.tar.gz
+  register: xdebug_source_check
+  failed_when: xdebug_source_check.rc not in [0,1]
+
+- name: xdebug extension source download
+  when: xdebug_source_check.rc != 0
+  get_url: >
+    url="http://pecl.php.net/get/xdebug-{{ xdebug_ext_version }}.tgz"
+    dest=/usr/local/src/php-ext/xdebug-{{ xdebug_ext_version }}.tar.gz
+
+- name: xdebug extension source decompress
+  ignore_errors: yes
+  shell:  |
+    cd /usr/local/src/php-ext
+    tar xvzf xdebug-{{ xdebug_ext_version }}.tar.gz
+ 
+- name: xdebug Extention install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    cd /usr/local/src/php-ext/xdebug-{{ xdebug_ext_version }}
+    phpize
+    ./configure
+    make
+    make install
+
+- name: copy xdebug.ini
+  template: >
+    src=xdebug.ini.j2
+    dest={{ installed_php_dir }}/etc/conf.d/xdebug.ini

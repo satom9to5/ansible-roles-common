@@ -1,0 +1,5 @@
+- name: npm install
+  npm: >
+    name=gulp
+    state=latest
+    global=yes

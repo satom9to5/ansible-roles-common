@@ -1,0 +1,5 @@
+- name: elasticsearch install
+  ignore_errors: yes
+  yum: >
+    name=elasticsearch
+    state=latest

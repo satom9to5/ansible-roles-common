@@ -1,0 +1,45 @@
+- name: Git necessary package install
+  ignore_errors: yes
+  yum: name={{ item }} state=latest
+  with_items:
+    - which
+    - patch
+    - wget
+    - tar
+    - gcc
+    - openssl-devel
+    - libcurl-devel
+    - expat-devel
+    - perl-ExtUtils-MakeMaker
+    - gettext
+
+- name: Git source file check
+  ignore_errors: yes
+  command: test -f {{ git_path }}.tar.gz
+  register: git_source_check
+
+- name: Git download
+  when: git_source_check.rc != 0
+  get_url: >
+    url=https://www.kernel.org/pub/software/scm/git/{{ git_fullname }}.tar.gz
+    dest={{ git_path }}.tar.gz
+
+- name: Git source directory check
+  ignore_errors: yes
+  command: test -f {{ git_path }}
+  register: git_dir_check
+
+- name: Git source directory remove
+  when: git_dir_check.rc == 0
+  file: >
+    path={{ git_path }}
+    state=absent
+
+- name: Git unarchive
+  shell: cd /usr/local/src && tar xvzf {{ git_path }}.tar.gz
+
+- name: Git install
+  shell: |
+    cd {{ git_path }} 
+    make prefix=/usr
+    make install prefix=/usr

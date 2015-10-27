@@ -1,0 +1,21 @@
+- name: node-canvas depends library install
+  ignore_errors: yes
+  yum: name={{ item }} state=latest
+  with_items:
+    - cairo
+    - cairo-devel
+    - cairomm-devel
+    - libjpeg-turbo-devel
+    - pango
+    - pango-devel
+    - pangomm
+    - pangomm-devel
+    - giflib-devel
+
+- name: node-canvas install
+  environment:
+    PATH: "{{ anyenv_path }}:{{ ansible_env.PATH }}"
+  npm: >
+    name=canvas
+    version={{ npm_canvas_version }}
+    global=yes

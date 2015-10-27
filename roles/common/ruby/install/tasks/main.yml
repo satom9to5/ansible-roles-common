@@ -1,0 +1,16 @@
+- name: Ruby installed check
+  ignore_errors: yes
+  command: test -d {{ rbenv_root }}/versions/{{ ruby_version }}
+  register: ruby_directory_check
+
+- name: Ruby install
+  when: ruby_directory_check.rc != 0
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    rbenv install {{ ruby_version }}
+
+- name: Ruby Version fix
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    rbenv global {{ ruby_version }}
+    rbenv rehash

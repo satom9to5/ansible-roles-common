@@ -1,0 +1,31 @@
+- name: phpMyAdmin source file check
+  ignore_errors: yes
+  command: test -f {{ phpmyadmin_path }}.tar.gz
+  register: phpmyadmin_source_check
+
+- name: phpMyAdmin download
+  when: phpmyadmin_source_check.rc != 0
+  get_url: >
+    url=https://files.phpmyadmin.net/phpMyAdmin/{{ phpmyadmin_version }}/phpMyAdmin-{{ phpmyadmin_version }}-all-languages.zip
+    dest={{ phpmyadmin_path }}.zip
+    validate_certs=no
+
+- name: phpMyAdmin source directory check
+  ignore_errors: yes
+  command: test -d {{ phpmyadmin_path }}
+  register: phpmyadmin_dir_check
+
+- name: phpMyAdmin source directory remove
+  when: phpmyadmin_dir_check.rc == 0
+  file: >
+    path={{ phpmyadmin_path }}
+    state=absent
+
+- name: phpMyAdmin unarchive
+  shell: cd /var/www/html && unzip {{ phpmyadmin_path }}.zip
+
+- name: phpMyAdmin config file set
+  copy: >
+    src={{ phpmyadmin_path }}/config.sample.inc.php
+    dest={{ phpmyadmin_path }}/config.inc.php
+

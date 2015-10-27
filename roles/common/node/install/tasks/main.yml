@@ -1,0 +1,16 @@
+- name: node.js installed check
+  ignore_errors: yes
+  command: test -d {{ ndenv_root }}/versions/{{ node_version }}
+  register: nodejs_directory_check
+
+- name: node.js install
+  when: nodejs_directory_check.rc != 0
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    ndenv install {{ node_version }}
+
+- name: node.js Version fix
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    ndenv global {{ node_version }}
+    ndenv rehash

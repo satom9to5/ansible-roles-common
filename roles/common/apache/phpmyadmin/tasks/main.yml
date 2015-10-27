@@ -1,0 +1,4 @@
+- name: copy phpmyadmin.conf
+  template: >
+    src=phpmyadmin.conf.j2
+    dest=/etc/httpd/conf.d/phpmyadmin.conf

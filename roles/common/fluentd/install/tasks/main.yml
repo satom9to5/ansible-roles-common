@@ -1,0 +1,13 @@
+- name: fluentd install
+  ignore_errors: yes
+  yum: >
+    name=td-agent
+    state=latest 
+    enablerepo=treasuredata
+
+# conf作成してからstartした方がよさそう
+- name: fluentd restart
+  service: >
+    name=td-agent
+    state=started
+    enabled=yes

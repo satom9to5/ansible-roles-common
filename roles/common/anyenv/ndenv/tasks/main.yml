@@ -1,0 +1,11 @@
+- name: ndenv install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    anyenv install ndenv 
+
+- name: ndenv releases check
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    ndenv install -l

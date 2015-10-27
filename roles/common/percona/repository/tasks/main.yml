@@ -1,0 +1,4 @@
+- name: Percona repository install
+  ignore_errors: yes
+  yum: >
+    name={{ percona_repository_url }}

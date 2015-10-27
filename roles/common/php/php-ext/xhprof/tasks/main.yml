@@ -1,0 +1,42 @@
+- name: xhprof directory check
+  command: test -d {{ xhprof_path }}
+  register: xhprof_dir_check
+  failed_when: xhprof_dir_check.rc not in [0,1]
+
+- name: xhprof directory remove
+  when: xhprof_dir_check.rc == 0
+  file: >
+    path={{ xhprof_path }}
+    state=absent
+
+- name: xhprof repository clone
+  ignore_errors: yes
+  git: >
+    repo=https://github.com/phacility/xhprof
+    dest={{ xhprof_path }}
+
+- name: xhprof extension install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    cd {{ xhprof_path }}/extension
+    phpize
+    ./configure
+    make
+    make install
+
+- name: copy xhprof.ini
+  template: >
+    src=xhprof.ini.j2
+    dest={{ installed_php_dir }}/etc/conf.d/xhprof.ini
+
+- name: xhprof setting
+  shell: |
+    cp -R {{ xhprof_path }}/xhprof_html/ {{ installed_php_dir }}/lib/php/
+    cp -R {{ xhprof_path }}/xhprof_lib/ {{ installed_php_dir }}/lib/php/
+    mkdir -p /var/tmp/xhprof
+    chmod 777 /var/tmp/xhprof
+    rm -f /var/www/html/xhprof/xhprof_html
+    mkdir -p /var/www/html/xhprof
+    ln -s {{ installed_php_dir }}/lib/php/xhprof_html/ /var/www/html/xhprof/xhprof_html 
+

@@ -1,0 +1,5 @@
+- name: vim install
+  ignore_errors: yes
+  yum: >
+    name=vim-enhanced
+    state=latest

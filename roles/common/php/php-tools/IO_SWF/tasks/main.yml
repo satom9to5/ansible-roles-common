@@ -1,0 +1,31 @@
+- name: IO_SWF source directory check
+  command: test -d /usr/local/src/php-ext/IO_SWF-{{ IO_SWF_version }}
+  register: IO_SWF_dir_check
+  failed_when: IO_SWF_dir_check.rc not in [0,1]
+
+- name: IO_SWF source directory remove
+  when: IO_SWF_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/php-ext/IO_SWF-{{ IO_SWF_version }}
+    state=absent
+
+- name: IO_SWF source file check
+  ignore_errors: yes
+  command: test -d /usr/local/src/php-ext/IO_SWF-{{ IO_SWF_version }}.tgz
+  register: IO_SWF_source_check
+
+- name: IO_SWF source download
+  when: IO_SWF_source_check.rc != 0
+  get_url: >
+    url="http://openpear.org/get/IO_SWF-{{ IO_SWF_version }}.tgz"
+    dest=/usr/local/src/php-ext/IO_SWF-{{ IO_SWF_version }}.tgz
+
+- name: IO_SWF source decompress
+  ignore_errors: yes
+  shell:  |
+    cd /usr/local/src/php-ext
+    tar xvzf IO_SWF-{{ IO_SWF_version }}.tgz
+    
+- name: IO_SWF files set on php directory
+  shell: |
+    cp -R /usr/local/src/php-ext/IO_SWF-{{ IO_SWF_version }}/* {{ installed_php_dir }}/lib/php/

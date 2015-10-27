@@ -1,0 +1,5 @@
+- name: copy yum elasticsearch repository setting
+  template: >
+    src=elasticsearch.repo.j2
+    dest=/etc/yum.repos.d/elasticsearch.repo 
+

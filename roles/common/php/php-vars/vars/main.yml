@@ -1,0 +1,2 @@
+php_version: 5.5.28
+installed_php_dir: "{{ phpenv_root }}/versions/{{ php_version }}"

@@ -1,0 +1,3 @@
+twemproxy_version: 0.3.0 
+twemproxy_fullname: "nutcracker-{{ twemproxy_version }}"
+twemproxy_path: "/usr/local/src/{{ twemproxy_fullname }}"

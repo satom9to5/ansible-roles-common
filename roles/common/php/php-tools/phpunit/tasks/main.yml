@@ -1,0 +1,14 @@
+- name: PHPUnit install
+  ignore_errors: yes
+  get_url: >
+    url=https://phar.phpunit.de/phpunit-{{ phpunit_version }}.phar
+    dest={{ installed_php_dir }}/bin/phpunit
+
+- name: PHPUnit chmod
+  shell: chmod +x {{ installed_php_dir }}/bin/phpunit
+
+- name: PHPUnit do enable
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    phpenv rehash

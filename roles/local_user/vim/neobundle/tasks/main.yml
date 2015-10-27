@@ -1,0 +1,13 @@
+- name: NeoBundle directory check
+  ignore_errors: yes
+  command: test -d {{ neobundle_path }}
+  register: neobundle_dir_check
+
+- name: NeoBundle download
+  when: neobundle_dir_check.rc != 0
+  git: >
+    repo=https://github.com/Shougo/neobundle.vim
+    dest={{ neobundle_path }}
+
+- name: exec NeoBundleInstall
+  command: "{{ neobundle_path }}/bin/neoinstall"

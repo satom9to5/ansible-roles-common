@@ -1,0 +1,17 @@
+- name: Redis install 
+  ignore_errors: yes
+  yum: >
+    name=redis
+    state=latest
+    enablerepo=remi
+
+- name: change Redis setting
+  command: >
+    sed -i 's|^unixsocketperm.*|unixsocketperm 777|g' /etc/redis.conf
+    removes=/etc/redis.conf
+
+- name: Redis start
+  service: >
+    name=redis
+    state=started
+    enabled=yes

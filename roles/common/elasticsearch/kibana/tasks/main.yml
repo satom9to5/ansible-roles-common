@@ -1,0 +1,39 @@
+- name: Kibana source directory check
+  command: test -d /usr/local/src/kibana-{{ kibana_version }}
+  register: kibana_dir_check
+  failed_when: kibana_dir_check.rc not in [0,1]
+
+- name: Kibana source directory remove
+  when: kibana_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/kibana-{{ kibana_version }}
+    state=absent
+
+- name: Kibana source file check
+  command: test -d /usr/local/src/kibana-{{ kibana_version }}.tar.gz
+  register: kibana_source_check
+  failed_when: kibana_source_check.rc not in [0,1]
+
+- name: Kibana source download
+  when: kibana_source_check.rc != 0
+  get_url: >
+    url="https://download.elastic.co/kibana/kibana/kibana-{{ kibana_version }}-linux-x64.tar.gz"
+    dest=/usr/local/src/kibana-{{ kibana_version }}.tar.gz
+
+- name: Kibana source decompress
+  ignore_errors: yes
+  shell:  |
+    cd /opt
+    tar xvzf /usr/local/src/kibana-{{ kibana_version }}.tar.gz
+    mv kibana-{{ kibana_version }}-linux-x64 kibana-{{ kibana_version }}
+
+- name: copy kibana script to /etc/init.d/ 
+  template: >
+    src=kibana.j2
+    dest=/etc/init.d/kibana
+    mode=0755
+
+- name: kibana start
+  service: >
+    name=kibana
+    state=started

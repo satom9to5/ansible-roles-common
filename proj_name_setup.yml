@@ -1,0 +1,2 @@
+- include: roles/common/site.yml
+- include: roles/proj_name/site.yml

@@ -1,0 +1,5 @@
+- name: Git user etting
+  when: git_email is defined and git_user is defined
+  shell: |
+    git config --global user.email "{{ git_email }}"
+    git config --global user.name "{{ git_user }}"

@@ -1,0 +1,5 @@
+- name: php symlink create
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    ln -s `which php` /usr/local/bin/php

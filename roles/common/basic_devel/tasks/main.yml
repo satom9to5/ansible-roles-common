@@ -1,0 +1,6 @@
+- name: devel packages install
+  ignore_errors: yes
+  yum: name={{ item }} state=latest
+  with_items:
+    - openssl-devel
+    - libcurl-devel

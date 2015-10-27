@@ -1,0 +1,11 @@
+- name: MySQL install
+  yum: >
+    name={{ item }}
+    state=latest
+    enablerepo=remi
+  with_items:
+    - mysql
+    - mysql-server
+    - mysql-devel
+    - MySQL-python
+

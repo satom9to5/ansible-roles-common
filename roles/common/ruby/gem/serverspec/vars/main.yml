@@ -1,0 +1,2 @@
+serverspec_version: "~> 2.22.0"
+specinfra_version: "~> 2.42.0"

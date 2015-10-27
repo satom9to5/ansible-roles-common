@@ -1,0 +1,19 @@
+Alias /proj_name_admin /product/proj_admin/admin/codeigniter
+
+<Directory /product/proj_admin/admin/codeigniter>
+    SetEnv ENVIRONMENT localhost
+    Options FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+
+    # index.php を表示させない
+    <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteBase /proj_admin_admin
+
+        # CodeIgniter
+        RewriteCond $1 !^(index\.php|image(_sp)?|css|js|flash(_sp)?|gadget_sandbox\.xml)
+        RewriteRule ^(.*)$ /proj_name_admin/index.php/$1 [L]
+    </IfModule>
+</Directory>

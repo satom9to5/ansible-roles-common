@@ -1,0 +1,10 @@
+- name: copy td-agent.conf
+  template: >
+    src=td-agent.conf.j2
+    dest=/etc/td-agent/td-agent.conf
+
+- name: fluentd restart
+  service: >
+    name=td-agent
+    state=started
+    enabled=yes

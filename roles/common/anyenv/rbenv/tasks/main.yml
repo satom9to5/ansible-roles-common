@@ -1,0 +1,11 @@
+- name: rbenv install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    anyenv install rbenv
+
+- name: rbenv releases check
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    rbenv install -l

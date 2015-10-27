@@ -1,0 +1,7 @@
+<VirtualHost *:80>
+Include conf.d/proj_name/proj_name_media.conf
+{% for app_name in proj_name_app %}
+Include conf.d/proj_name/{{ app_name }}.conf
+{% endfor %}
+Include conf.d/proj_name/proj_name_admin.conf
+</VirtualHost>

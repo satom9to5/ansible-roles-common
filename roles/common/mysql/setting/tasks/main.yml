@@ -1,0 +1,4 @@
+- name: MySQL setting
+  template: >
+    src=default_settings.j2
+    dest={{ mysql_conf_base_dir }}/default_settings.cnf

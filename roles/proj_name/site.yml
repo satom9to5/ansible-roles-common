@@ -1,0 +1,10 @@
+- hosts:
+    - localhost
+  roles:
+    - { role: user }
+    - { role: sudoers }
+    - { role: mysql/add_user }
+    - { role: php/create_symlink }
+    - { role: php/setting }
+    - { role: apache }
+    - { role: ../common/apache/restart }

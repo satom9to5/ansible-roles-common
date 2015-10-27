@@ -1,0 +1,31 @@
+- name: twemproxy source file check
+  ignore_errors: yes
+  command: test -f {{ twemproxy_path }}.tar.gz
+  register: twemproxy_source_check
+
+- name: twemproxy download
+  when: twemproxy_source_check.rc != 0
+  get_url: >
+    url=http://twemproxy.googlecode.com/files/{{ twemproxy_fullname }}.tar.gz
+    dest={{ twemproxy_path }}.tar.gz
+
+- name: twemproxy source directory check
+  ignore_errors: yes
+  command: test -d {{ twemproxy_path }}
+  register: twemproxy_dir_check
+
+- name: twemproxy source directory remove
+  when: twemproxy_dir_check.rc == 0
+  file: >
+    path={{ twemproxy_path }}
+    state=absent
+
+- name: twemproxy unarchive
+  shell: cd /usr/local/src && tar xvzf {{ twemproxy_path }}.tar.gz
+
+- name: twemproxy install
+  shell: |
+    cd {{ twemproxy_path }}
+    ./configure
+    make
+    make install

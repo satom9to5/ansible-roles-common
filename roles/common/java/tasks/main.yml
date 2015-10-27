@@ -1,0 +1,5 @@
+- name: Java install
+  ignore_errors: yes
+  yum: >
+    name=java-{{ java_version }}-openjdk
+    state=latest

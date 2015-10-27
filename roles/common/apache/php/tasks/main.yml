@@ -1,0 +1,4 @@
+- name: copy php.conf
+  template: >
+    src=php.conf.j2
+    dest=/etc/httpd/conf.d/php.conf

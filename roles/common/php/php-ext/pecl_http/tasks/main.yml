@@ -1,0 +1,42 @@
+- name: pecl_http extension source directory check
+  command: test -d /usr/local/src/php-ext/pecl_http-{{ pecl_http_ext_version }}
+  register: pecl_http_dir_check
+  failed_when: pecl_http_dir_check.rc not in [0,1]
+
+- name: pecl_http extension source directory remove
+  when: pecl_http_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/php-ext/pecl_http-{{ pecl_http_ext_version }}
+    state=absent
+
+- name: pecl_http extension source file check
+  command: test -d /usr/local/src/php-ext/pecl_http-{{ pecl_http_ext_version }}.tar.gz
+  register: pecl_http_source_check
+  failed_when: pecl_http_source_check.rc not in [0,1]
+
+- name: pecl_http extension source download
+  when: pecl_http_source_check.rc != 0
+  get_url: >
+    url="http://pecl.php.net/get/pecl_http-{{ pecl_http_ext_version }}.tgz"
+    dest=/usr/local/src/php-ext/pecl_http-{{ pecl_http_ext_version }}.tar.gz
+
+- name: pecl_http extension source decompress
+  ignore_errors: yes
+  shell:  |
+    cd /usr/local/src/php-ext
+    tar xvzf pecl_http-{{ pecl_http_ext_version }}.tar.gz
+ 
+- name: pecl_http extention install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    cd /usr/local/src/php-ext/pecl_http-{{ pecl_http_ext_version }}
+    phpize
+    ./configure
+    make
+    make install
+
+- name: copy pecl_http.ini
+  template: >
+    src=pecl_http.ini.j2
+    dest={{ installed_php_dir }}/etc/conf.d/pecl_http.ini

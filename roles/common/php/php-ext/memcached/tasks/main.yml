@@ -1,0 +1,52 @@
+- name: necessary library install
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+    enablerepo=remi
+  with_items:
+    - libmemcached-last-devel
+    - cyrus-sasl-devel
+
+- name: Memcached Extension source directory check
+  command: test -d /usr/local/src/php-ext/memcached-{{ memcached_ext_version }}
+  register: memcached_dir_check
+  failed_when: memcached_dir_check.rc not in [0,1]
+
+- name: Memcached Extension source directory remove
+  when: memcached_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/php-ext/memcached-{{ memcached_ext_version }}
+    state=absent
+
+- name: Memcached Extension source file check
+  command: test -d /usr/local/src/php-ext/memcached-{{ memcached_ext_version }}.tar.gz
+  register: memcached_source_check
+  failed_when: memcached_source_check.rc not in [0,1]
+
+- name: Memcached Extension source download
+  when: memcached_source_check.rc != 0
+  get_url: >
+    url="http://pecl.php.net/get/memcached-{{ memcached_ext_version }}.tgz"
+    dest=/usr/local/src/php-ext/memcached-{{ memcached_ext_version }}.tar.gz
+
+- name: Memcached Extension source decompress
+  ignore_errors: yes
+  shell:  |
+    cd /usr/local/src/php-ext
+    tar xvzf memcached-{{ memcached_ext_version }}.tar.gz
+    
+- name: Memcached Extension install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    cd /usr/local/src/php-ext/memcached-{{ memcached_ext_version }}
+    phpize
+    ./configure --enable-memcached-igbinary
+    make
+    make install
+
+- name: copy memcached.ini
+  template: >
+    src=memcached.ini.j2
+    dest={{ installed_php_dir }}/etc/conf.d/memcached.ini

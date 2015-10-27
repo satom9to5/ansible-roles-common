@@ -1,0 +1,4 @@
+- name: copy proj_name
+  template: >
+    src=proj_name.j2
+    dest=/etc/sudoers.d/proj_name

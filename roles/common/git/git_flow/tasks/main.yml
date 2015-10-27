@@ -1,0 +1,6 @@
+- name: git-flow install
+  yum: >
+    name=gitflow
+    state=latest
+    enablerepo=epel
+

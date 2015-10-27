@@ -1,0 +1,7 @@
+subversion_version: 1.8.14
+subversion_fullname: "subversion-{{ subversion_version }}"
+subversion_path: "/usr/local/src/{{ subversion_fullname }}"
+
+sqlite_amalgamation_version: 3071501
+sqlite_amalgamation_fullname: "sqlite-amalgamation-{{ sqlite_amalgamation_version }}"
+sqlite_amalgamation_source_path: "/usr/local/src/{{ sqlite_amalgamation_fullname }}.zip"

@@ -1,0 +1,5 @@
+- name: docker install
+  ignore_errors: yes
+  yum: >
+    name=docker-io
+    state=latest
