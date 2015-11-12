@@ -1,8 +1,0 @@
-- name: add user
-  user: >
-    name={{ item.key }}
-    password={{ item.value.password }}
-    shell=/bin/bash
-    state=present
-    append=yes
-  with_dict: users

@@ -1,0 +1,2 @@
+- include: roles/common/localhost.yml
+- include: roles/pj/localhost.yml

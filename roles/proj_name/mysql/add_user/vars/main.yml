@@ -1,8 +1,0 @@
-mysql_users:
-  - user: proj_name
-    password: proj_name
-    host: localhost
-  - user: proj_name
-    password: proj_name
-    host: '%'
-

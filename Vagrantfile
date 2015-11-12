@@ -72,8 +72,6 @@ Vagrant.configure(2) do |config|
   # Ansibleプロビジョニング設定
   config.vm.provision :shell do |sh|
     sh.path = "vagrant.sh"
-    # ユーザー名を設定 
-    #sh.args = "username"
   end
 
   # CPU,メモリー設定

@@ -4,9 +4,10 @@ driver:
 
 provisioner:
   name: ansible_playbook
-  hosts: docker_php55_test
+  hosts: localhost
   roles_path: roles
-  playbook: proj_name_setup.yml
+  playbook: pj_setup.yml
+#  ansible_connection: localhost
 
 platforms:
   - name: centos-6.4

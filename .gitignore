@@ -2,4 +2,5 @@
 .vagrant/
 Gemfile.lock
 *db_setup*
+*env_setup.yml
 

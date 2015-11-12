@@ -1,0 +1,4 @@
+- name: copy pj
+  template: >
+    src=pj.j2
+    dest="/etc/sudoers.d/{{ pj_name }}"
