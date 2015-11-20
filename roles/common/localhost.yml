@@ -22,6 +22,7 @@
     - { role: anyenv/ndenv } 
     - { role: anyenv/phpenv } 
     - { role: anyenv/rbenv } 
+    - { role: anyenv/goenv } 
     - { role: php/install } 
     - { role: php/php-ext/igbinary } 
     - { role: php/php-ext/memcache } 
@@ -42,6 +43,7 @@
     - { role: node/install } 
     - { role: node/npm/canvas } 
     - { role: node/npm/node-gyp } 
+    - { role: golang/install } 
     - { role: apache/install } 
     - { role: apache/php } 
     - { role: apache/phpmyadmin } 

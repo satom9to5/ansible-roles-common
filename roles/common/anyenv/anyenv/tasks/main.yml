@@ -9,18 +9,10 @@
     repo=https://github.com/riywo/anyenv
     dest={{ anyenv_root }}
      
-- name: anyenv setting
-  ignore_errors: yes
-  shell: |
-    echo "if [ -d \"{{ anyenv_root }}\" ]; then"                  >  /etc/profile.d/anyenv.sh
-    echo "    export ANYENV_ROOT=\"{{ anyenv_root }}\""           >> /etc/profile.d/anyenv.sh
-    echo "    export PHPENV_ROOT=\"\${ANYENV_ROOT}/envs/phpenv\"" >> /etc/profile.d/anyenv.sh
-    echo "    export RBENV_ROOT=\"\${ANYENV_ROOT}/envs/rbenv\""   >> /etc/profile.d/anyenv.sh
-    echo "    export NDENV_ROOT=\"\${ANYENV_ROOT}/envs/ndenv\""   >> /etc/profile.d/anyenv.sh
-    echo ""                                                       >> /etc/profile.d/anyenv.sh 
-    echo "    export PATH=\"\${ANYENV_ROOT}/bin/:\${PATH}\""      >> /etc/profile.d/anyenv.sh
-    echo "    eval \"\$(anyenv init -)\""                         >> /etc/profile.d/anyenv.sh
-    echo "fi"                                                     >> /etc/profile.d/anyenv.sh
+- name: copy anyenv profile.d shell
+  template: >
+    src=anyenv.sh.j2
+    dest=/etc/profile.d/anyenv.sh
 
 - name: anyenv start
   shell: |

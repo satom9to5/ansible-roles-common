@@ -20,6 +20,8 @@
     - expect
     - file
     - vim-enhanced
+    - dos2unix
+    - unix2dos
 
 - include: autoconf.yml 
 - include: automake.yml 

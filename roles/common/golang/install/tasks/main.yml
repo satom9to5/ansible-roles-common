@@ -1,0 +1,16 @@
+- name: Golang installed check
+  ignore_errors: yes
+  command: test -d {{ goenv_root }}/versions/{{ golang_version }}
+  register: golang_directory_check
+
+- name: Golang install
+  when: golang_directory_check.rc != 0
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    goenv install {{ golang_version }}
+
+- name: Golang Version fix
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    goenv global {{ golang_version }}
+    goenv rehash

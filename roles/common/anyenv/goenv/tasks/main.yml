@@ -1,0 +1,5 @@
+- name: goenv install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    anyenv install goenv 

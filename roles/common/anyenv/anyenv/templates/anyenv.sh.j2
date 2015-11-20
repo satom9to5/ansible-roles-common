@@ -1,0 +1,20 @@
+if [ -d "/opt/anyenv" ]; then
+    export ANYENV_ROOT="/opt/anyenv"
+
+    [ -d "${ANYENV_ROOT}/envs/phpenv/" ] && export PHPENV_ROOT="${ANYENV_ROOT}/envs/phpenv"
+    [ -d "${ANYENV_ROOT}/envs/rbenv/" ] && export RBENV_ROOT="${ANYENV_ROOT}/envs/rbenv"
+    [ -d "${ANYENV_ROOT}/envs/ndenv/" ] && export NDENV_ROOT="${ANYENV_ROOT}/envs/ndenv"
+
+    if [ -d "${ANYENV_ROOT}/envs/goenv/" ]; then
+        export GOENV_ROOT="${ANYENV_ROOT}/envs/goenv"
+
+        [ -d "${HOME}/golang/third_party" ] || mkdir -p "${HOME}/golang/third_party"
+        [ -d "${HOME}/golang/mine" ] || mkdir -p "${HOME}/golang/mine"
+
+        export GOPATH="${HOME}/golang/third_party:${HOME}/golang/mine"
+        export PATH="${HOME}/golang/third_party/bin:${HOME}/golang/mine/bin:${PATH}"
+    fi
+
+    export PATH="${ANYENV_ROOT}/bin/:${PATH}"
+    eval "$(anyenv init -)"
+fi
