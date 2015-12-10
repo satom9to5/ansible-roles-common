@@ -2,10 +2,10 @@
   yum: >
     name={{ item }}
     state=latest
-    enablerepo=remi
   with_items:
     - mysql
     - mysql-server
     - mysql-devel
+    - mysql-utilities
     - MySQL-python
 

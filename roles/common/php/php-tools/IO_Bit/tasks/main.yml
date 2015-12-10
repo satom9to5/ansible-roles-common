@@ -1,32 +1,21 @@
 - name: IO_Bit source directory check
-  command: test -d /usr/local/src/php-ext/IO_Bit-{{ IO_Bit_version }}
+  command: test -d {{ IO_Bit_path }}
   register: IO_Bit_dir_check
   failed_when: IO_Bit_dir_check.rc not in [0,1]
 
 - name: IO_Bit source directory remove
   when: IO_Bit_dir_check.rc == 0
   file: >
-    path=/usr/local/src/php-ext/IO_Bit-{{ IO_Bit_version }}
+    path={{ IO_Bit_path }}
     state=absent
 
-- name: IO_Bit source file check
+- name: IO_Bit repository clone
   ignore_errors: yes
-  command: test -d /usr/local/src/php-ext/IO_Bit-{{ IO_Bit_version }}.tgz
-  register: IO_Bit_source_check
-
-- name: IO_Bit source download
-  when: IO_Bit_source_check.rc != 0
-  get_url: >
-    url="http://openpear.org/get/IO_Bit-{{ IO_Bit_version }}.tgz"
-    dest=/usr/local/src/php-ext/IO_Bit-{{ IO_Bit_version }}.tgz
-
-- name: IO_Bit source decompress
-  ignore_errors: yes
-  shell:  |
-    cd /usr/local/src/php-ext
-    tar xvzf IO_Bit-{{ IO_Bit_version }}.tgz
+  git: >
+    repo=https://github.com/openpear/IO_Bit.git
+    dest={{ IO_Bit_path }}
     
 - name: IO_Bit files set on php directory
   shell: |
-    cp -R /usr/local/src/php-ext/IO_Bit-{{ IO_Bit_version }}/* {{ installed_php_dir }}/lib/php/
+    cp -R {{ IO_Bit_path }}/* {{ installed_php_dir }}/lib/php/
 

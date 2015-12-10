@@ -7,18 +7,20 @@ if ! [ `which ansible` ]; then
   sudo yum install -y ansible
 fi
 
-# 実行権限が付与されているとansible-playbookで失敗する＆共有フォルダにファイルが存在していて実行権限を落とせないケースがあるため、
-# cpして実行権限を落とす
+ANSIBLE_BASE_DIR=/vagrant/ansible
+
+# ansible inventory file is disable of x permission.
+# because permission of virtualbox shared folder is 777, copy inventory file to tmp directory.
 mkdir -p /tmp/ansible
-cp /vagrant/ansible/localhost /tmp/ansible/localhost
+cp ${ANSIBLE_BASE_DIR}/localhost /tmp/ansible/localhost
 chmod -x /tmp/ansible/localhost
 
 echo "Running Ansible"
-ansible-playbook -i /tmp/ansible/localhost /vagrant/ansible/pj_setup.yml
-ansible-playbook -i /tmp/ansible/localhost /vagrant/ansible/pj_env_setup.yml
-ansible-playbook /vagrant/ansible/docker.yml
+ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/pj_setup.yml
+ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/pj_env_setup.yml
+ansible-playbook ${ANSIBLE_BASE_DIR}/docker.yml
 
 rm -f /tmp/ansible/localhost
 
-USERNAME=$(grep -P '^pj_name:' /vagrant/ansible/group_vars/localhost | awk '{ print $2 }')
-sudo -u ${USERNAME} ansible-playbook /vagrant/ansible/local_user.yml
+USERNAME=$(grep -P '^pj_name:' ${ANSIBLE_BASE_DIR}/group_vars/localhost | awk '{ print $2 }')
+sudo -u ${USERNAME} ansible-playbook ${ANSIBLE_BASE_DIR}/local_user.yml

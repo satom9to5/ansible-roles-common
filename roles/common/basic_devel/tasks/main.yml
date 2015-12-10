@@ -5,3 +5,11 @@
     - openssl-devel
     - libcurl-devel
     - pcre-devel
+
+- name: add ld.so.conf config
+  template: >
+    src=usr_local_lib.conf.j2
+    dest=/etc/ld.so.conf.d/usr_local_lib.conf
+
+- name: update shared library path with ldconfig
+  command: ldconfig

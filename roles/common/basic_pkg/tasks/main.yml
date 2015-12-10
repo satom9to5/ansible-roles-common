@@ -19,9 +19,11 @@
     - nkf
     - expect
     - file
+    - initscripts
     - vim-enhanced
     - dos2unix
     - unix2dos
+    - jwhois
 
 - include: autoconf.yml 
 - include: automake.yml 

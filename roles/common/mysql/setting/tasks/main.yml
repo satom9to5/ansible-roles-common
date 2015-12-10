@@ -1,3 +1,14 @@
+- name: includedir conf check
+  ignore_errors: yes
+  command: grep includedir /etc/my.cnf 
+  register: my_cnf_includedir_check
+
+- name: add includedir conf to my.cnf
+  when: my_cnf_includedir_check.rc != 0
+  shell: |
+    echo "" >> /etc/my.cnf
+    echo "!includedir /etc/my.cnf.d" >> /etc/my.cnf
+
 - name: MySQL setting
   template: >
     src=default_settings.j2
