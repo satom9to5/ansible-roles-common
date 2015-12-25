@@ -1,0 +1,36 @@
+- hosts:
+    - localhost
+  roles:
+    - { role: yum_repos } 
+    - { role: basic_pkg } 
+    - { role: basic_devel } 
+    - { role: vim } 
+    - { role: git/install } 
+    - { role: memcached }
+    - { role: redis }
+    - { role: anyenv/anyenv } 
+    - { role: anyenv/ndenv } 
+    - { role: anyenv/phpenv } 
+    - { role: anyenv/rbenv } 
+    - { role: anyenv/goenv } 
+    - { role: php/install } 
+    - { role: php/php-ext/igbinary } 
+    - { role: php/php-ext/memcache } 
+    - { role: php/php-ext/memcached } 
+    - { role: php/php-ext/pecl_http } 
+    - { role: php/php-ext/redis } 
+    - { role: php/php-ext/swfed } 
+    - { role: php/php-ext/xdebug } 
+    - { role: php/php-ext/xhprof } 
+    - { role: php/php-tools/phpunit } 
+    - { role: php/php-tools/IO_Bit } 
+    - { role: php/php-tools/IO_SWF } 
+    - { role: php/phpmyadmin } 
+    - { role: golang/install } 
+    - { role: lua/luajit } 
+    - { role: nginx/nginx-build } 
+    - { role: nginx/install } 
+    - { role: nginx/restart } 
+# nginxユーザーを定義するのでnginx roles実行後に設定する必要がある
+    - { role: php/php-fpm/setting } 
+    - { role: php/php-fpm/restart } 

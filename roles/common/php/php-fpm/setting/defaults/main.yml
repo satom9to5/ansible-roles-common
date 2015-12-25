@@ -1,0 +1,5 @@
+php_fpm_path: /tmp/php-build/source/{{ php_version }}/sapi/fpm/
+php_fpm_user: nobody
+php_fpm_group: nobody
+php_fpm_listen: "127.0.0.1:9000"
+php_fpm_display_errors: off

@@ -8,3 +8,5 @@
     - { role: php/setting }
     - { role: apache }
     - { role: ../common/apache/restart }
+    - { role: nginx/backend-apache }
+    - { role: ../common/nginx/restart }

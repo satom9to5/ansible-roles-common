@@ -14,8 +14,10 @@
     - zsh
     - telnet
     - curl
+    - wget
     - ngrep
     - nc
+    - jwhois
     - nkf
     - expect
     - file
@@ -23,7 +25,8 @@
     - vim-enhanced
     - dos2unix
     - unix2dos
-    - jwhois
+    - lsof
+    - strace
 
 - include: autoconf.yml 
 - include: automake.yml 

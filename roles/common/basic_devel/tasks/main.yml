@@ -12,4 +12,4 @@
     dest=/etc/ld.so.conf.d/usr_local_lib.conf
 
 - name: update shared library path with ldconfig
-  command: ldconfig
+  command: /sbin/ldconfig

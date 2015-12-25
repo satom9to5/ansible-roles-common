@@ -1,4 +1,4 @@
-<VirtualHost *:80>
+<VirtualHost *:{{ apache_port }}>
 Include conf.d/{{ pj_name }}/{{ pj_name }}_media.conf
 {% for app_name in pj_app %}
 Include conf.d/{{ pj_name }}/{{ app_name }}.conf

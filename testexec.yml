@@ -1,0 +1,2 @@
+- include: roles/common/testexec.yml
+- include: roles/pj/testexec.yml

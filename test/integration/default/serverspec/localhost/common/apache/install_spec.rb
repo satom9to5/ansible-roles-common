@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+apache_port=property[:group_vars]['apache_port']
+
 describe 'apache install' do
   context package('httpd'), :if => os[:family] == 'redhat' do
     it { should be_installed }
@@ -10,7 +12,7 @@ describe 'apache install' do
     it { should be_running }
   end
   
-  context port(80) do
+  context port(apache_port) do
     it { should be_listening }
   end
   

@@ -1,0 +1,66 @@
+#user  nobody;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections 1024;
+    multi_accept       on;
+    use                epoll;
+}
+
+
+http {
+    include      mime.types;
+    default_type application/octet-stream;
+
+    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+    #                  '$status $body_bytes_sent "$http_referer" '
+    #                  '"$http_user_agent" "$http_x_forwarded_for"';
+
+    server_names_hash_bucket_size 64;
+    client_max_body_size          10M;
+    client_body_buffer_size       64k;
+
+    sendfile        on;
+    tcp_nopush      on;
+
+    keepalive_timeout  65;
+
+    # Log Setting --------------------------
+    log_format ltsv	
+        'host_ip:' '$remote_addr'
+        '\t' 'server_ip:' '$server_addr'
+        '\t' 'host:' '$host'
+        '\t' 'time:' '$time_iso8601'
+        '\t' 'unixtime:' '$msec'
+        '\t' 'scheme:' '$scheme'
+        '\t' 'method:' '$request_method'
+        '\t' 'path:' '$request_uri'
+        '\t' 'uri:' '$uri'
+        '\t' 'query:' '$args'
+        '\t' 'status:' '$status'
+        '\t' 'size:' '$body_bytes_sent'
+        '\t' 'referer:' '$http_referer'
+        '\t' 'agent:' '$http_user_agent'
+        '\t' 'response_time:' '$request_time'
+        '\t' 'cookie:' '$http_cookie'
+        '\t' 'set_cookie:' '$sent_http_set_cookie'
+        ;
+
+    access_log  /var/log/nginx/access.log  ltsv;
+
+    # gzip config
+    include /etc/nginx/gzip.conf;
+
+    # proxy config
+    include /etc/nginx/proxy.conf;
+
+    # fastcgi_cache_config
+    include /etc/nginx/fastcgi_cache.conf;
+
+    # include virtual server config
+    include /etc/nginx/conf.d/*.conf;
+}

@@ -1,0 +1,15 @@
+- name: docker-compose file check
+  command: test -d /usr/local/bin/docker-compose
+  register: docker_compose_file_check
+  failed_when: docker_compose_file_check.rc not in [0,1]
+
+- name: docker-compose file download
+  when: docker_compose_file_check.rc != 0
+  get_url: >
+    url="https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
+    dest=/usr/local/bin/docker-compose
+
+- name: docker-compose add x permission
+  ignore_errors: yes
+  shell:  |
+    chmod +x /usr/local/bin/docker-compose

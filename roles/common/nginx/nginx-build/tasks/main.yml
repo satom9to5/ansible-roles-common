@@ -1,0 +1,6 @@
+- name: nginx-build package install
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    go get github.com/cubicdaiya/nginx-build
+

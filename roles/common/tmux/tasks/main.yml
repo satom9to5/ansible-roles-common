@@ -11,7 +11,7 @@
 - name: libevent download
   when: libevent_source_check.rc != 0
   get_url: >
-    url=https://sourceforge.net/projects/levent/files/libevent/libevent-{{ libevent_major_version }}/{{ libevent_fullname }}.tar.gz 
+    url=https://github.com/libevent/libevent/releases/download/release-{{ libevent_minor_version }}-stable/{{ libevent_fullname }}.tar.gz
     dest={{ libevent_path }}.tar.gz
 
 - name: libevent source directory check

@@ -1,0 +1,7 @@
+- hosts:
+    - localhost
+  roles:
+    #- { role: nginx/backend-apache }
+    - { role: nginx/backend-php-fpm }
+    - { role: ../common/nginx/restart }
+    - { role: ../common/php/php-fpm/restart }

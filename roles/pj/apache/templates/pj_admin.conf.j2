@@ -1,6 +1,6 @@
 Alias /{{ pj_name }}_admin /product/{{ pj_name }}_admin/admin/codeigniter
 
-<Directory /product/proj_admin/admin/codeigniter>
+<Directory /product/{{ pj_name }}_admin/admin/codeigniter>
     SetEnv ENVIRONMENT {{ pj_environment }}
     Options FollowSymLinks
     AllowOverride None
@@ -10,7 +10,7 @@ Alias /{{ pj_name }}_admin /product/{{ pj_name }}_admin/admin/codeigniter
     # index.php を表示させない
     <IfModule mod_rewrite.c>
         RewriteEngine On
-        RewriteBase /proj_admin_admin
+        RewriteBase /{{ pj_name }}_admin
 
         # CodeIgniter
         RewriteCond $1 !^(index\.php|image(_sp)?|css|js|flash(_sp)?|gadget_sandbox\.xml)

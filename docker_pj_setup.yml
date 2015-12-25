@@ -1,0 +1,2 @@
+- include: roles/common/docker_pj_setup.yml
+- include: roles/pj/docker_pj_setup.yml

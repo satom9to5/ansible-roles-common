@@ -9,6 +9,12 @@
     echo "" >> /etc/my.cnf
     echo "!includedir /etc/my.cnf.d" >> /etc/my.cnf
 
+- name: change sql_mode setting of my.cnf
+  when: my_cnf_includedir_check.rc != 0
+  shell: |
+    sed -i "s|^sql_mode=\(.*\)|#sql_mode=\1\nsql_mode=''|g" /etc/my.cnf
+    removes=/etc/my.cnf
+
 - name: MySQL setting
   template: >
     src=default_settings.j2

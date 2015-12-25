@@ -1,4 +1,4 @@
-subversion_version: 1.8.14
+subversion_version: 1.8.15
 subversion_fullname: "subversion-{{ subversion_version }}"
 subversion_path: "/usr/local/src/{{ subversion_fullname }}"
 

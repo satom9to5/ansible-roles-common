@@ -1,0 +1,4 @@
+# common以外のディレクトリからも参照するので一旦親ディレクトリを指す
+dependencies:
+  - { role: ../common/php/php-vars }
+  - { role: ../common/nginx/nginx-vars }

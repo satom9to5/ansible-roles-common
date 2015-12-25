@@ -10,7 +10,7 @@
     state=absent
 
 - name: LuaJIT source file check
-  command: test -d /usr/local/src/luajit-{{ luajit_version }}.tar.gz
+  command: test -d /usr/local/src/LuaJIT-{{ luajit_version }}.tar.gz
   register: luajit_source_check
   failed_when: luajit_source_check.rc not in [0,1]
 
@@ -32,3 +32,7 @@
     cd /usr/local/src/LuaJIT-{{ luajit_version }}
     make
     make install
+
+# /etc/ld.so.cacheに反映されてない場合があるのでここで実行しておく
+- name: update shared library path with ldconfig
+  command: /sbin/ldconfig

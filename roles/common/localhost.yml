@@ -10,6 +10,7 @@
     - { role: git/git_flow } 
     - { role: tmux } 
     - { role: sudoers } 
+    - { role: mysql/repo } 
     - { role: mysql/install } 
     - { role: mysql/setting } 
     - { role: mysql/restart } 
@@ -44,10 +45,14 @@
     - { role: node/npm/canvas } 
     - { role: node/npm/node-gyp } 
     - { role: golang/install } 
+    - { role: lua/luajit } 
     - { role: apache/install } 
     - { role: apache/php } 
     - { role: apache/phpmyadmin } 
     - { role: apache/restart } 
+    - { role: nginx/nginx-build } 
+    - { role: nginx/install } 
+    - { role: nginx/restart } 
     - { role: fluentd/repo } 
     - { role: fluentd/install } 
     - { role: elasticsearch/repo } 
