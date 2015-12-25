@@ -1,5 +1,5 @@
 pj_name: hoge_docker
-pj_environment: docker
+pj_environment: docker_local
 
 apache_host: localhost
 apache_port: 8880
