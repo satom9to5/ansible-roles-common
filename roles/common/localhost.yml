@@ -1,60 +1,65 @@
 - hosts:
     - localhost
   roles:
-    - { role: yum_repos } 
-    - { role: basic_pkg } 
-    - { role: basic_devel } 
-    - { role: vim } 
-    - { role: subversion } 
-    - { role: git/install } 
-    - { role: git/git_flow } 
-    - { role: tmux } 
-    - { role: sudoers } 
-    - { role: mysql/repo } 
-    - { role: mysql/install } 
-    - { role: mysql/setting } 
-    - { role: mysql/restart } 
-    - { role: percona/repository } 
-    - { role: percona/toolkit } 
-    - { role: memcached }
-    - { role: redis }
-    - { role: java }
-    - { role: anyenv/anyenv } 
-    - { role: anyenv/ndenv } 
-    - { role: anyenv/phpenv } 
-    - { role: anyenv/rbenv } 
-    - { role: anyenv/goenv } 
-    - { role: php/install } 
-    - { role: php/php-ext/igbinary } 
-    - { role: php/php-ext/memcache } 
-    - { role: php/php-ext/memcached } 
-    - { role: php/php-ext/pecl_http } 
-    - { role: php/php-ext/redis } 
-    - { role: php/php-ext/swfed } 
-    - { role: php/php-ext/xdebug } 
-    - { role: php/php-ext/xhprof } 
-    - { role: php/php-tools/phpunit } 
-    - { role: php/php-tools/IO_Bit } 
-    - { role: php/php-tools/IO_SWF } 
-    - { role: php/phpmyadmin } 
-    - { role: ruby/install } 
-    - { role: ruby/gem/bundle } 
-    - { role: ruby/gem/compass } 
-    - { role: ruby/gem/serverspec } 
-    - { role: node/install } 
-    - { role: node/npm/canvas } 
-    - { role: node/npm/node-gyp } 
-    - { role: golang/install } 
-    - { role: lua/luajit } 
-    - { role: apache/install } 
-    - { role: apache/php } 
-    - { role: apache/phpmyadmin } 
-    - { role: apache/restart } 
-    - { role: nginx/nginx-build } 
-    - { role: nginx/install } 
-    - { role: nginx/restart } 
-    - { role: fluentd/repo } 
-    - { role: fluentd/install } 
-    - { role: elasticsearch/repo } 
-    - { role: elasticsearch/install } 
-    - { role: elasticsearch/kibana } 
+    - yum_repos 
+    - basic_pkg 
+    - basic_devel 
+    - vim 
+    - subversion 
+    - git/install 
+    - git/git_flow 
+    - tmux 
+    - sudoers 
+#    - gdal 
+    - mysql/repo 
+    - mysql/install 
+    - mysql/setting 
+    - mysql/restart 
+    - percona/repository 
+    - percona/toolkit 
+    - memcached
+    - redis
+    - elasticsearch/repo 
+    - elasticsearch/install 
+    - elasticsearch/tools/stream2es
+    - elasticsearch/plugins/elasticsearch-analysis-kuromoji
+    - elasticsearch/plugins/elasticsearch-head
+    - elasticsearch/kibana 
+    - java
+    - anyenv/anyenv 
+    - anyenv/ndenv 
+    - anyenv/phpenv 
+    - anyenv/rbenv 
+    - anyenv/goenv 
+    - php/install 
+    - php/php-ext/igbinary 
+    - php/php-ext/memcache 
+    - php/php-ext/memcached 
+    - php/php-ext/pecl_http 
+    - php/php-ext/redis 
+    - php/php-ext/swfed 
+    - php/php-ext/xdebug 
+    - php/php-ext/xhprof 
+    - php/php-tools/phpunit 
+    - php/php-tools/IO_Bit 
+    - php/php-tools/IO_SWF 
+    - php/phpmyadmin 
+    - ruby/install 
+    - ruby/gem/bundle 
+    - ruby/gem/compass 
+    - ruby/gem/serverspec 
+    - node/install 
+    - node/npm/canvas 
+    - node/npm/node-gyp 
+    - golang/install 
+    - lua/luajit 
+#    - apache/install 
+#    - apache/php 
+#    - apache/phpmyadmin 
+#    - apache/restart 
+    - nginx/nginx-build 
+    - nginx/install 
+    - nginx/conf/elasticsearch
+    - nginx/restart 
+    - fluentd/repo 
+    - fluentd/install 

@@ -1,11 +1,21 @@
-- name: necessary library install
-  ignore_errors: yes
+- name: necessary library install of RedHat Version 6
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   yum: >
     name={{ item }}
     state=latest
     enablerepo=remi
   with_items:
     - libmemcached-last-devel
+    - cyrus-sasl-devel
+
+- name: necessary library install of RedHat Version 7
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  yum: >
+    name={{ item }}
+    state=latest
+    enablerepo=remi
+  with_items:
+    - libmemcached-devel
     - cyrus-sasl-devel
 
 - name: Memcached Extension source directory check

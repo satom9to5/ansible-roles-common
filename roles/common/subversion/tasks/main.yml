@@ -35,7 +35,11 @@
   shell: cd /usr/local/src && tar xvfz {{ subversion_path }}.tar.gz
 
 - name: subversion autogen
-  shell: cd {{ subversion_path }} && ./autogen.sh
+  shell: |
+    export LIBTOOL_M4=/usr/share/aclocal
+    export LIBTOOL_CONFIG=/usr/share/libtool/config
+    cd {{ subversion_path }}
+    ./autogen.sh
 
 - name: sqlite amalgamation source file check
   ignore_errors: yes 

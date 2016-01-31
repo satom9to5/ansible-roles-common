@@ -10,7 +10,8 @@ provisioner:
 #  ansible_connection: localhost
 
 platforms:
-  - name: centos-6.4
+#  - name: centos-6.4
+  - name: centos-7
     driver_config:
       privileged: true
 

@@ -1,0 +1,13 @@
+- name: stream2es binary file check
+  command: test -f /usr/local/bin/stream2es
+  register: stream2es_file_check
+  failed_when: stream2es_file_check.rc not in [0,1]
+
+- name: stream2es install
+  when: stream2es_file_check.rc != 0
+  get_url: >
+    url=http://download.elasticsearch.org/stream2es/stream2es
+    dest=/usr/local/bin/stream2es
+
+- name: stream2es chmod
+  shell: chmod +x /usr/local/bin/stream2es

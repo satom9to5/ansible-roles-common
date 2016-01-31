@@ -9,9 +9,11 @@
     - bzip2
     - gcc
     - gcc-c++
+    - make
     - libtool
     - bash-completion
     - zsh
+    - jq
     - telnet
     - curl
     - wget

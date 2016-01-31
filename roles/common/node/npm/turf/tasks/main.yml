@@ -1,0 +1,5 @@
+- name: npm install
+  npm: >
+    name=turf
+    state=latest
+    global=yes

@@ -11,8 +11,8 @@
     - mysql-utilities
     - MySQL-python
 
-- name: MySQL 5.6 install
-  when: mysql_version == 5.6
+- name: MySQL 5.6 of RedHat Version 6 install
+  when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   yum: >
     name={{ item }}
     state=latest
@@ -21,5 +21,18 @@
     - mysql-server
     - mysql-devel
     - mysql-utilities
+    - MySQL-python
+
+- name: MySQL 5.6 of RedHat Version 7 install
+  when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  yum: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - mysql-community-common
+    - mysql-community-client
+    - mysql-community-server
+    - mysql-community-devel
+    - mysql-community-libs
     - MySQL-python
 
