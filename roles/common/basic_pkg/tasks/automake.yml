@@ -8,6 +8,7 @@
   get_url: >
     url=http://ftp.gnu.org/gnu/automake/{{ automake_fullname }}.tar.gz
     dest={{ automake_path }}.tar.gz
+    timeout=30
 
 - name: automake source directory check
   ignore_errors: yes

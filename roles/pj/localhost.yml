@@ -6,7 +6,7 @@
     - { role: mysql/add_user }
     - { role: php/create_symlink }
     - { role: php/setting }
-    - { role: apache }
-    - { role: ../common/apache/restart }
+#    - { role: apache }
+#    - { role: ../common/apache/restart }
     - { role: nginx/backend-apache }
     - { role: ../common/nginx/restart }

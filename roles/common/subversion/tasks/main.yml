@@ -17,8 +17,9 @@
 - name: subversion download
   when: subversion_source_check.rc != 0
   get_url: >
-    url=http://ftp.meisei-u.ac.jp/mirror/apache/dist/subversion/{{ subversion_fullname }}.tar.gz
+    url=http://ftp.jaist.ac.jp/pub/apache/subversion/{{ subversion_fullname }}.tar.gz
     dest={{ subversion_path }}.tar.gz
+    timeout=90
 
 - name: subversion source directory check
   ignore_errors: yes

@@ -15,10 +15,12 @@ chmod -x /tmp/ansible/localhost
 
 echo "Running Ansible"
 ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/pj_setup.yml
-#ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/pj_env_setup.yml
 ansible-playbook ${ANSIBLE_BASE_DIR}/docker.yml
 
 rm -f /tmp/ansible/localhost
 
-#USERNAME=$(grep -P '^pj_name:' ${ANSIBLE_BASE_DIR}/group_vars/localhost | awk '{ print $2 }')
-#sudo -u ${USERNAME} ansible-playbook ${ANSIBLE_BASE_DIR}/local_user.yml
+USERNAME=$(grep -P '^pj_name:' ${ANSIBLE_BASE_DIR}/group_vars/localhost | awk '{ print $2 }')
+sudo -u ${USERNAME} ansible-playbook ${ANSIBLE_BASE_DIR}/local_user.yml
+
+# by vagrant user
+ansible-playbook ${ANSIBLE_BASE_DIR}/local_user.yml

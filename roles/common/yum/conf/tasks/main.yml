@@ -1,0 +1,2 @@
+- name: change timeout setting of yum
+  shell: echo "timeout=90" >> /etc/yum.conf
