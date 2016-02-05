@@ -1,14 +1,22 @@
-- name: node-gyp install
-  tags: node
+- name: hubot npm install
+  tags:
+   - node
+   - hubot
   environment:
     PATH: "{{ anyenv_path }}:{{ ansible_env.PATH }}"
   npm: >
-    name=node-gyp
+    name={{ item }}
     state=latest
     global=yes
+  with_items:
+    - yo
+    - generator-hubot
+    - hubot-slack
 
-- name: active node-gyp 
-  tags: node
+- name: active hubot 
+  tags: 
+   - node
+   - hubot
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh

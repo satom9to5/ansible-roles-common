@@ -50,8 +50,9 @@
     - ruby/gem/compass 
     - ruby/gem/serverspec 
     - node/install 
-    - node/npm/canvas 
+#    - node/npm/canvas 
     - node/npm/node-gyp 
+    - node/package/hubot
     - golang/install 
     - lua/luajit 
 #    - apache/install 

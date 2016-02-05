@@ -1,4 +1,5 @@
 - name: npm install
+  tags: node
   npm: >
     name=turf
     state=latest
