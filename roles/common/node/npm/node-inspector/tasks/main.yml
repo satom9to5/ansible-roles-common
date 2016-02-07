@@ -1,0 +1,6 @@
+- name: npm install
+  tags: node
+  npm: >
+    name=node-inspector
+    state=latest
+    global=yes
