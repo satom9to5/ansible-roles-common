@@ -3,22 +3,34 @@
 # playbook実行後に「 . /bashrc」を実行して変更を反映させる
 
 - name: git-completion.bash file check
-  ignore_errors: yes
+  tags:
+    - git
+    - git_prompt 
   command: test -f ~/.git-completion.bash
   register: git_completion_file_check
+  failed_when: git_completion_file_check.rc not in [0,1]
 
 - name: git-completion.bash download
+  tags:
+    - git
+    - git_prompt 
   when: git_completion_file_check.rc != 0
   get_url: >
     url={{ git_prompt_base_url }}git-completion.bash
     dest=~/.git-completion.bash
 
 - name: git-completion read check in .bashrc
-  ignore_errors: yes
+  tags:
+    - git
+    - git_prompt 
   command: grep 'git-completion.bash' ~/.bashrc
   register: git_completion_bashrc_check
+  failed_when: git_completion_bashrc_check.rc not in [0,1]
 
 - name: git-completion setting write .bashrc
+  tags:
+    - git
+    - git_prompt 
   when: git_completion_bashrc_check.rc != 0
   shell: |
     echo ""                                       >> ~/.bashrc
@@ -27,22 +39,34 @@
     echo "fi"                                     >> ~/.bashrc
 
 - name: git-prompt.sh file check
-  ignore_errors: yes
+  tags:
+    - git
+    - git_prompt 
   command: test -f ~/.git-prompt.sh
   register: git_prompt_file_check
+  failed_when: git_prompt_file_check.rc not in [0,1]
 
 - name: git-prompt.sh file download
+  tags:
+    - git
+    - git_prompt 
   when: git_prompt_file_check.rc != 0
   get_url: >
     url={{ git_prompt_base_url }}git-prompt.sh
     dest=~/.git-prompt.sh
 
 - name: git-prompt read check in .bashrc
-  ignore_errors: yes
+  tags:
+    - git
+    - git_prompt 
   command: grep 'git-prompt.sh' ~/.bashrc
   register: git_prompt_bashrc_check
+  failed_when: git_prompt_bashrc_check.rc not in [0,1]
 
 - name: git-prompt setting write .bashrc
+  tags:
+    - git
+    - git_prompt 
   when: git_prompt_bashrc_check.rc != 0
   shell: |
     echo ""                                 >> ~/.bashrc
@@ -51,12 +75,27 @@
     echo "fi"                               >> ~/.bashrc
 
 - name: PS1 setting check in .bashrc
-  ignore_errors: yes
-  command: grep PS1 ~/.bashrc
+  tags:
+    - git
+    - git_prompt 
+  command: grep -P "^PS1" ~/.bashrc
   register: ps1_bashrc_check
+  failed_when: ps1_bashrc_check.rc not in [0,1]
 
 - name: PS1 setting write .bashrc
-  when: ps1_bashrc_check.rc != 0
+  tags:
+    - git
+    - git_prompt 
+  when: ps1_bashrc_check.rc != 0 and ansible_env.USER != "root"
   shell: |
     echo ""                                                                                          >> ~/.bashrc
     echo "PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w\$(__git_ps1) \n\[\033[01;34m\]\$\[\033[00m\] '" >> ~/.bashrc
+
+- name: PS1 setting write .bashrc
+  tags:
+    - git
+    - git_prompt 
+  when: ps1_bashrc_check.rc != 0 and ansible_env.USER == "root"
+  shell: |
+    echo ""                                                                                          >> ~/.bashrc
+    echo "PS1='\[\033[01;32m\]\u@\h\[\033[01;33m\] \w\$(__git_ps1) \n\[\033[01;34m\]#\[\033[00m\] '" >> ~/.bashrc

@@ -1,4 +1,6 @@
 - name: Git base setting
+  tags:
+    - git
   shell: |
     git config --global core.autocrlf  false
     git config --global color.ui true

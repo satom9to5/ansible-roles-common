@@ -38,7 +38,9 @@ if [ $IS_PJ_SETUP -gt 0 ]; then
   sudo -u ${USERNAME} ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/local_user.yml
 fi
 
-# by vagrant user
+# root user
 ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/local_user.yml
+# by vagrant user
+sudo -u vagrant ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/local_user.yml
 
 rm -f /tmp/ansible/localhost
