@@ -13,6 +13,21 @@
     path={{ gopath_mine_path }}
     state=absent
 
+- name: check golang shared path exist
+  tags: 
+    - golang
+  command: test -d {{ gopath_shared_path }}
+  register: gopath_shared_check
+  failed_when : gopath_shared_check.rc not in [0,1]
+
+- name: create golang shared path
+  tags: 
+    - golang
+  when: gopath_shared_check.rc != 0
+  file: >
+    path={{ gopath_shared_path }}
+    state=directory
+
 - name: craete symbolik link by shared folder for Gopath
   tags: 
     - golang
