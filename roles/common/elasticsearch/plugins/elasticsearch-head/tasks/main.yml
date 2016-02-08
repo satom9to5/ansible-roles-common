@@ -1,3 +1,5 @@
 - name: elasticsearch-head install
+  tags: 
+    - elasticsearch
   ignore_errors: yes
   shell: /usr/share/elasticsearch/bin/plugin install mobz/elasticsearch-head

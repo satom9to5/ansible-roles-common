@@ -1,0 +1,7 @@
+- name: copy yum kibana repository setting
+  tags: 
+    - elasticsearch
+    - kibana
+  template: >
+    src=kibana.repo.j2
+    dest=/etc/yum.repos.d/kibana.repo 

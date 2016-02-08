@@ -1,7 +1,8 @@
-- name: elasticsearch install
+- name: kibana install
   tags: 
     - elasticsearch
+    - kibana
   ignore_errors: yes
   yum: >
-    name=elasticsearch
+    name=kibana
     state=latest

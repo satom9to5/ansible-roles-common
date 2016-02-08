@@ -25,7 +25,8 @@
     - elasticsearch/tools/stream2es
     - elasticsearch/plugins/elasticsearch-analysis-kuromoji
     - elasticsearch/plugins/elasticsearch-head
-#    - elasticsearch/kibana 
+    - elasticsearch/kibana/repo
+    - elasticsearch/kibana/install
     - java
     - anyenv/anyenv 
     - anyenv/ndenv 

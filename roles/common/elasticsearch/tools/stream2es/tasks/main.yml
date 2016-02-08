@@ -1,9 +1,13 @@
 - name: stream2es binary file check
+  tags: 
+    - elasticsearch
   command: test -f /usr/local/bin/stream2es
   register: stream2es_file_check
   failed_when: stream2es_file_check.rc not in [0,1]
 
 - name: stream2es install
+  tags: 
+    - elasticsearch
   when: stream2es_file_check.rc != 0
   get_url: >
     url=http://download.elasticsearch.org/stream2es/stream2es
@@ -11,4 +15,6 @@
     timeout=60
 
 - name: stream2es chmod
+  tags: 
+    - elasticsearch
   shell: chmod +x /usr/local/bin/stream2es

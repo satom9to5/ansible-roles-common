@@ -1,3 +1,5 @@
 - name: elasticsearch-analysis-kuromoji install
+  tags: 
+    - elasticsearch
   ignore_errors: yes
   shell: /usr/share/elasticsearch/bin/plugin install analysis-kuromoji
