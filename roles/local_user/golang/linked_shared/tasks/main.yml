@@ -1,0 +1,6 @@
+- name: craete symbolik link by shared folder for Gopath
+  tags: golang
+  file: >
+    src={{ gopath_shared_path }}
+    path={{ gopath_mine_path }}
+    state=link

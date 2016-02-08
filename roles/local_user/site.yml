@@ -1,7 +1,0 @@
-- hosts:
-    - localhost
-  roles:
-    - { role: vim/vimrc } 
-    - { role: vim/neobundle } 
-    - { role: git/git_prompt } 
-    - { role: git/base_setting } 
