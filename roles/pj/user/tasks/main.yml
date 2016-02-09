@@ -1,4 +1,6 @@
 - name: add user
+  tags:
+    - user
   user: >
     name={{ item.name }}
     password={{ item.password }}

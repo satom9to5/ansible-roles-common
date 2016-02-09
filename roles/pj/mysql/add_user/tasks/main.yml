@@ -1,4 +1,6 @@
 - name: MySQL add user
+  tags: 
+    - mysql
   mysql_user: >
     name={{ item.user }}
     password={{ item.password }}
