@@ -1,26 +1,41 @@
 - name: graphviz install
+  tags:
+    - php
+    - xhprof
   yum: >
     name=graphviz
     state=latest
 
 - name: xhprof directory check
+  tags:
+    - php
+    - xhprof
   command: test -d {{ xhprof_path }}
   register: xhprof_dir_check
   failed_when: xhprof_dir_check.rc not in [0,1]
 
 - name: xhprof directory remove
+  tags:
+    - php
+    - xhprof
   when: xhprof_dir_check.rc == 0
   file: >
     path={{ xhprof_path }}
     state=absent
 
 - name: xhprof repository clone
+  tags:
+    - php
+    - xhprof
   ignore_errors: yes
   git: >
     repo=https://github.com/phacility/xhprof
     dest={{ xhprof_path }}
 
 - name: xhprof extension install
+  tags:
+    - php
+    - xhprof
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh
@@ -31,11 +46,17 @@
     make install
 
 - name: copy xhprof.ini
+  tags:
+    - php
+    - xhprof
   template: >
     src=xhprof.ini.j2
     dest={{ installed_php_dir }}/etc/conf.d/xhprof.ini
 
 - name: xhprof setting
+  tags:
+    - php
+    - xhprof
   shell: |
     cp -R {{ xhprof_path }}/xhprof_html/ {{ installed_php_dir }}/lib/php/
     cp -R {{ xhprof_path }}/xhprof_lib/ {{ installed_php_dir }}/lib/php/

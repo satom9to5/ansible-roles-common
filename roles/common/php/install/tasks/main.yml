@@ -1,4 +1,6 @@
 - name: php depends library install
+  tags:
+    - php
   ignore_errors: yes
   yum: name={{ item }} state=latest
   with_items:
@@ -17,6 +19,8 @@
     - libtidy-devel
 
 - name: php depends library install from epel repo by RedHat Version 6
+  tags:
+    - php
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   yum: name={{ item }} state=latest enablerepo=epel
   with_items:
@@ -24,38 +28,52 @@
     - re2c
 
 - name: php depends library install from epel repo by RedHat Version 7
+  tags:
+    - php
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
   yum: name={{ item }} state=latest enablerepo=epel
   with_items:
     - libmcrypt-devel
 
 - name: get apxs path
+  tags:
+    - php
   command: which apxs
   register: apxs_path
   failed_when: apxs_path.rc not in [0,1]
 
 - name: copy php-build configure_options 
+  tags:
+    - php
   template: >
     src=default_configure_options.j2
     dest={{ php_build_dir }}/share/php-build/default_configure_options  
 
 - name: php install
+  tags:
+    - php
   shell: |
     source /etc/profile.d/anyenv.sh
     phpenv install {{ php_version }}
 
 - name: PHP Version fix
+  tags:
+    - php
   shell: |
     source /etc/profile.d/anyenv.sh
     phpenv global {{ php_version }}
     phpenv rehash
 
 - name: change PHP date.timezone setting
+  tags:
+    - php
   command: >
     sed -i 's|^.*date.timezone.*|date.timezone="Asia/Tokyo"|g' {{ installed_php_dir }}/etc/php.ini
     removes={{ installed_php_dir }}/etc/php.ini
 
 - name: change pear path
+  tags:
+    - php
   ignore_errors: yes
   shell: |
     rm -f /usr/share/pear

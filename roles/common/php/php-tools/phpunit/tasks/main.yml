@@ -1,13 +1,22 @@
 - name: PHPUnit install
+  tags:
+    - php
+    - phpunit
   ignore_errors: yes
   get_url: >
     url=https://phar.phpunit.de/phpunit-{{ phpunit_version }}.phar
     dest={{ installed_php_dir }}/bin/phpunit
 
 - name: PHPUnit chmod
+  tags:
+    - php
+    - phpunit
   shell: chmod +x {{ installed_php_dir }}/bin/phpunit
 
-- name: PHPUnit do enable
+- name: enable PHPUnit
+  tags:
+    - php
+    - phpunit
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh

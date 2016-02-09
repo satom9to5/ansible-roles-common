@@ -39,12 +39,10 @@
     - php/php-ext/memcached 
     - php/php-ext/pecl_http 
     - php/php-ext/redis 
-    - php/php-ext/swfed 
     - php/php-ext/xdebug 
     - php/php-ext/xhprof 
     - php/php-tools/phpunit 
-    - php/php-tools/IO_Bit 
-    - php/php-tools/IO_SWF 
+    - php/php-tools/composer 
     - php/phpmyadmin 
     - ruby/install 
     - ruby/gem/bundle 

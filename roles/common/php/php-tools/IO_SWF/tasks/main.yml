@@ -1,20 +1,32 @@
 - name: IO_SWF source directory check
+  tags:
+    - php
+    - IO_SWF
   command: test -d {{ IO_SWF_path }}
   register: IO_SWF_dir_check
   failed_when: IO_SWF_dir_check.rc not in [0,1]
 
 - name: IO_SWF source directory remove
+  tags:
+    - php
+    - IO_SWF
   when: IO_SWF_dir_check.rc == 0
   file: >
     path={{ IO_SWF_path }}
     state=absent
 
 - name: IO_SWF repository clone
+  tags:
+    - php
+    - IO_SWF
   ignore_errors: yes
   git: >
     repo=https://github.com/openpear/IO_SWF.git
     dest={{ IO_SWF_path }}
     
 - name: IO_SWF files set on php directory
+  tags:
+    - php
+    - IO_SWF
   shell: |
     cp -R {{ IO_SWF_path }}/* {{ installed_php_dir }}/lib/php/

@@ -1,32 +1,50 @@
 - name: Igbinary Extension source directory check
+  tags:
+    - php
+    - igbinary
   command: test -d /usr/local/src/php-ext/igbinary-{{ igbinary_ext_version }}
   register: igbinary_dir_check
   failed_when: igbinary_dir_check.rc not in [0,1]
 
 - name: Igbinary Extension source directory remove
+  tags:
+    - php
+    - igbinary
   when: igbinary_dir_check.rc == 0
   file: >
     path=/usr/local/src/php-ext/igbinary-{{ igbinary_ext_version }}
     state=absent
 
 - name: Igbinary Extension source file check
+  tags:
+    - php
+    - igbinary
   command: test -d /usr/local/src/php-ext/igbinary-{{ igbinary_ext_version }}.tar.gz
   register: igbinary_source_check
   failed_when: igbinary_source_check.rc not in [0,1]
 
 - name: Igbinary Extension source download
+  tags:
+    - php
+    - igbinary
   when: igbinary_source_check.rc != 0
   get_url: >
     url="http://pecl.php.net/get/igbinary-{{ igbinary_ext_version }}.tgz"
     dest=/usr/local/src/php-ext/igbinary-{{ igbinary_ext_version }}.tar.gz
 
 - name: Igbinary Extension source decompress
+  tags:
+    - php
+    - igbinary
   ignore_errors: yes
   shell:  |
     cd /usr/local/src/php-ext
     tar xvzf igbinary-{{ igbinary_ext_version }}.tar.gz
  
 - name: Igbinary Extention install
+  tags:
+    - php
+    - igbinary
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh
@@ -37,6 +55,9 @@
     make install
 
 - name: copy igbinary.ini
+  tags:
+    - php
+    - igbinary
   template: >
     src=igbinary.ini.j2
     dest={{ installed_php_dir }}/etc/conf.d/igbinary.ini

@@ -1,21 +1,33 @@
 - name: IO_Bit source directory check
+  tags:
+    - php
+    - IO_Bit
   command: test -d {{ IO_Bit_path }}
   register: IO_Bit_dir_check
   failed_when: IO_Bit_dir_check.rc not in [0,1]
 
 - name: IO_Bit source directory remove
+  tags:
+    - php
+    - IO_Bit
   when: IO_Bit_dir_check.rc == 0
   file: >
     path={{ IO_Bit_path }}
     state=absent
 
 - name: IO_Bit repository clone
+  tags:
+    - php
+    - IO_Bit
   ignore_errors: yes
   git: >
     repo=https://github.com/openpear/IO_Bit.git
     dest={{ IO_Bit_path }}
     
 - name: IO_Bit files set on php directory
+  tags:
+    - php
+    - IO_Bit
   shell: |
     cp -R {{ IO_Bit_path }}/* {{ installed_php_dir }}/lib/php/
 

@@ -1,3 +1,3 @@
 ---
 dependencies:
-  - { role: php/php-vars }
+  - { role: php/php-defaults }

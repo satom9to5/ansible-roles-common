@@ -1,2 +1,2 @@
 dependencies:
-  - { role: ../common/php/php-vars }
+  - { role: ../common/php/php-defaults }

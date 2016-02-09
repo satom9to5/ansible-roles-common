@@ -1,32 +1,50 @@
 - name: Redis Extension source directory check
+  tags:
+    - php
+    - php-redis
   command: test -d /usr/local/src/php-ext/redis-{{ redis_ext_version }}
   register: redis_dir_check
   failed_when: redis_dir_check.rc not in [0,1]
 
 - name: Redis Extension source directory remove
+  tags:
+    - php
+    - php-redis
   when: redis_dir_check.rc == 0
   file: >
     path=/usr/local/src/php-ext/redis-{{ redis_ext_version }}
     state=absent
 
 - name: Redis Extension source file check
+  tags:
+    - php
+    - php-redis
   command: test -d /usr/local/src/php-ext/redis-{{ redis_ext_version }}.tar.gz
   register: redis_source_check
   failed_when: redis_source_check.rc not in [0,1]
 
 - name: Redis Extension source download
+  tags:
+    - php
+    - php-redis
   when: redis_source_check.rc != 0
   get_url: >
     url="http://pecl.php.net/get/redis-{{ redis_ext_version }}.tgz"
     dest=/usr/local/src/php-ext/php-redis-{{ redis_ext_version }}.tar.gz
 
 - name: Redis Extension source decompress
+  tags:
+    - php
+    - php-redis
   ignore_errors: yes
   shell:  |
     cd /usr/local/src/php-ext
     tar xvzf php-redis-{{ redis_ext_version }}.tar.gz
     
 - name: Redis Extention install
+  tags:
+    - php
+    - php-redis
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh
@@ -37,6 +55,9 @@
     make install
 
 - name: copy redis.ini
+  tags:
+    - php
+    - php-redis
   template: >
     src=redis.ini.j2
     dest={{ installed_php_dir }}/etc/conf.d/redis.ini

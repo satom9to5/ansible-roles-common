@@ -1,9 +1,15 @@
 - name: phpMyAdmin source file check
+  tags:
+    - php
+    - phpmyadmin
   ignore_errors: yes
   command: test -f {{ phpmyadmin_path }}.tar.gz
   register: phpmyadmin_source_check
 
 - name: phpMyAdmin download
+  tags:
+    - php
+    - phpmyadmin
   when: phpmyadmin_source_check.rc != 0
   get_url: >
     url=https://files.phpmyadmin.net/phpMyAdmin/{{ phpmyadmin_version }}/phpMyAdmin-{{ phpmyadmin_version }}-all-languages.zip
@@ -11,20 +17,32 @@
     validate_certs=no
 
 - name: phpMyAdmin source directory check
+  tags:
+    - php
+    - phpmyadmin
   ignore_errors: yes
   command: test -d {{ phpmyadmin_path }}
   register: phpmyadmin_dir_check
 
 - name: phpMyAdmin source directory remove
+  tags:
+    - php
+    - phpmyadmin
   when: phpmyadmin_dir_check.rc == 0
   file: >
     path={{ phpmyadmin_path }}
     state=absent
 
 - name: phpMyAdmin unarchive
+  tags:
+    - php
+    - phpmyadmin
   shell: cd /var/www/html && unzip {{ phpmyadmin_path }}.zip
 
 - name: phpMyAdmin config file set
+  tags:
+    - php
+    - phpmyadmin
   copy: >
     src={{ phpmyadmin_path }}/config.sample.inc.php
     dest={{ phpmyadmin_path }}/config.inc.php

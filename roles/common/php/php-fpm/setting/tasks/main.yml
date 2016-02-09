@@ -1,36 +1,57 @@
 - name: php-fpm conf directory check
+  tags:
+    - php
+    - php-fpm
   command: test -d {{ installed_php_dir }}/etc/php-fpm.d/
   register: php_fpm_conf_dir_check
   failed_when: php_fpm_conf_dir_check.rc not in [0,1]
 
 - name: php-fpm conf directory create
+  tags:
+    - php
+    - php-fpm
   when: php_fpm_conf_dir_check.rc == 1
   file: >
     path={{ installed_php_dir }}/etc/php-fpm.d/
     state=directory
 
 - name: copy php-fpm config
+  tags:
+    - php
+    - php-fpm
   template: >
     src=php-fpm.conf.j2
     dest={{ installed_php_dir }}/etc/php-fpm.conf
 
 - name: copy php-fpm init.d script
+  tags:
+    - php
+    - php-fpm
   shell: |
     cp {{ php_fpm_path }}/init.d.php-fpm /etc/init.d/php-fpm
     chmod +x /etc/init.d/php-fpm
 
 - name: copy php-fpm pool config
+  tags:
+    - php
+    - php-fpm
   when: pj_name != "" 
   template: >
     src=pool.conf.j2
     dest={{ installed_php_dir }}/etc/php-fpm.d/{{ pj_name }}.conf
 
 - name: php-fpm listen directory check
+  tags:
+    - php
+    - php-fpm
   ignore_errors: yes
   command: test -d /var/run/php-fpm
   register: php_fpm_listen_dir_directory_check
 
 - name: create php-fpm listen directory
+  tags:
+    - php
+    - php-fpm
   when: php_fpm_listen_dir_directory_check.rc != 0
   shell: |
     mkdir -p /var/run/php-fpm
