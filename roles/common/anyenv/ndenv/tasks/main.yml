@@ -1,10 +1,18 @@
 - name: ndenv install
+  tags:
+    - anyenv
+    - ndenv
+    - node
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh
     anyenv install ndenv 
 
 - name: ndenv releases check
+  tags:
+    - anyenv
+    - ndenv
+    - node
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh

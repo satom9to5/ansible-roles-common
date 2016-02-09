@@ -1,5 +1,8 @@
 - name: node-gyp install
-  tags: node
+  tags:
+    - node
+    - npm
+    - node-gyp
   environment:
     PATH: "{{ anyenv_path }}:{{ ansible_env.PATH }}"
   npm: >
@@ -8,7 +11,10 @@
     global=yes
 
 - name: active node-gyp 
-  tags: node
+  tags:
+    - node
+    - npm
+    - node-gyp
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh

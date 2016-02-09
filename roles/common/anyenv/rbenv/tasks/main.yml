@@ -1,10 +1,18 @@
 - name: rbenv install
+  tags:
+    - anyenv
+    - rbenv
+    - ruby
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh
     anyenv install rbenv
 
 - name: rbenv releases check
+  tags:
+    - anyenv
+    - rbenv
+    - ruby
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh

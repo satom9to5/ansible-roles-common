@@ -1,5 +1,8 @@
 - name: serverspec gem install
-  tags: ruby
+  tags:
+    - ruby
+    - gem
+    - serverspec
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh

@@ -1,8 +1,8 @@
 - name: Ruby installed check
   tags: ruby
-  ignore_errors: yes
   command: test -d {{ rbenv_root }}/versions/{{ ruby_version }}
   register: ruby_directory_check
+  failed_when: ruby_directory_check.rc not in [0,1]
 
 - name: Ruby install
   tags: ruby

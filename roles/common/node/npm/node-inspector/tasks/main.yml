@@ -1,6 +1,21 @@
 - name: npm install
-  tags: node
+  tags:
+    - node
+    - npm
+    - node-inspector
+  environment:
+    PATH: "{{ anyenv_path }}:{{ ansible_env.PATH }}"
   npm: >
     name=node-inspector
     state=latest
     global=yes
+
+- name: active node-inspector 
+  tags:
+    - node
+    - npm
+    - node-inspector
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    ndenv rehash

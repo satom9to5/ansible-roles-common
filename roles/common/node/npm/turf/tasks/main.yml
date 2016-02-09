@@ -1,5 +1,10 @@
 - name: npm install
-  tags: node
+  tags:
+    - node
+    - npm
+    - turf
+  environment:
+    PATH: "{{ anyenv_path }}:{{ ansible_env.PATH }}"
   npm: >
     name=turf
     state=latest

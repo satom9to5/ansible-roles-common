@@ -49,6 +49,7 @@
     - ruby/install 
     - ruby/gem/bundle 
     - ruby/gem/compass 
+    - ruby/gem/prmd 
     - ruby/gem/serverspec 
     - node/install 
 #    - node/npm/canvas 

@@ -1,19 +1,27 @@
 - name: anyenv directory remove
+  tags:
+    - anyenv
   ignore_errors: yes
   file: >
     path={{ anyenv_root }}
     state=absent
 
 - name: anyenv download
+  tags:
+    - anyenv
   git: >
     repo=https://github.com/riywo/anyenv
     dest={{ anyenv_root }}
      
 - name: copy anyenv profile.d shell
+  tags:
+    - anyenv
   template: >
     src=anyenv.sh.j2
     dest=/etc/profile.d/anyenv.sh
 
 - name: anyenv start
+  tags:
+    - anyenv
   shell: |
     source /etc/profile

@@ -1,5 +1,8 @@
 - name: node-canvas depends library install
-  tags: node
+  tags:
+    - node
+    - npm
+    - node-canvas
   ignore_errors: yes
   yum: name={{ item }} state=latest
   with_items:
@@ -14,7 +17,10 @@
     - giflib-devel
 
 - name: node-canvas install
-  tags: node
+  tags:
+    - node
+    - npm
+    - node-canvas
   environment:
     PATH: "{{ anyenv_path }}:{{ ansible_env.PATH }}"
   npm: >
