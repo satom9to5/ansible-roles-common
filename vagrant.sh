@@ -33,7 +33,6 @@ ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/pj_setup.yml
 ansible-playbook ${ANSIBLE_BASE_DIR}/docker.yml
 
 if [ $IS_PJ_SETUP -gt 0 ]; then
-  ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/pj_env_setup.yml
   USERNAME=$(grep -P '^pj_name:' ${ANSIBLE_BASE_DIR}/group_vars/localhost | awk '{ print $2 }')
   sudo -u ${USERNAME} ansible-playbook -i /tmp/ansible/localhost ${ANSIBLE_BASE_DIR}/local_user.yml
 fi
