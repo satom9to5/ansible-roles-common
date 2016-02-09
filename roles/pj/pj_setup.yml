@@ -1,0 +1,12 @@
+- hosts:
+    - localhost
+  roles:
+    - user 
+    - sudoers 
+    - mysql/add_user 
+    - php/create_symlink 
+    - php/setting 
+#    - apache 
+#    - ../common/apache/restart 
+    - nginx/backend-apache
+    - ../common/nginx/restart
