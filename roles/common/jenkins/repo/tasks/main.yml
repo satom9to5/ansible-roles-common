@@ -1,9 +1,13 @@
 - name: Jenkins repo file check
-  ignore_errors: yes
+  tags:
+    - jenkins
   command: test -f /etc/yum.repos.d/jenkins.repo
   register: jenkins_repo_check
+  failed_when: jenkins_repo_check.rc not in [0,1]
 
 - name: Jenkins repo download
+  tags:
+    - jenkins
   when: jenkins_repo_check.rc != 0
   get_url: >
     url=http://pkg.jenkins-ci.org/redhat/jenkins.repo

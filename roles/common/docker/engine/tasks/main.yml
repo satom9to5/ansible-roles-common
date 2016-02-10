@@ -1,4 +1,6 @@
 - name: docker install
+  tags:
+    - docker
   ignore_errors: yes
   yum: >
     name=docker-io

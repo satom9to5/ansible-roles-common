@@ -1,10 +1,14 @@
 - name: sudo install
+  tags:
+    - sudoers
   ignore_errors: yes
   yum: >
     name=sudo
     state=latest
 
 - name: copy requiretty
+  tags:
+    - sudoers
   template: >
     src=requiretty.j2
     dest=/etc/sudoers.d/requiretty

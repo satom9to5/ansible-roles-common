@@ -1,0 +1,70 @@
+- name: raphf extension source directory check
+  tags:
+    - php
+    - raphf
+    - pecl_http
+  command: test -d /usr/local/src/php-ext/raphf-{{ raphf_ext_version }}
+  register: raphf_dir_check
+  failed_when: raphf_dir_check.rc not in [0,1]
+
+- name: raphf extension source directory remove
+  tags:
+    - php
+    - raphf
+    - pecl_http
+  when: raphf_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/php-ext/raphf-{{ raphf_ext_version }}
+    state=absent
+
+- name: raphf extension source file check
+  tags:
+    - php
+    - raphf
+    - pecl_http
+  command: test -d /usr/local/src/php-ext/raphf-{{ raphf_ext_version }}.tar.gz
+  register: raphf_source_check
+  failed_when: raphf_source_check.rc not in [0,1]
+
+- name: raphf extension source download
+  tags:
+    - php
+    - raphf
+    - pecl_http
+  when: raphf_source_check.rc != 0
+  get_url: >
+    url="http://pecl.php.net/get/raphf-{{ raphf_ext_version }}.tgz"
+    dest=/usr/local/src/php-ext/raphf-{{ raphf_ext_version }}.tar.gz
+
+- name: raphf extension source decompress
+  tags:
+    - php
+    - raphf
+    - pecl_http
+  ignore_errors: yes
+  shell:  |
+    cd /usr/local/src/php-ext
+    tar xvzf raphf-{{ raphf_ext_version }}.tar.gz
+ 
+- name: raphf extention install
+  tags:
+    - php
+    - raphf
+    - pecl_http
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    cd /usr/local/src/php-ext/raphf-{{ raphf_ext_version }}
+    phpize
+    ./configure
+    make
+    make install
+
+- name: copy raphf.ini
+  tags:
+    - php
+    - raphf
+    - pecl_http
+  template: >
+    src=raphf.ini.j2
+    dest={{ installed_php_dir }}/etc/conf.d/raphf.ini

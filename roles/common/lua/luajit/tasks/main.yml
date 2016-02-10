@@ -1,32 +1,44 @@
 - name: LuaJIT source directory check
+  tags:
+    - luajit
   command: test -d /usr/local/src/LuaJIT-{{ luajit_version }}
   register: luajit_dir_check
   failed_when: luajit_dir_check.rc not in [0,1]
 
 - name: LuaJIT source directory remove
+  tags:
+    - luajit
   when: luajit_dir_check.rc == 0
   file: >
     path=/usr/local/src/LuaJIT-{{ luajit_version }}
     state=absent
 
 - name: LuaJIT source file check
+  tags:
+    - luajit
   command: test -d /usr/local/src/LuaJIT-{{ luajit_version }}.tar.gz
   register: luajit_source_check
   failed_when: luajit_source_check.rc not in [0,1]
 
 - name: LuaJIT source download
+  tags:
+    - luajit
   when: luajit_source_check.rc != 0
   get_url: >
     url="http://luajit.org/download/LuaJIT-{{ luajit_version }}.tar.gz"
     dest=/usr/local/src/LuaJIT-{{ luajit_version }}.tar.gz
 
 - name: LuaJIT source decompress
+  tags:
+    - luajit
   ignore_errors: yes
   shell:  |
     cd /usr/local/src
     tar xvzf LuaJIT-{{ luajit_version }}.tar.gz
     
 - name: LuaJIT install
+  tags:
+    - luajit
   ignore_errors: yes
   shell: |
     cd /usr/local/src/LuaJIT-{{ luajit_version }}
@@ -35,4 +47,6 @@
 
 # /etc/ld.so.cacheに反映されてない場合があるのでここで実行しておく
 - name: update shared library path with ldconfig
+  tags:
+    - luajit
   command: /sbin/ldconfig

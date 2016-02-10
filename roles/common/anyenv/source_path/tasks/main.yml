@@ -1,11 +1,13 @@
 - name: load path of anyenv loaded
-  tags: always
+  tags: 
+    - always
   shell: |
     source /etc/profile.d/anyenv.sh
     env | grep '^PATH=' | cut -b6-
   register: anyenv_path_result
 
 - name: set_fact path after anyenv loaded
-  tags: always
+  tags:
+    - always
   set_fact:
     anyenv_path: "{{ anyenv_path_result.stdout }}"

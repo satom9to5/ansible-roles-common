@@ -1,4 +1,6 @@
 - name: Apache restart
+  tags:
+    - apache
   service: >
     name=httpd
     state=restarted

@@ -1,4 +1,6 @@
 - name: subversion necessary library install
+  tags:
+    - subversion
   ignore_errors: yes
   yum: >
     name={{ item }}
@@ -10,11 +12,15 @@
     - zlib-devel
 
 - name: subversion source file check
-  ignore_errors: yes
+  tags:
+    - subversion
   command: test -f {{ subversion_path }}.tar.gz
   register: subversion_source_check
+  failed_when: subversion_source_check.rc not in [0,1]
   
 - name: subversion download
+  tags:
+    - subversion
   when: subversion_source_check.rc != 0
   get_url: >
     url=http://ftp.jaist.ac.jp/pub/apache/subversion/{{ subversion_fullname }}.tar.gz
@@ -22,20 +28,28 @@
     timeout=90
 
 - name: subversion source directory check
-  ignore_errors: yes
+  tags:
+    - subversion
   command: test -d {{ subversion_path }}
   register: subversion_dir_check
+  failed_when: subversion_dir_check.rc not in [0,1]
 
 - name: subversion source directory remove
+  tags:
+    - subversion
   when: subversion_dir_check.rc == 0
   file: >
     path={{ subversion_path }}
     state=absent
 
 - name: subversion unarchive
+  tags:
+    - subversion
   shell: cd /usr/local/src && tar xvfz {{ subversion_path }}.tar.gz
 
 - name: subversion autogen
+  tags:
+    - subversion
   shell: |
     export LIBTOOL_M4=/usr/share/aclocal
     export LIBTOOL_CONFIG=/usr/share/libtool/config
@@ -43,34 +57,48 @@
     ./autogen.sh
 
 - name: sqlite amalgamation source file check
-  ignore_errors: yes 
+  tags:
+    - subversion
   command: test -f {{ sqlite_amalgamation_source_path }}
   register: sqlite_amalgamation_source_check
+  failed_when: sqlite_amalgamation_source_check.rc not in [0,1]
 
 - name: sqlite amalgamation download
+  tags:
+    - subversion
   when: sqlite_amalgamation_source_check.rc != 0
   get_url: >
     url=http://www.sqlite.org/{{ sqlite_amalgamation_fullname }}.zip
     dest={{ sqlite_amalgamation_source_path }}
 
 - name: sqlite amalgamation source directory check
-  ignore_errors: yes
+  tags:
+    - subversion
   command: test -d /tmp/{{ sqlite_amalgamation_fullname }}
   register: sqlite_amalgamation_dir_check
+  failed_when: sqlite_amalgamation_dir_check.rc not in [0,1]
 
 - name: sqlite amalgamation source directory remove
+  tags:
+    - subversion
   when: sqlite_amalgamation_dir_check.rc == 0
   file: >
     path=/tmp/{{ sqlite_amalgamation_fullname }}
     state=absent
 
 - name: sqlite amalgamation unarchive
+  tags:
+    - subversion
   shell: cd /tmp && unzip {{ sqlite_amalgamation_source_path }}
 
 - name: sqlite amalgamation source move
+  tags:
+    - subversion
   shell: cd /tmp && mv {{ sqlite_amalgamation_fullname }} {{ subversion_path }}/sqlite-amalgamation
 
 - name: subversion install
+  tags:
+    - subversion
   shell: |
     cd {{ subversion_path }}
     ./configure

@@ -1,34 +1,48 @@
 - name: ncurses-devel install
+  tags:
+    - tmux
   yum: >
     name=ncurses-devel
     state=latest
 
 - name: libevent source file check
-  ignore_errors: yes
+  tags:
+    - tmux
   command: test -f {{ libevent_path }}.tar.gz
   register: libevent_source_check
+  failed_when: libevent_source_check.rc not in [0,1]
 
 - name: libevent download
+  tags:
+    - tmux
   when: libevent_source_check.rc != 0
   get_url: >
     url=https://github.com/libevent/libevent/releases/download/release-{{ libevent_minor_version }}-stable/{{ libevent_fullname }}.tar.gz
     dest={{ libevent_path }}.tar.gz
 
 - name: libevent source directory check
-  ignore_errors: yes
+  tags:
+    - tmux
   command: test -d {{ libevent_path }}
   register: libevent_dir_check
+  failed_when: libevent_dir_check.rc not in [0,1]
 
 - name: libevent source directory remove
+  tags:
+    - tmux
   when: libevent_dir_check.rc == 0
   file: >
     path={{ libevent_path }}
     state=absent
 
 - name: libevent unarchive
+  tags:
+    - tmux
   shell: cd /usr/local/src && tar xvzf {{ libevent_path }}.tar.gz
 
 - name: libevent install
+  tags:
+    - tmux
   shell: |
     cd {{ libevent_path }}
     ./configure
@@ -36,31 +50,43 @@
     make install prefix=/usr
 
 - name: tmux source file check
-  ignore_errors: yes
+  tags:
+    - tmux
   command: test -f {{ tmux_path }}.tar.gz
   register: tmux_source_check
+  failed_when: tmux_source_check.rc not in [0,1]
 
 - name: tmux download
+  tags:
+    - tmux
   when: tmux_source_check.rc != 0
   get_url: >
     url=http://downloads.sourceforge.net/tmux/{{ tmux_fullname }}.tar.gz
     dest={{ tmux_path }}.tar.gz
 
 - name: tmux source directory check
-  ignore_errors: yes
+  tags:
+    - tmux
   command: test -d {{ tmux_path }}
   register: tmux_dir_check
+  failed_when: tmux_dir_check.rc not in [0,1]
 
 - name: tmux source directory remove
+  tags:
+    - tmux
   when: tmux_dir_check.rc == 0
   file: >
     path={{ tmux_path }}
     state=absent
 
 - name: tmux unarchive
+  tags:
+    - tmux
   shell: cd /usr/local/src && tar xvzf {{ tmux_path }}.tar.gz
 
 - name: tmux install
+  tags:
+    - tmux
   shell: |
     cd {{ tmux_path }}
     ./configure

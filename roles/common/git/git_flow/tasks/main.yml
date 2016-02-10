@@ -1,4 +1,7 @@
 - name: git-flow install
+  tags:
+    - git
+    - git-flow
   yum: >
     name=gitflow
     state=latest

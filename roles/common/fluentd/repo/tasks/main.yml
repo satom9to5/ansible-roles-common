@@ -1,4 +1,6 @@
 - name: copy yum treasuredata repository setting
+  tags:
+    - fluentd
   template: >
     src=treasuredata.repo.j2
     dest=/etc/yum.repos.d/treasuredata.repo 

@@ -1,21 +1,29 @@
 - name: includedir conf check
-  ignore_errors: yes
+  tags:
+    - mysql
   command: grep includedir /etc/my.cnf 
   register: my_cnf_includedir_check
+  failed_when: my_cnf_includedir_check.rc not in [0,1]
 
 - name: add includedir conf to my.cnf
+  tags:
+    - mysql
   when: my_cnf_includedir_check.rc != 0
   shell: |
     echo "" >> /etc/my.cnf
     echo "!includedir /etc/my.cnf.d" >> /etc/my.cnf
 
 - name: change sql_mode setting of my.cnf
+  tags:
+    - mysql
   when: my_cnf_includedir_check.rc != 0
   shell: |
     sed -i "s|^sql_mode=\(.*\)|#sql_mode=\1\nsql_mode=''|g" /etc/my.cnf
     removes=/etc/my.cnf
 
 - name: MySQL setting
+  tags:
+    - mysql
   template: >
     src=default_settings.j2
     dest={{ mysql_conf_base_dir }}/default_settings.cnf

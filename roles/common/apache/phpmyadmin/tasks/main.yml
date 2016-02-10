@@ -1,4 +1,7 @@
 - name: copy phpmyadmin.conf
+  tags:
+    - apache
+    - php
   template: >
     src=phpmyadmin.conf.j2
     dest=/etc/httpd/conf.d/phpmyadmin.conf

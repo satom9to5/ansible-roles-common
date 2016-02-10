@@ -1,4 +1,6 @@
 - name: fluentd install
+  tags:
+    - fluentd
   ignore_errors: yes
   yum: >
     name=td-agent
@@ -7,6 +9,8 @@
 
 # conf作成してからstartした方がよさそう
 - name: fluentd restart
+  tags:
+    - fluentd
   service: >
     name=td-agent
     state=started

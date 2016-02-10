@@ -1,4 +1,6 @@
 - name: useful packages install
+  tags:
+    - basic_pkg
   ignore_errors: yes
   yum: name={{ item }} state=latest
   with_items:

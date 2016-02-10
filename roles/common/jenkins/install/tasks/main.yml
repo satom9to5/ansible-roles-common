@@ -1,4 +1,6 @@
 - name: Jenkins install
+  tags:
+    - jenkins
   ignore_errors: yes
   yum: >
     name=jenkins

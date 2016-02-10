@@ -1,4 +1,7 @@
 - name: gom package install
+  tags:
+    - golang
+    - gom
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh

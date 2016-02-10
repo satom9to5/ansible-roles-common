@@ -1,4 +1,6 @@
 - name: MySQL 5.5 install
+  tags:
+    - mysql
   when: mysql_version == 5.5
   yum: >
     name={{ item }}
@@ -12,6 +14,8 @@
     - MySQL-python
 
 - name: MySQL 5.6 of RedHat Version 6 install
+  tags:
+    - mysql
   when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   yum: >
     name={{ item }}
@@ -24,6 +28,8 @@
     - MySQL-python
 
 - name: MySQL 5.6 of RedHat Version 7 install
+  tags:
+    - mysql
   when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
   yum: >
     name={{ item }}

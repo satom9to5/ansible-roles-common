@@ -1,18 +1,21 @@
 - name: node.js installed check
-  tags: node
+  tags:
+    - node
   command: test -d {{ ndenv_root }}/versions/{{ node_version }}
   register: nodejs_directory_check
   failed_when: nodejs_directory_check.rc not in [0,1]
 
 - name: node.js install
-  tags: node
+  tags:
+    - node
   when: nodejs_directory_check.rc != 0
   shell: |
     source /etc/profile.d/anyenv.sh
     ndenv install {{ node_version }}
 
 - name: node.js Version fix
-  tags: node
+  tags:
+    - node
   shell: |
     source /etc/profile.d/anyenv.sh
     ndenv global {{ node_version }}

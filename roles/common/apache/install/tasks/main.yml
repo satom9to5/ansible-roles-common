@@ -1,9 +1,13 @@
 - name: Apache install
+  tags:
+    - apache
   yum: >
     name=httpd
     state=latest 
 
 - name: Apache listen port fix
+  tags:
+    - apache
   when: apache_port != 80
   shell: |
     sed -i 's|^Listen.*|Listen {{ apache_port }}|g' /etc/httpd/conf/httpd.conf

@@ -1,4 +1,6 @@
 - name: Percona toolkit install
+  tags:
+    - percona
   yum: >
     name=percona-toolkit
     state=latest

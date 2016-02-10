@@ -1,0 +1,70 @@
+- name: propro extension source directory check
+  tags:
+    - php
+    - propro
+    - pecl_http
+  command: test -d /usr/local/src/php-ext/propro-{{ propro_ext_version }}
+  register: propro_dir_check
+  failed_when: propro_dir_check.rc not in [0,1]
+
+- name: propro extension source directory remove
+  tags:
+    - php
+    - propro
+    - pecl_http
+  when: propro_dir_check.rc == 0
+  file: >
+    path=/usr/local/src/php-ext/propro-{{ propro_ext_version }}
+    state=absent
+
+- name: propro extension source file check
+  tags:
+    - php
+    - propro
+    - pecl_http
+  command: test -d /usr/local/src/php-ext/propro-{{ propro_ext_version }}.tar.gz
+  register: propro_source_check
+  failed_when: propro_source_check.rc not in [0,1]
+
+- name: propro extension source download
+  tags:
+    - php
+    - propro
+    - pecl_http
+  when: propro_source_check.rc != 0
+  get_url: >
+    url="http://pecl.php.net/get/propro-{{ propro_ext_version }}.tgz"
+    dest=/usr/local/src/php-ext/propro-{{ propro_ext_version }}.tar.gz
+
+- name: propro extension source decompress
+  tags:
+    - php
+    - propro
+    - pecl_http
+  ignore_errors: yes
+  shell:  |
+    cd /usr/local/src/php-ext
+    tar xvzf propro-{{ propro_ext_version }}.tar.gz
+ 
+- name: propro extention install
+  tags:
+    - php
+    - propro
+    - pecl_http
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/anyenv.sh
+    cd /usr/local/src/php-ext/propro-{{ propro_ext_version }}
+    phpize
+    ./configure
+    make
+    make install
+
+- name: copy propro.ini
+  tags:
+    - php
+    - propro
+    - pecl_http
+  template: >
+    src=propro.ini.j2
+    dest={{ installed_php_dir }}/etc/conf.d/propro.ini

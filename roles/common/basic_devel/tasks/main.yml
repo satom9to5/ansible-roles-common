@@ -1,4 +1,6 @@
 - name: devel packages install
+  tags:
+    - basic_devel
   ignore_errors: yes
   yum: name={{ item }} state=latest
   with_items:
@@ -7,9 +9,13 @@
     - pcre-devel
 
 - name: add ld.so.conf config
+  tags:
+    - basic_devel
   template: >
     src=usr_local_lib.conf.j2
     dest=/etc/ld.so.conf.d/usr_local_lib.conf
 
 - name: update shared library path with ldconfig
+  tags:
+    - basic_devel
   command: /sbin/ldconfig

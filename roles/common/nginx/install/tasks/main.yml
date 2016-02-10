@@ -1,19 +1,27 @@
 - name: nginx depends library install
+  tags:
+    - nginx
   ignore_errors: yes
   yum: name={{ item }} state=latest
   with_items:
     - libxslt-devel
 
 - name: create nginx-build work directory
+  tags:
+    - nginx
   shell: |
     mkdir -p {{ nginx_build_work_directory }}
 
 - name: nginx third party module config copy
+  tags:
+    - nginx
   template: >
     src=third_party_modules.j2
     dest={{ nginx_module_file_path }}
 
 - name: nginx configure
+  tags:
+    - nginx
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh
@@ -55,11 +63,15 @@
       -with-ld-opt="-Wl,-rpath,/path/to/luajit-or-lua/lib" \
 
 - name: nginx install
+  tags:
+    - nginx
   shell: |
      cd {{ nginx_make_work_directory }}
      make install
 
 - name: add nginx user
+  tags:
+    - nginx
   user: >
     name=nginx
     shell=/sbin/nologin
@@ -67,66 +79,90 @@
     append=yes
 
 - name: nginx conf directory check
-  ignore_errors: yes
+  tags:
+    - nginx
   command: test -d /etc/nginx/conf.d/
-  register: nginx_conf_dir_directory_check
+  register: nginx_conf_dir_check
+  failed_when: nginx_conf_dir_check.rc not in [0,1]
 
 - name: create nginx conf directory 
-  when: nginx_conf_dir_directory_check.rc != 0
+  tags:
+    - nginx
+  when: nginx_conf_dir_check.rc != 0
   command: mkdir -p /etc/nginx/conf.d/
 
 - name: nginx temp directory check
-  ignore_errors: yes
+  tags:
+    - nginx
   command: test -d /var/lib/nginx/tmp/
-  register: nginx_conf_dir_directory_check
+  register: nginx_tmp_dir_check
+  failed_when: nginx_tmp_dir_check.rc not in [0,1]
 
 - name: create nginx temp directory
-  when: nginx_conf_dir_directory_check.rc != 0
+  tags:
+    - nginx
+  when: nginx_tmp_dir_check.rc != 0
   shell: |
     mkdir -p /var/lib/nginx/tmp
     chown {{ nginx_user }}:{{ nginx_user }} /var/lib/nginx/tmp
 
 - name: nginx cache directory check
-  ignore_errors: yes
+  tags:
+    - nginx
   command: test -d /var/cache/nginx
-  register: nginx_cache_dir_directory_check
+  register: nginx_cache_dir_check
+  failed_when: nginx_cache_dir_check.rc not in [0,1]
 
 - name: create nginx cache directory
-  when: nginx_cache_dir_directory_check.rc != 0
+  tags:
+    - nginx
+  when: nginx_cache_dir_check.rc != 0
   shell: |
     mkdir -p /var/cache/nginx
     chown {{ nginx_user }}:{{ nginx_user }} /var/cache/nginx
 
 - name: nginx conf file copy
+  tags:
+    - nginx
   template: >
     src=nginx.conf.j2
     dest=/etc/nginx/nginx.conf
     mode=0755
 
 - name: nginx gzip conf file copy
+  tags:
+    - nginx
   template: >
     src=gzip.conf.j2
     dest=/etc/nginx/gzip.conf
     mode=0755
 
 - name: nginx proxy conf file copy
+  tags:
+    - nginx
   template: >
     src=proxy.conf.j2
     dest=/etc/nginx/proxy.conf
     mode=0755
 
 - name: nginx fastcgi_cache conf file copy
+  tags:
+    - nginx
   template: >
     src=fastcgi_cache.conf.j2
     dest=/etc/nginx/fastcgi_cache.conf
     mode=0755
 
 - name: nginx sysconfig copy
+  tags:
+    - nginx
   template: >
     src=sysconfig.j2
     dest=/etc/sysconfig/nginx
 
 - name: nginx init.d script copy
+  tags:
+    - nginx
   template: >
     src=init.d.j2
     dest=/etc/rc.d/init.d/nginx

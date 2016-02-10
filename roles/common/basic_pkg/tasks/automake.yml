@@ -1,9 +1,15 @@
 - name: automake source file check
-  ignore_errors: yes
+  tags:
+    - basic_pkg
+    - automake
   command: test -f {{ automake_path }}.tar.gz
   register: automake_source_check
+  failed_when: automake_source_check.rc not in [0,1]
 
 - name: automake download
+  tags:
+    - basic_pkg
+    - automake
   when: automake_source_check.rc != 0
   get_url: >
     url=http://ftp.gnu.org/gnu/automake/{{ automake_fullname }}.tar.gz
@@ -11,20 +17,34 @@
     timeout=30
 
 - name: automake source directory check
-  ignore_errors: yes
+  tags:
+    - basic_pkg
+    - automake
   command: test -d {{ automake_path }}
   register: automake_dir_check
+  failed_when: automake_dir_check.rc not in [0,1]
 
 - name: automake source directory remove
+  tags:
+    - basic_pkg
+    - automake
   when: automake_dir_check.rc == 0
   file: >
     path={{ automake_path }}
     state=absent
 
 - name: automake unarchive
-  shell: cd /usr/local/src && tar xvzf {{ automake_path }}.tar.gz
+  tags:
+    - basic_pkg
+    - automake
+  shell: |
+    cd /usr/local/src
+    tar xvzf {{ automake_path }}.tar.gz
 
 - name: automake install
+  tags:
+    - basic_pkg
+    - automake
   shell: |
     cd {{ automake_path }}
     ./configure

@@ -1,9 +1,13 @@
 - name: MySQL repo file check
-  ignore_errors: yes
+  tags:
+    - mysql
   command: test -f /etc/yum.repos.d/mysql-community.repo
   register: mysql_repo_check
+  failed_when: mysql_repo_check.rc not in [0,1]
 
 - name: MySQL repo install
+  tags:
+    - mysql
   when: mysql_repo_check.rc != 0
   yum: >
     name=http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm

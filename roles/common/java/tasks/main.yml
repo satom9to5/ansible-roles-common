@@ -1,4 +1,6 @@
 - name: Java install
+  tags:
+    - java
   ignore_errors: yes
   yum: >
     name=java-{{ java_version }}-openjdk

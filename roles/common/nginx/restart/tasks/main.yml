@@ -1,4 +1,6 @@
 - name: nginx restart
+  tags:
+    - nginx
   service: >
     name=nginx
     state=restarted

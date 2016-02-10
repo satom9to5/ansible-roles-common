@@ -1,4 +1,7 @@
 - name: nginx-build package install
+  tags:
+    - nginx
+    - nginx-build
   ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh

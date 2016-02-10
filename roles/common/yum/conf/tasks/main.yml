@@ -1,2 +1,4 @@
 - name: change timeout setting of yum
+  tags:
+    - yum
   shell: echo "timeout=90" >> /etc/yum.conf

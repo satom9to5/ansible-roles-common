@@ -1,4 +1,7 @@
 - name: copy php.conf
+  tags:
+    - apache
+    - php
   template: >
     src=php.conf.j2
     dest=/etc/httpd/conf.d/php.conf

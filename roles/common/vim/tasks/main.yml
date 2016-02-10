@@ -1,4 +1,6 @@
 - name: vim install
+  tags:
+    - vim
   ignore_errors: yes
   yum: >
     name=vim-enhanced
