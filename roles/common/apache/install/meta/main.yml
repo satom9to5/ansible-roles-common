@@ -1,2 +1,2 @@
 dependencies:
-  - { role: apache/apache-vars }
+  - { role: apache/apache-defaults }

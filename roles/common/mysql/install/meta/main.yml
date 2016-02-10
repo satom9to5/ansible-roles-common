@@ -1,2 +1,2 @@
 dependencies:
-  - { role: mysql/mysql-vars }
+  - { role: mysql/mysql-defaults }
