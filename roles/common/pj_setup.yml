@@ -20,6 +20,7 @@
     - percona/toolkit 
     - memcached
     - redis
+    - java
     - elasticsearch/repo 
     - elasticsearch/install 
     - elasticsearch/tools/stream2es
@@ -27,7 +28,6 @@
     - elasticsearch/plugins/elasticsearch-head
     - elasticsearch/kibana/repo
     - elasticsearch/kibana/install
-    - java
     - anyenv/anyenv 
     - anyenv/ndenv 
     - anyenv/phpenv 
