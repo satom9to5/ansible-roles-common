@@ -8,5 +8,5 @@
     - php/setting 
 #    - apache 
 #    - ../common/apache/restart 
-    - nginx/backend-apache
+    - nginx/backend-php-fpm
     - ../common/nginx/restart
