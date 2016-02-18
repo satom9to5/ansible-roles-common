@@ -2,17 +2,17 @@
   tags: 
     - golang
     - virtualbox
-  command: test -d {{ gopath_mine_path }}
-  register: gopath_mine_check
-  failed_when : gopath_mine_check.rc not in [0,1]
+  command: test -d {{ my_gopath }}
+  register: my_gopath_check
+  failed_when : my_gopath_check.rc not in [0,1]
 
 - name: remove golang mine path
   tags: 
     - golang
     - virtualbox
-  when: gopath_mine_check.rc == 0
+  when: my_gopath_check.rc == 0
   file: >
-    path={{ gopath_mine_path }}
+    path={{ my_gopath }}
     state=absent
 
 - name: check golang shared path exist
@@ -38,5 +38,5 @@
     - virtualbox
   file: >
     src={{ gopath_shared_path }}
-    path={{ gopath_mine_path }}
+    path={{ my_gopath }}
     state=link

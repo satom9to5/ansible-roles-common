@@ -10,11 +10,10 @@ if [ -d "/opt/anyenv" ]; then
     if [ -d "${ANYENV_ROOT}/envs/goenv/" ]; then
         export GOENV_ROOT="${ANYENV_ROOT}/envs/goenv"
 
-        [ -d "${HOME}/golang/third_party" ] || mkdir -p "${HOME}/golang/third_party"
-        [ -d "${HOME}/golang/mine" ] || mkdir -p "${HOME}/golang/mine"
+        [ -d "${HOME}/golang" ] || mkdir -p "${HOME}/golang"
 
-        export GOPATH="${HOME}/golang/third_party:${HOME}/golang/mine"
-        export PATH="${HOME}/golang/third_party/bin:${HOME}/golang/mine/bin:${PATH}"
+        export GOPATH="${HOME}/golang"
+        export PATH="${HOME}/golang/bin:${PATH}"
 	export GO15VENDOREXPERIMENT=1
     fi
 
