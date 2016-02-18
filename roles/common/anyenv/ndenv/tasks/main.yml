@@ -1,19 +1,24 @@
-- name: ndenv install
+- name: ndenv dir check
   tags:
-    - anyenv
     - ndenv
     - node
-  ignore_errors: yes
+  command: test -d {{ ndenv_path }}
+  register: ndenv_dir_check
+  failed_when: ndenv_dir_check.rc not in [0,1] 
+
+- name: ndenv install
+  tags:
+    - ndenv
+    - node
+  when: ndenv_dir_check.rc != 0
   shell: |
     source /etc/profile.d/anyenv.sh
     anyenv install ndenv 
 
 - name: ndenv releases check
   tags:
-    - anyenv
     - ndenv
     - node
-  ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh
     ndenv install -l

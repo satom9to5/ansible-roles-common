@@ -1,19 +1,24 @@
+- name: rbenv dir check
+  tags:
+    - rbenv
+    - node
+  command: test -d {{ rbenv_path }}
+  register: rbenv_dir_check
+  failed_when: rbenv_dir_check.rc not in [0,1] 
+
 - name: rbenv install
   tags:
-    - anyenv
     - rbenv
     - ruby
-  ignore_errors: yes
+  when: rbenv_dir_check.rc != 0
   shell: |
     source /etc/profile.d/anyenv.sh
     anyenv install rbenv
 
 - name: rbenv releases check
   tags:
-    - anyenv
     - rbenv
     - ruby
-  ignore_errors: yes
   shell: |
     source /etc/profile.d/anyenv.sh
     rbenv install -l

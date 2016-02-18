@@ -1,5 +1,0 @@
-anyenv_root: /opt/anyenv
-phpenv_root: "{{ anyenv_root }}/envs/phpenv"
-ndenv_root: "{{ anyenv_root }}/envs/ndenv"
-rbenv_root: "{{ anyenv_root }}/envs/rbenv"
-goenv_root: "{{ anyenv_root }}/envs/goenv"

@@ -1,7 +1,7 @@
 - name: Ruby installed check
   tags:
     - ruby
-  command: test -d {{ rbenv_root }}/versions/{{ ruby_version }}
+  command: test -d {{ rbenv_path }}/versions/{{ ruby_version }}
   register: ruby_directory_check
   failed_when: ruby_directory_check.rc not in [0,1]
 

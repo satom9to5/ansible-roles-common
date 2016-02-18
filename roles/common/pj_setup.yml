@@ -28,7 +28,6 @@
     - elasticsearch/plugins/elasticsearch-head
     - elasticsearch/kibana/repo
     - elasticsearch/kibana/install
-    - anyenv/anyenv 
     - anyenv/ndenv 
     - anyenv/phpenv 
     - anyenv/rbenv 

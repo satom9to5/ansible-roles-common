@@ -1,9 +1,16 @@
-- name: phpenv install
+- name: phpenv dir check
   tags:
-    - anyenv
     - phpenv
     - php
-  ignore_errors: yes
+  command: test -d {{ phpenv_path }}
+  register: phpenv_dir_check
+  failed_when: phpenv_dir_check.rc not in [0,1] 
+
+- name: phpenv install
+  tags:
+    - phpenv
+    - php
+  when: phpenv_dir_check.rc != 0
   shell: |
     source /etc/profile.d/anyenv.sh
     anyenv install phpenv 

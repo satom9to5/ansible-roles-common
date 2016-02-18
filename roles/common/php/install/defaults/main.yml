@@ -1,1 +1,1 @@
-php_build_dir: "{{ phpenv_root }}/plugins/php-build"
+php_build_dir: "{{ phpenv_path }}/plugins/php-build"

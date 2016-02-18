@@ -1,7 +1,7 @@
 - name: node.js installed check
   tags:
     - node
-  command: test -d {{ ndenv_root }}/versions/{{ node_version }}
+  command: test -d {{ ndenv_path }}/versions/{{ node_version }}
   register: nodejs_directory_check
   failed_when: nodejs_directory_check.rc not in [0,1]
 

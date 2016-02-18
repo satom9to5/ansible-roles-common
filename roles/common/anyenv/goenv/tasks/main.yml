@@ -1,9 +1,16 @@
-- name: goenv install
+- name: goenv dir check
   tags:
-    - anyenv
     - goenv
     - golang
-  ignore_errors: yes
+  command: test -d {{ goenv_path }}
+  register: goenv_dir_check
+  failed_when: goenv_dir_check.rc not in [0,1] 
+
+- name: goenv install
+  tags:
+    - goenv
+    - golang
+  when: goenv_dir_check.rc != 0
   shell: |
     source /etc/profile.d/anyenv.sh
     anyenv install goenv 
