@@ -1,0 +1,10 @@
+- name: AWS CLI install 
+  tags:
+    - aws
+    - awscli
+  ignore_errors: yes
+  yum: >
+    name=awscli
+    state=latest
+    enablerepo=epel
+

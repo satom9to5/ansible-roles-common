@@ -1,0 +1,16 @@
+- name: aws auto-complete check in .bashrc
+  tags:
+    - aws
+    - awscli
+  command: grep 'aws_completer' ~/.bashrc
+  register: aws_completer_bashrc_check
+  faield_when: aws_completer_bashrc_check.rc not in [0,1]
+
+- name: aws auto-command setting write .bashrc
+  tags:
+    - aws
+    - awscli
+  when: aws_completer_bashrc_check.rc != 0
+  shell: |
+    echo "" >> ~/.bashrc
+    echo "complete -C aws_completer aws" >> ~/.bashrc
