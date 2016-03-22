@@ -3,7 +3,7 @@
     - yum
     - epel
   ignore_errors: yes
-  when: ansible_os_family == 'RetHat' and ansible_distribution_major_version == 6
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   command: rpm -ivh {{ epel_base_url }}{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/epel-release-{{ epel_minor_version_6 }}.noarch.rpm
 
 - name: epel repository add RHEL7
@@ -11,5 +11,5 @@
     - yum
     - epel
   ignore_errors: yes
-  when: ansible_os_family == 'RetHat' and ansible_distribution_major_version == 7
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
   command: rpm -ivh {{ epel_base_url }}{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/e/epel-release-{{ epel_minor_version_7 }}.noarch.rpm

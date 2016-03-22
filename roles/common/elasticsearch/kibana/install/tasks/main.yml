@@ -6,3 +6,15 @@
   yum: >
     name=kibana
     state=latest
+
+- name: kibana enable RedHat6
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
+  tags:
+    - kibana
+  command: chkconfig kibana on
+
+- name: kibana enable RedHat7
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  tags:
+    - kibana
+  command: systemctl enable kibana.service
