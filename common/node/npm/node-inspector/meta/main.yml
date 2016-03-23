@@ -1,2 +1,2 @@
 dependencies:
-  - { role: anyenv/source_path }
+  - { role: common/anyenv/source_path }

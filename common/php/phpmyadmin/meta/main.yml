@@ -1,2 +1,2 @@
 dependencies:
-  - { role: php/phpmyadmin-defaults }
+  - { role: common/php/phpmyadmin-defaults }

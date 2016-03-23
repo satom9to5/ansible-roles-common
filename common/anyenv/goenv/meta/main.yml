@@ -1,2 +1,2 @@
 dependencies:
-  - { role: anyenv/anyenv }
+  - { role: common/anyenv/anyenv }
