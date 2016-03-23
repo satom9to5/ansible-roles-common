@@ -4,19 +4,7 @@ IS_PJ_SETUP=0
 [ -n "$1" ] && IS_PJ_SETUP=1
 
 if ! [ `which ansible` ]; then
-  REDHAT_MAJOR_VERSION=$(awk '{ print $4 }' /etc/redhat-release | cut -d '.' -f1 )
-  case "$REDHAT_MAJOR_VERSION" in
-    6)
-      wget http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
-      sudo rpm --import RPM-GPG-KEY-EPEL-6
-      sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-      ;;
-    7)
-      sudo yum install -y epel-release
-      ;;
-  esac
-
-  sudo yum install -y ansible
+  sudo sh $(cd $(dirname $0) && pwd)/ansible_install.sh
 fi
 
 ANSIBLE_BASE_DIR=/vagrant/ansible
