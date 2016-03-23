@@ -1,19 +1,16 @@
-- name: docker install
+- name: docker engine install
   tags:
     - docker
   ignore_errors: yes
   yum: >
-    name=docker-io
+    name=docker-engine
     state=latest
+    enablerepo=dockerrepo
 
-- name: docker enable RedHat6
-  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
+- name: docker engine start
   tags:
     - docker
-  command: chkconfig docker on
-
-- name: docker enable RedHat7
-  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
-  tags:
-    - docker
-  command: systemctl enable docker.service
+  service: >
+    name=docker
+    state=restarted
+    enabled=yes

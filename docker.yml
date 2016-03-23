@@ -1,5 +1,6 @@
 - hosts:
     - localhost
   roles:
-    - { role: common/docker/engine }
-    - { role: common/docker/compose }
+    - common/docker/repo
+    - common/docker/engine
+    - common/docker/compose
