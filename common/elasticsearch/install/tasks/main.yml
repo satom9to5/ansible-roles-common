@@ -6,15 +6,10 @@
     name=elasticsearch
     state=latest
 
-- name: elasticsearch enable RedHat6
-  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
+- name: elasticsearch start
   tags:
     - elasticsearch
-  command: chkconfig elasticsearch on
-
-- name: elasticsearch enable RedHat7
-  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
-  tags:
-    - elasticsearch
-  command: systemctl enable elasticsearch.service
-
+  service: >
+    name=elasticsearch
+    state=restarted
+    enabled=yes

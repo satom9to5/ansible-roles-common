@@ -24,7 +24,6 @@
     - expect
     - file
     - initscripts
-    - vim-enhanced
     - dos2unix
     - lsof
     - strace

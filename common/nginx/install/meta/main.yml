@@ -1,3 +1,4 @@
 dependencies:
   - { role: common/nginx/nginx-defaults }
   - { role: common/nginx/nginx-build }
+  - { role: common/lua/luajit }

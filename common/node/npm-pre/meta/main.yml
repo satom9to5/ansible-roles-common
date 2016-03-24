@@ -1,0 +1,3 @@
+dependencies:
+  - { role: common/node/install }
+  - { role: common/anyenv/source_path }

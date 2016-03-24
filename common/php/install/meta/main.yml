@@ -1,2 +1,3 @@
 dependencies:
+  - { role: common/anyenv/phpenv }
   - { role: common/php/php-defaults }
