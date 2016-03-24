@@ -2,7 +2,9 @@
   tags:
     - basic_pkg
   ignore_errors: yes
-  yum: name={{ item }} state=latest
+  yum: >
+    name={{ item }}
+    state=latest
   with_items:
     - which
     - tar
@@ -15,23 +17,32 @@
     - libtool
     - bash-completion
     - zsh
-    - jq
     - telnet
     - curl
     - wget
-    - ngrep
-    - nc
-    - jwhois
     - bind-utils
-    - nkf
     - expect
     - file
     - initscripts
     - vim-enhanced
     - dos2unix
-    - unix2dos
     - lsof
     - strace
+
+- name: useful packages install by EPEL
+  tags:
+    - basic_pkg
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+    enablerepo=epel
+  with_items:
+    - jq
+    - jwhois
+    - ngrep
+    - nmap
+    - nkf
 
 - include: autoconf.yml 
 - include: automake.yml 
