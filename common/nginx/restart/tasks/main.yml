@@ -1,6 +1,7 @@
 - name: nginx restart
   tags:
     - nginx
+  when: ansible_virtualization_type != 'docker'
   service: >
     name=nginx
     state=restarted
