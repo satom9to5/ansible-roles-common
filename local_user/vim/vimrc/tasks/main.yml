@@ -1,6 +1,0 @@
-- name: copy vimrc
-  tags:
-    - vim
-  template: >
-    src=vimrc.j2
-    dest=~/.vimrc

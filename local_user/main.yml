@@ -1,8 +1,0 @@
-- hosts:
-    - localhost
-  roles:
-    - vim/vimrc  
-    - vim/neobundle  
-    - git/git_prompt  
-    - git/base_setting  
-    - golang/linked_shared  

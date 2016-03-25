@@ -1,3 +1,0 @@
-# 末尾は「/」にする事！
-gopath_shared_path: /vagrant/golang/
-my_gopath: ~/golang
