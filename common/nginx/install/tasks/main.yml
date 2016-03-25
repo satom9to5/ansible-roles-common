@@ -167,3 +167,10 @@
     src=init.d.j2
     dest=/etc/rc.d/init.d/nginx
     mode=0755
+
+- name: nginx service enable
+  tags:
+    - nginx
+  service: >
+    name=nginx
+    enabled=yes
