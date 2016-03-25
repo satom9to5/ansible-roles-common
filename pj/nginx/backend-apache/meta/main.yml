@@ -1,3 +1,0 @@
-dependencies:
-  - { role: common/nginx/nginx-defaults }
-  - { role: common/apache/apache-defaults }
