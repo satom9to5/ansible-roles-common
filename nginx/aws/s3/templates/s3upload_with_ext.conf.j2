@@ -1,0 +1,58 @@
+location {{ nginx_s3_upload_endpoint }} {
+  limit_except PUT { deny all; }
+  
+  set_secure_random_alphanum $prefix     64;
+  set_sha1                   $prefix_sha $prefix;
+  set_by_lua_block           $date       {
+    return ngx.cookie_time(ngx.time())
+  }
+  set_sha1                   $date_sha   $date;
+  set                        $upload_id  "$prefix_sha$date_sha";
+  
+  set_by_lua_block $s3_bucket {
+    return os.getenv('S3_BUCKET_NAME');
+  }
+  set_by_lua_block $aws_access_key_id {
+    return os.getenv('AWS_ACCESS_KEY_ID');
+  }
+  set_by_lua_block $aws_secret_access_key {
+    return os.getenv('AWS_SECRET_ACCESS_KEY');
+  }
+  
+  set $file_base_path {{ nginx_s3_upload_file_path }};
+  set $file_path      "$file_base_path/$upload_id";
+  set $url            "http://$s3_bucket.s3.amazonaws.com/$file_path";
+  
+  set              $acl                        public-read;
+  set              $canonicalized_amz_headers  "x-amz-acl:$acl\nx-amz-date:$date";
+  set              $canonicalized_resource     "/$s3_bucket/$file_path";
+  set              $string_to_sign             "$request_method\n$http_content_md5\n$http_content_type\n\n$canonicalized_amz_headers\n$canonicalized_resource";
+  set_by_lua_block $aws_signature              {
+    return ngx.encode_base64(ngx.hmac_sha1(ngx.var.aws_secret_access_key, ngx.var.string_to_sign));
+  }
+
+  set $s3_url                    "http://$s3_bucket.s3.amazonaws.com";
+  set $acl                       public-read;
+  set $canonicalized_amz_headers "x-amz-acl:$acl\nx-amz-date:$date";
+  set $string_to_sign            "$request_method\n$http_content_md5\n$http_content_type\n\n";
+
+  set $file_path     "";
+  set $url           "";
+  set $aws_signature "";
+
+  rewrite_by_lua_file /etc/nginx/conf.d/lua/rewrite_variables.lua;
+  
+  proxy_set_header  Authorization     "AWS $aws_access_key_id:$aws_signature";
+  proxy_set_header  x-amz-acl         $acl;
+  proxy_set_header  x-amz-date        $date;
+  proxy_hide_header x-amz-id-2;
+  proxy_hide_header x-amz-request-id;
+{% for nginx_s3_upload_proxy_hide_header in nginx_s3_upload_proxy_hide_headers %}
+  proxy_hide_header {{ nginx_s3_upload_proxy_hide_header }};
+{% endfor %}
+  add_header        Uploaded-File-Url    $url;
+  
+  resolver {{ ansible_dns.nameservers.0 }} valid=5s;
+  
+  proxy_pass $url;
+}

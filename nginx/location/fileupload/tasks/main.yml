@@ -1,0 +1,8 @@
+- name: nginx fileupload conf file copy
+  tags:
+    - nginx
+  template: >
+    src=fileupload.conf.j2
+    dest=/etc/nginx/conf.d/location/fileupload.conf
+    mode=0755
+

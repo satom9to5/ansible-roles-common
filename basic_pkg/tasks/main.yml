@@ -28,6 +28,17 @@
     - lsof
     - strace
 
+- name: useful packages install RHEL7
+  tags:
+    - basic_pkg
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  with_items:
+    - mailx
+
 - name: useful packages install by EPEL
   tags:
     - basic_pkg

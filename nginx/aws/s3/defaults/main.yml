@@ -1,0 +1,3 @@
+nginx_s3_upload_file_path: ""
+nginx_s3_upload_endpoint: "/"
+nginx_s3_upload_proxy_hide_headers: []

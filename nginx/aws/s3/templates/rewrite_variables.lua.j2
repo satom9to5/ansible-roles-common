@@ -1,0 +1,31 @@
+function ngx_lua_read_body()
+   local body = ngx.req.get_body_data()
+   if not body then
+      local path = ngx.req.get_body_file()
+      if not path then
+         return nil
+      end
+      local fh = io.open(path, "r")
+      if not fh then
+         return nil
+      end
+      body = fh:read("*all")
+      io.close(fh)
+   end
+   return body
+end
+
+local d1, d2, d3 = string.match(ngx.var.upload_id, '^(%w)(%w)(%w)')
+local upload_path = d1..'/'..d2..'/'..d3
+
+ngx.req.read_body()
+local req_body = ngx_lua_read_body()
+local filename = string.match(req_body, 'filename="(.-)"')
+local upload_ext = string.match(filename, '%.(%w+)$')
+
+ngx.var.file_path = ngx.var.file_base_path..'/'..upload_path..'/'..ngx.var.upload_id..'.'..upload_ext
+ngx.var.url = ngx.var.s3_url..'/'..ngx.var.file_path
+
+local canonicalized_resource = '/'..ngx.var.s3_bucket..'/'..ngx.var.file_path
+ngx.var.string_to_sign = ngx.var.string_to_sign..ngx.var.canonicalized_amz_headers.."\n"..canonicalized_resource
+ngx.var.aws_signature = ngx.encode_base64(ngx.hmac_sha1(ngx.var.aws_secret_access_key, ngx.var.string_to_sign))

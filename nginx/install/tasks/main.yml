@@ -60,7 +60,7 @@
       -with-http_degradation_module \
       -with-http_xslt_module \
       -with-http_v2_module \
-      -with-ld-opt="-Wl,-rpath,/path/to/luajit-or-lua/lib" \
+      -with-ld-opt="-Wl,-rpath,/path/to/luajit-or-lua/lib" 
 
 - name: nginx install
   tags:
@@ -90,6 +90,32 @@
     - nginx
   when: nginx_conf_dir_check.rc != 0
   command: mkdir -p /etc/nginx/conf.d/
+
+- name: nginx location conf directory check
+  tags:
+    - nginx
+  command: test -d /etc/nginx/conf.d/location/
+  register: nginx_location_conf_dir_check
+  failed_when: nginx_location_conf_dir_check.rc not in [0,1]
+
+- name: create nginx location conf directory 
+  tags:
+    - nginx
+  when: nginx_location_conf_dir_check.rc != 0
+  command: mkdir -p /etc/nginx/conf.d/location/
+
+- name: nginx lua script directory check
+  tags:
+    - nginx
+  command: test -d /etc/nginx/conf.d/lua/
+  register: nginx_lua_script_dir_check
+  failed_when: nginx_lua_script_dir_check.rc not in [0,1]
+
+- name: create nginx lua script directory 
+  tags:
+    - nginx
+  when: nginx_lua_script_dir_check.rc != 0
+  command: mkdir -p /etc/nginx/conf.d/lua/
 
 - name: nginx temp directory check
   tags:
@@ -129,6 +155,14 @@
     dest=/etc/nginx/nginx.conf
     mode=0755
 
+- name: nginx env conf file copy
+  tags:
+    - nginx
+  template: >
+    src=env.conf.j2
+    dest=/etc/nginx/env.conf
+    mode=0755
+
 - name: nginx gzip conf file copy
   tags:
     - nginx
@@ -163,14 +197,33 @@
 - name: nginx init.d script copy
   tags:
     - nginx
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   template: >
     src=init.d.j2
     dest=/etc/rc.d/init.d/nginx
     mode=0755
 
-- name: nginx service enable
+- name: nginx systemd service copy
   tags:
     - nginx
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  template: >
+    src=nginx.service.j2
+    dest=/usr/lib/systemd/system/nginx.service
+    mode=0644
+
+- name: nginx service enable by RHEL6
+  tags:
+    - nginx
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   service: >
     name=nginx
+    enabled=yes
+
+- name: nginx service enable by RHEL7
+  tags:
+    - nginx
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  service: >
+    name=nginx.service
     enabled=yes
