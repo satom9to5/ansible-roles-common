@@ -6,10 +6,17 @@
     name=elasticsearch
     state=latest
 
-- name: elasticsearch start
+- name: elasticsearch service enable 
   tags:
     - elasticsearch
   service: >
     name=elasticsearch
-    state=restarted
     enabled=yes
+
+- name: elasticsearch start
+  tags:
+    - elasticsearch
+  when: ansible_virtualization_type != 'docker'
+  service: >
+    name=elasticsearch
+    state=started
