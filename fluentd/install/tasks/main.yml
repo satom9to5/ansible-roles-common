@@ -11,6 +11,7 @@
 - name: fluentd restart
   tags:
     - fluentd
+  when: ansible_virtualization_type != 'docker'
   service: >
     name=td-agent
     state=started
