@@ -9,7 +9,7 @@
     repo=https://github.com/riywo/anyenv
     dest={{ anyenv_path }}
      
-- name: copy anyenv profile.d shell
+- name: copy anyenv profile shell
   tags:
     - anyenv
     - goenv
@@ -18,7 +18,7 @@
     - rbenv
   template: >
     src=anyenv.sh.j2
-    dest=/etc/profile.d/anyenv.sh
+    dest=/etc/profile.d/proglang/anyenv.sh
 
 - name: anyenv start
   tags:

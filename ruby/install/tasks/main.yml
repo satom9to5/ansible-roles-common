@@ -10,13 +10,13 @@
     - ruby
   when: ruby_directory_check.rc != 0
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     rbenv install {{ ruby_version }}
 
 - name: Ruby Version fix
   tags:
     - ruby
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     rbenv global {{ ruby_version }}
     rbenv rehash

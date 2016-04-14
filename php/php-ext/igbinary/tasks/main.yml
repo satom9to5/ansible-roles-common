@@ -47,7 +47,7 @@
     - igbinary
   ignore_errors: yes
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     cd /usr/local/src/php-ext/igbinary-{{ igbinary_ext_version }}
     phpize
     ./configure --enable-igbinary-igbinary

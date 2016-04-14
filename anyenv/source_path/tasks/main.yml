@@ -2,7 +2,7 @@
   tags: 
     - always
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     env | grep '^PATH=' | cut -b6-
   register: anyenv_path_result
 

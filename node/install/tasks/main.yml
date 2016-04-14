@@ -10,13 +10,13 @@
     - node
   when: nodejs_directory_check.rc != 0
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     ndenv install {{ node_version }}
 
 - name: node.js Version fix
   tags:
     - node
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     ndenv global {{ node_version }}
     ndenv rehash

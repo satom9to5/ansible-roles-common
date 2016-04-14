@@ -12,7 +12,7 @@
     - node
   when: ndenv_dir_check.rc != 0
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     anyenv install ndenv 
 
 - name: ndenv releases check
@@ -20,5 +20,5 @@
     - ndenv
     - node
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     ndenv install -l

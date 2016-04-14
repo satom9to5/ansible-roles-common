@@ -12,5 +12,5 @@
     - golang
   when: goenv_dir_check.rc != 0
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     anyenv install goenv 

@@ -47,7 +47,7 @@
     - pecl_http
   ignore_errors: yes
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     cd /usr/local/src/php-ext/pecl_http-{{ pecl_http_ext_version }}
     phpize
     ./configure

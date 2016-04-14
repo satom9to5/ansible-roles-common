@@ -24,7 +24,7 @@
     - nginx
   ignore_errors: yes
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     export LUAJIT_LIB=/usr/local/lib
     export LUAJIT_INC=/usr/local/include/luajit-2.0
     nginx-build \

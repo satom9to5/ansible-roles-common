@@ -53,14 +53,14 @@
   tags:
     - php
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     phpenv install {{ php_version }}
 
 - name: PHP Version fix
   tags:
     - php
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     phpenv global {{ php_version }}
     phpenv rehash
 

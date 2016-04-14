@@ -73,7 +73,7 @@
     - php-memcached
   ignore_errors: yes
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     cd /usr/local/src/php-ext/memcached-{{ memcached_ext_version }}
     phpize
     ./configure --enable-memcached-igbinary

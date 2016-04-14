@@ -12,7 +12,7 @@
     - ruby
   when: rbenv_dir_check.rc != 0
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     anyenv install rbenv
 
 - name: rbenv releases check
@@ -20,5 +20,5 @@
     - rbenv
     - ruby
   shell: |
-    source /etc/profile.d/anyenv.sh
+    source /etc/profile.d/proglang.sh
     rbenv install -l
