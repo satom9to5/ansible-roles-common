@@ -1,1 +1,2 @@
+is_anyenv: false # デフォルトはanyenvインストールしない
 anyenv_path: /opt/anyenv

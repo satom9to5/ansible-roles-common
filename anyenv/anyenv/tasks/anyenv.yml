@@ -1,0 +1,31 @@
+- name: anyenv download
+  tags:
+    - anyenv
+    - goenv
+    - ndenv
+    - phpenv
+    - rbenv
+  git: >
+    repo=https://github.com/riywo/anyenv
+    dest={{ anyenv_path }}
+     
+- name: copy anyenv profile shell
+  tags:
+    - anyenv
+    - goenv
+    - ndenv
+    - phpenv
+    - rbenv
+  template: >
+    src=anyenv.sh.j2
+    dest=/etc/profile.d/proglang/anyenv.sh
+
+- name: anyenv start
+  tags:
+    - anyenv
+    - goenv
+    - ndenv
+    - phpenv
+    - rbenv
+  shell: |
+    source /etc/profile

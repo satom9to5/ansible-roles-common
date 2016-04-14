@@ -1,0 +1,3 @@
+dependencies:
+  - { role: common/profile } # 通常時
+  - { role: common/anyenv/goenv } # goenv利用時

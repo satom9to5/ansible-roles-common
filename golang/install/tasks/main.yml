@@ -1,0 +1,4 @@
+- include: normal.yml
+  when: is_anyenv == false
+- include: goenv.yml
+  when: is_anyenv == true
