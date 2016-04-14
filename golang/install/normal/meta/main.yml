@@ -1,0 +1,3 @@
+dependencies:
+  - { role: common/profile }
+  - { role: common/golang/golang-defaults }

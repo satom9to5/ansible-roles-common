@@ -1,0 +1,3 @@
+dependencies:
+  - { role: common/anyenv/goenv }
+  - { role: common/golang/golang-defaults }
