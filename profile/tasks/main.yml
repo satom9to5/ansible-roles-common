@@ -1,0 +1,17 @@
+- name: create sub profile shell directory
+  tags:
+    - profile
+    - anyenv
+    - golang
+  shell: |
+    mkdir -p /etc/profile.d/proglang
+
+- name: copy proglang profile shell
+  tags:
+    - profile
+    - anyenv
+    - golang
+  template: >
+    src=proglang.sh.j2
+    dest=/etc/profile.d/proglang.sh
+

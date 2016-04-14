@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# anyenv使用時はそちらだけ読み込む
+if [ -f "/etc/profile.d/proglang/anyenv.sh" ]; then
+  source /etc/profile.d/proglang/anyenv.sh
+  exit 0 
+fi
+
+if [ -f "/etc/profile.d/proglang/golang.sh" ]; then
+  source /etc/profile.d/proglang/golang.sh
+fi
