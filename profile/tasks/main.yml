@@ -3,8 +3,9 @@
     - profile
     - anyenv
     - golang
-  shell: |
-    mkdir -p /etc/profile.d/proglang
+  file: >
+    path=/etc/profile.d/proglang
+    state=directory
 
 - name: copy proglang profile shell
   tags:
