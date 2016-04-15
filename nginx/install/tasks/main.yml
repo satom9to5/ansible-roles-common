@@ -215,7 +215,7 @@
 - name: nginx service enable by RHEL6
   tags:
     - nginx
-  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6' and service_enable == 1
   service: >
     name=nginx
     enabled=yes
@@ -223,7 +223,7 @@
 - name: nginx service enable by RHEL7
   tags:
     - nginx
-  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7' and service_enable == 1
   service: >
     name=nginx.service
     enabled=yes
