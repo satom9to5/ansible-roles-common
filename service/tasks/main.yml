@@ -1,0 +1,14 @@
+- name: service enable check
+  tags: 
+    - always
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  command: /usr/bin/systemctl
+  register: service_enable_result
+  failed_when: service_enable_result.rc not in [0,1]
+
+- name: set_fact service_enable
+  tags:
+    - always
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7' and service_enable_result.rc == 1
+  set_fact:
+    service_enable: 0
