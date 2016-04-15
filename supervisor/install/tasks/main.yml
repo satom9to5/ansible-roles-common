@@ -1,0 +1,7 @@
+- name: supervisor install
+  tags:
+    - supervisor
+  yum: >
+    name=supervisor
+    state=latest
+    enablerepo=epel
