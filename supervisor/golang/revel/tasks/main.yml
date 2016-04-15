@@ -1,0 +1,9 @@
+- name: revel run supervisor ini copy
+  tags:
+    - supervisor
+    - golang
+    - revel
+  template: >
+    src=revel.ini.j2
+    dest=/etc/supervisord.d/revel.ini
+    mode=0755

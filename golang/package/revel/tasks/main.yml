@@ -1,0 +1,9 @@
+- name: revel package install
+  tags:
+    - golang
+    - revel
+  ignore_errors: yes
+  shell: |
+    source /etc/profile.d/proglang.sh
+    go get github.com/revel/revel
+    go get github.com/revel/cmd/revel
