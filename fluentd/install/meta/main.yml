@@ -1,2 +1,3 @@
 dependencies:
+  - { role: common/service }
   - { role: common/fluentd/repo }

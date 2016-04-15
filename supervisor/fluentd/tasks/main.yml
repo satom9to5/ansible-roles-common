@@ -1,0 +1,8 @@
+- name: fluentd supervisor ini copy
+  tags:
+    - supervisor
+    - fluentd
+  template: >
+    src=fluentd.ini.j2
+    dest=/etc/supervisord.d/fluentd.ini
+    mode=0755

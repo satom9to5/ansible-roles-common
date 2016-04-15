@@ -10,6 +10,7 @@
 - name: fluentd service enable 
   tags:
     - fluentd
+  when: service_enable == 1
   service: >
     name=td-agent
     enabled=yes
@@ -18,7 +19,7 @@
 - name: fluentd restart
   tags:
     - fluentd
-  when: ansible_virtualization_type != 'docker'
+  when: service_enable == 1
   service: >
     name=td-agent
     state=started

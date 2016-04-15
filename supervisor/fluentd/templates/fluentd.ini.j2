@@ -1,0 +1,7 @@
+[program:fluentd]
+command=/usr/sbin/td-agent -c /etc/td-agent/td-agent.conf
+stdout_events_enabled=true
+stderr_events_enabled=true
+autostart = true
+autorestart = true
+stopasgroup = true
