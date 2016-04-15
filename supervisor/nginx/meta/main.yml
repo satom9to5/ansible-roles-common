@@ -1,2 +1,3 @@
 dependencies:
+  - { role: common/supervisor/install }
   - { role: common/nginx/install }
