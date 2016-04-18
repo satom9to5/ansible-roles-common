@@ -7,6 +7,28 @@
     state=latest 
     enablerepo=treasuredata
 
+- name: create conf.d directory of fluentd
+  tags:
+    - fluentd
+  file: >
+    path=/etc/td-agent/conf.d
+    state=directory
+
+- name: fluentd include setting check
+  tags:
+    - fluentd
+  command: grep -P '^include' /etc/td-agent/td-agent.conf
+  register: fluentd_conf_include_check
+  failed_when: fluentd_conf_include_check.rc not in [0,1]
+
+- name: add include setting to fluentd conf
+  tags:
+    - fluentd
+  when: fluentd_conf_include_check.rc != 0
+  shell: |
+    echo "" >> /etc/td-agent/td-agent.conf
+    echo "include /etc/td-agent/conf.d/*.conf" >> /etc/td-agent/td-agent.conf
+
 - name: fluentd service enable 
   tags:
     - fluentd
@@ -15,7 +37,6 @@
     name=td-agent
     enabled=yes
 
-# conf作成してからstartした方がよさそう
 - name: fluentd restart
   tags:
     - fluentd
@@ -23,3 +44,4 @@
   service: >
     name=td-agent
     state=started
+
