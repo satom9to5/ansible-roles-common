@@ -9,6 +9,7 @@
 - name: elasticsearch service enable 
   tags:
     - elasticsearch
+  when: service_enable == 1
   service: >
     name=elasticsearch
     enabled=yes
@@ -16,7 +17,7 @@
 - name: elasticsearch start
   tags:
     - elasticsearch
-  when: ansible_virtualization_type != 'docker'
+  when: service_enable == 1
   service: >
     name=elasticsearch
     state=started

@@ -1,0 +1,8 @@
+- name: elasticsearch supervisor ini copy
+  tags:
+    - supervisor
+    - elasticsearch
+  template: >
+    src=elasticsearch.ini.j2
+    dest=/etc/supervisord.d/elasticsearch.ini
+    mode=0755
