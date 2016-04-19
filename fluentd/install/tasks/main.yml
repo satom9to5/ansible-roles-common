@@ -7,11 +7,25 @@
     state=latest 
     enablerepo=treasuredata
 
-- name: create conf.d directory of fluentd
+- name: create input config directory of fluentd
   tags:
     - fluentd
   file: >
-    path=/etc/td-agent/conf.d
+    path=/etc/td-agent/input.d
+    state=directory
+
+- name: create filter config directory of fluentd
+  tags:
+    - fluentd
+  file: >
+    path=/etc/td-agent/filter.d
+    state=directory
+
+- name: create output config directory of fluentd
+  tags:
+    - fluentd
+  file: >
+    path=/etc/td-agent/output.d
     state=directory
 
 - name: fluentd include setting check
@@ -27,7 +41,9 @@
   when: fluentd_conf_include_check.rc != 0
   shell: |
     echo "" >> /etc/td-agent/td-agent.conf
-    echo "include /etc/td-agent/conf.d/*.conf" >> /etc/td-agent/td-agent.conf
+    echo "include /etc/td-agent/input.d/*.conf" >> /etc/td-agent/td-agent.conf
+    echo "include /etc/td-agent/filter.d/*.conf" >> /etc/td-agent/td-agent.conf
+    echo "include /etc/td-agent/output.d/*.conf" >> /etc/td-agent/td-agent.conf
 
 - name: fluentd service enable 
   tags:
