@@ -1,0 +1,4 @@
+dependencies:
+  - { role: common/fluentd/install }
+  - { role: common/elasticsearch/elasticsearch-defaults }
+  - { role: common/fluentd/plugins/elasticsearch }

@@ -1,0 +1,4 @@
+fluentd_ltsv_configs:
+  - tag_name: nginx.access_log
+    path: /var/log/nginx/access.log
+nginx_error_log_tag_name: nginx.error_log

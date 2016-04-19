@@ -1,0 +1,7 @@
+<source>
+  type tail
+  tag {{ item.tag_name }}
+  format ltsv
+  path {{ item.path }}
+  pos_file {{ fluentd_log_dir }}/{{ item.tag_name }}.pos
+</source>

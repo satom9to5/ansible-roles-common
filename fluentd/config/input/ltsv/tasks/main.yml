@@ -1,0 +1,8 @@
+- name: fluentd ltsv input config copy
+  tags:
+    - fluentd
+  template: >
+    src=ltsv.conf.j2
+    dest=/etc/td-agent/input.d/{{ item.tag_name }}.conf
+    mode=0755
+  with_items: '{{ fluentd_ltsv_configs }}'

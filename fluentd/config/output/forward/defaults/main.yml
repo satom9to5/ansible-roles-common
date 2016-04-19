@@ -1,0 +1,4 @@
+fluentd_forward_servers:
+  - name: fluentd_forward_server
+    host: '{{ fluentd_host }}'
+    port: '{{ fluentd_port }}'

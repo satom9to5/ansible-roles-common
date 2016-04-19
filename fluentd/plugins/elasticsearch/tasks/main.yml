@@ -1,0 +1,5 @@
+- name: fluentd elasticsearch plugin gem install
+  tags:
+    - fluentd
+    - elasticsearch
+  command: /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch

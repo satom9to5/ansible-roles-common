@@ -1,0 +1,4 @@
+fluentd_host: 127.0.0.1
+fluentd_port: 24224
+fluentd_bind: 0.0.0.0
+fluentd_log_dir: /var/log/td-agent

@@ -1,0 +1,10 @@
+<match {{ item.tag_name }}>
+  type elasticsearch
+  host "{{ fluentd_elasticsearch_host | default(elasticsearch_host, true) }}"
+  port {{ fluentd_elasticsearch_port | default(elasticsearch_port, true) }}
+  index_name {{ item.tag_name | replace(".", "_") }}
+  type_name {{ item.tag_name | replace(".", "_") }}
+  buffer_type memory
+  buffer_chunk_limit 8m
+  buffer_queue_limit 64
+</match>
