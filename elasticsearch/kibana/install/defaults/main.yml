@@ -1,0 +1,2 @@
+kibana_elasticsearch_host: '{{ elasticsearch_host }}'
+kibana_elasticsearch_port: '{{ elasticsearch_port }}'

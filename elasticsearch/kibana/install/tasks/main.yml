@@ -7,10 +7,18 @@
     name=kibana
     state=latest
 
+- name: kibana service enable
+  tags:
+    - kibana
+  when: service_enable == 1
+  service: >
+    name=kibana
+    enabled=yes
+
 - name: kibana start
   tags:
     - kibana
+  when: service_enable == 1
   service: >
     name=kibana
     state=restarted
-    enabled=yes

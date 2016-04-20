@@ -1,0 +1,8 @@
+- name: kibana supervisor ini copy
+  tags:
+    - supervisor
+    - kibana
+  template: >
+    src=kibana.ini.j2
+    dest=/etc/supervisord.d/kibana.ini
+    mode=0755

@@ -1,8 +1,0 @@
-[program:elasticsearch]
-command=/usr/share/elasticsearch/bin/elasticsearch -Des.default.path.home={{ elasticsearch_home }} -Des.default.path.logs={{ elasticsearch_log_dir }} -Des.default.path.data={{ elasticsearch_data_dir }} -Des.default.path.conf={{ elasticsearch_conf_dir }} -Des.network.host={{ elasticsearch_host }}
-user=elasticsearch
-stdout_events_enabled=true
-stderr_events_enabled=true
-autostart = true
-autorestart = true
-stopasgroup = true

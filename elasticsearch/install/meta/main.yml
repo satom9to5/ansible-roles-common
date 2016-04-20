@@ -2,4 +2,5 @@ dependencies:
   - { role: common/service }
   - { role: common/java }
   - { role: common/elasticsearch/repo }
+  - { role: common/elasticsearch/gpg }
   - { role: common/elasticsearch/elasticsearch-defaults }

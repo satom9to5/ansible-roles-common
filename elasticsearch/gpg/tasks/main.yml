@@ -1,0 +1,6 @@
+- name: import elasticsearch gpg key
+  tags:
+    - elasticsearch
+    - kibana
+  rpm_key: >
+    key=https://packages.elastic.co/GPG-KEY-elasticsearch

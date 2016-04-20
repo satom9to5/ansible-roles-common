@@ -1,0 +1,8 @@
+[program:kibana]
+command = /opt/kibana/bin/kibana -e http://{{ kibana_elasticsearch_host | default(elasticsearch_host, true) }}:{{ kibana_elasticsearch_port | default(elasticsearch_port, true) }}/
+user = kibana
+stdout_events_enabled = true
+stderr_events_enabled = true
+autostart = true
+autorestart = true
+stopasgroup = true
