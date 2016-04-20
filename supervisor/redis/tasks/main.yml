@@ -1,0 +1,8 @@
+- name: redis supervisor ini copy
+  tags:
+    - supervisor
+    - redis
+  template: >
+    src=redis.ini.j2
+    dest=/etc/supervisord.d/redis.ini
+    mode=0755

@@ -1,0 +1,8 @@
+[program:redis]
+command = /usr/bin/redis-server /etc/redis.conf --daemonize no
+user = redis
+stdout_events_enabled = true
+stderr_events_enabled = true
+autostart = true
+autorestart = true
+stopasgroup = true

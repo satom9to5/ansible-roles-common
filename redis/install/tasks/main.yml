@@ -1,0 +1,38 @@
+- name: Redis install 
+  tags:
+    - redis
+  ignore_errors: yes
+  yum: >
+    name=redis
+    state=latest
+    enablerepo=remi
+
+- name: change bind setting of Redis
+  tags:
+    - redis
+  command: >
+    sed -i "s|^bind \(.*\)|#bind \1\nbind 0.0.0.0|g" /etc/redis.conf
+    removes=/etc/redis.conf
+
+- name: change unixsocketperm setting of Redis
+  tags:
+    - redis
+  command: >
+    sed -i 's|^unixsocketperm.*|unixsocketperm 777|g' /etc/redis.conf
+    removes=/etc/redis.conf
+
+- name: Redis service enable 
+  tags:
+    - redis
+  when: service_enable == 1
+  service: >
+    name=redis
+    enabled=yes
+
+- name: Redis start
+  tags:
+    - redis
+  when: service_enable == 1
+  service: >
+    name=redis
+    state=started
