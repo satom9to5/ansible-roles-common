@@ -6,7 +6,7 @@
 {% for fluentd_forward_server in fluentd_forward_servers %}
   <server>
     name {{ fluentd_forward_server.name }}
-    host {{ fluentd_forward_server.host }}
+    host "{{ fluentd_forward_server.host }}"
     port {{ fluentd_forward_server.port }}
     weight {{ fluentd_forward_server.weight | default('60', true) }}
   </server>

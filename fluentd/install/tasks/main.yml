@@ -31,19 +31,24 @@
 - name: fluentd include setting check
   tags:
     - fluentd
-  command: grep -P '^include' /etc/td-agent/td-agent.conf
+  command: grep -P '^@include' /etc/td-agent/td-agent.conf
   register: fluentd_conf_include_check
   failed_when: fluentd_conf_include_check.rc not in [0,1]
 
-- name: add include setting to fluentd conf
+- name: backup original fluentd config file
   tags:
     - fluentd
   when: fluentd_conf_include_check.rc != 0
-  shell: |
-    echo "" >> /etc/td-agent/td-agent.conf
-    echo "include /etc/td-agent/input.d/*.conf" >> /etc/td-agent/td-agent.conf
-    echo "include /etc/td-agent/filter.d/*.conf" >> /etc/td-agent/td-agent.conf
-    echo "include /etc/td-agent/output.d/*.conf" >> /etc/td-agent/td-agent.conf
+  command: cp /etc/td-agent/td-agent.conf /etc/td-agent/td-agent.conf.orig
+
+- name: fluentd config copy
+  tags:
+    - fluentd
+  when: fluentd_conf_include_check.rc != 0
+  template: >
+    src=td-agent.conf.j2
+    dest=/etc/td-agent/td-agent.conf
+    mode=0755
 
 - name: fluentd service enable 
   tags:

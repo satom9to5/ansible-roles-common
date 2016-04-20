@@ -1,0 +1,4 @@
+fluentd_forward_servers:
+  - name: nginx_forward_server
+    host: "#{ENV['FLUENTD_FORWARD_HOST']}"
+    port: '{{ fluentd_port }}'
