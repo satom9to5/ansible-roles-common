@@ -78,74 +78,51 @@
     state=present
     append=yes
 
-- name: nginx conf directory check
-  tags:
-    - nginx
-  command: test -d /etc/nginx/conf.d/
-  register: nginx_conf_dir_check
-  failed_when: nginx_conf_dir_check.rc not in [0,1]
-
 - name: create nginx conf directory 
   tags:
     - nginx
-  when: nginx_conf_dir_check.rc != 0
-  command: mkdir -p /etc/nginx/conf.d/
+  file: >
+    path=/etc/nginx/conf.d
+    state=directory
 
-- name: nginx location conf directory check
+- name: create nginx upstream conf directory 
   tags:
     - nginx
-  command: test -d /etc/nginx/conf.d/location/
-  register: nginx_location_conf_dir_check
-  failed_when: nginx_location_conf_dir_check.rc not in [0,1]
+  file: >
+    path=/etc/nginx/conf.d/upstream
+    state=directory
 
 - name: create nginx location conf directory 
   tags:
     - nginx
-  when: nginx_location_conf_dir_check.rc != 0
-  command: mkdir -p /etc/nginx/conf.d/location/
-
-- name: nginx lua script directory check
-  tags:
-    - nginx
-  command: test -d /etc/nginx/conf.d/lua/
-  register: nginx_lua_script_dir_check
-  failed_when: nginx_lua_script_dir_check.rc not in [0,1]
+  file: >
+    path=/etc/nginx/conf.d/location
+    state=directory
 
 - name: create nginx lua script directory 
   tags:
     - nginx
-  when: nginx_lua_script_dir_check.rc != 0
-  command: mkdir -p /etc/nginx/conf.d/lua/
-
-- name: nginx temp directory check
-  tags:
-    - nginx
-  command: test -d /var/lib/nginx/tmp/
-  register: nginx_tmp_dir_check
-  failed_when: nginx_tmp_dir_check.rc not in [0,1]
+  file: >
+    path=/etc/nginx/conf.d/lua
+    state=directory
 
 - name: create nginx temp directory
   tags:
     - nginx
-  when: nginx_tmp_dir_check.rc != 0
-  shell: |
-    mkdir -p /var/lib/nginx/tmp
-    chown {{ nginx_user }}:{{ nginx_user }} /var/lib/nginx/tmp
-
-- name: nginx cache directory check
-  tags:
-    - nginx
-  command: test -d /var/cache/nginx
-  register: nginx_cache_dir_check
-  failed_when: nginx_cache_dir_check.rc not in [0,1]
+  file: >
+    path=/var/lib/nginx/tmp
+    state=directory
+    owner={{ nginx_user }}
+    group={{ nginx_user }}
 
 - name: create nginx cache directory
   tags:
     - nginx
-  when: nginx_cache_dir_check.rc != 0
-  shell: |
-    mkdir -p /var/cache/nginx
-    chown {{ nginx_user }}:{{ nginx_user }} /var/cache/nginx
+  file: >
+    path=/var/cache/nginx
+    state=directory
+    owner={{ nginx_user }}
+    group={{ nginx_user }}
 
 - name: nginx conf file copy
   tags:
@@ -185,6 +162,14 @@
   template: >
     src=fastcgi_cache.conf.j2
     dest=/etc/nginx/fastcgi_cache.conf
+    mode=0755
+
+- name: nginx server conf file copy
+  tags:
+    - nginx
+  template: >
+    src=server.conf.j2
+    dest=/etc/nginx/server.conf
     mode=0755
 
 - name: nginx sysconfig copy

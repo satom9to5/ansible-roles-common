@@ -68,6 +68,10 @@ http {
     # fastcgi_cache_config
     include /etc/nginx/fastcgi_cache.conf;
 
+    # include upstream config
+    include /etc/nginx/conf.d/upstream/*.conf;
+
     # include virtual server config
+    include /etc/nginx/server.conf;
     include /etc/nginx/conf.d/*.conf;
 }
