@@ -1,0 +1,6 @@
+location {{ nginx_elasticsearch_location }} {
+    rewrite ^{{ nginx_elasticsearch_location }}/(.+) $1 break;
+
+    proxy_pass     http://{{ nginx_elasticsearch_upstream }}/$1;
+    proxy_redirect / $scheme://$http_host{{ nginx_elasticsearch_location }}/;
+}

@@ -1,0 +1,3 @@
+dependencies:
+  - { role: common/nginx/install }
+  - { role: common/elasticsearch/kibana/kibana-defaults }

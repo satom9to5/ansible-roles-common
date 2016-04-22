@@ -1,7 +1,15 @@
-- name: copy nginx server config file of elasticsearch
+- name: copy nginx upstream config file of elasticsearch
   tags:
     - nginx
     - elasticsearch
   template: >
-    src=elasticsearch.conf.j2
-    dest=/etc/nginx/conf.d/elasticsearch.conf
+    src=upstream.elasticsearch.conf.j2
+    dest=/etc/nginx/conf.d/upstream/elasticsearch.conf
+
+- name: copy nginx location config file of elasticsearch
+  tags:
+    - nginx
+    - elasticsearch
+  template: >
+    src=location.elasticsearch.conf.j2
+    dest=/etc/nginx/conf.d/location/elasticsearch.conf

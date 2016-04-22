@@ -1,7 +1,8 @@
 [program:nginx]
-command=/usr/sbin/nginx -c /etc/nginx/nginx.conf
-stdout_events_enabled=true
-stderr_events_enabled=true
+command = /usr/sbin/nginx -c /etc/nginx/nginx.conf
+user = nginx
+stdout_events_enabled = true
+stderr_events_enabled = true
 autostart = true
 autorestart = true
 stopasgroup = true

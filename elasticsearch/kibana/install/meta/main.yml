@@ -3,3 +3,4 @@ dependencies:
   - { role: common/elasticsearch/gpg }
   - { role: common/elasticsearch/kibana/repo }
   - { role: common/elasticsearch/elasticsearch-defaults }
+  - { role: common/elasticsearch/kibana/kibana-defaults }

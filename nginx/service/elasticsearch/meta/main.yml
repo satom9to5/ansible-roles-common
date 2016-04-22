@@ -1,4 +1,3 @@
 dependencies:
   - { role: common/nginx/install }
-  - { role: common/elasticsearch/install }
   - { role: common/elasticsearch/elasticsearch-defaults }

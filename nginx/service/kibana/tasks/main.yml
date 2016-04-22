@@ -1,0 +1,15 @@
+- name: copy nginx upstream config file of kibana
+  tags:
+    - nginx
+    - kibana
+  template: >
+    src=upstream.kibana.conf.j2
+    dest=/etc/nginx/conf.d/upstream/kibana.conf
+
+- name: copy nginx location config file of kibana
+  tags:
+    - nginx
+    - kibana
+  template: >
+    src=location.kibana.conf.j2
+    dest=/etc/nginx/conf.d/location/kibana.conf

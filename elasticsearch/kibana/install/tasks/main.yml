@@ -1,11 +1,25 @@
 - name: kibana install
   tags: 
-    - elasticsearch
     - kibana
   ignore_errors: yes
   yum: >
     name=kibana
     state=latest
+
+- name: kibana server.basePath conf check
+  tags:
+    - kibana
+  command: grep -P '^server.basePath' /opt/kibana/config/kibana.yml 
+  register: kibana_server_basepath_check
+  failed_when: kibana_server_basepath_check.rc not in [0,1]
+
+- name: add kibana server.basePath conf
+  tags:
+    - kibana
+  when: kibana_server_basepath_check.rc != 0 
+  shell: |
+    echo "" >> /opt/kibana/config/kibana.yml
+    echo "server.basePath: \"{{ kibana_server_basepath }}\"" >> /opt/kibana/config/kibana.yml
 
 - name: kibana service enable
   tags:

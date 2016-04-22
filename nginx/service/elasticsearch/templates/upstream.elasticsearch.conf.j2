@@ -1,0 +1,4 @@
+# upstream Setting
+upstream {{ nginx_elasticsearch_upstream }} {
+    server {{ nginx_elasticsearch_host | default(elasticsearch_host, true) }}:{{ nginx_elasticsearch_port | default(elasticsearch_port, true) }};
+}
