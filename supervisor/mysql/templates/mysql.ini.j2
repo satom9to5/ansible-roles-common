@@ -1,0 +1,7 @@
+[program:mysql]
+command = /usr/bin/pidproxy {{ mysql_pidfile }} /usr/bin/mysqld_safe --datadir={{ mysql_datadir }} --socket={{ mysql_socket }} --pid-file={{ mysql_pidfile }} --user=mysql
+stdout_events_enabled = true
+stderr_events_enabled = true
+autostart = true
+autorestart = true
+stopasgroup = true

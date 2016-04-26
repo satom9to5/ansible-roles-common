@@ -1,0 +1,8 @@
+- name: MySQL supervisor ini copy
+  tags:
+    - supervisor
+    - mysql
+  template: >
+    src=mysql.ini.j2
+    dest=/etc/supervisord.d/mysql.ini
+    mode=0755

@@ -42,3 +42,16 @@
     - mysql-community-libs
     - MySQL-python
 
+- name: MySQL database directory check
+  tags:
+    - mysql
+  command: test -d {{ mysql_datadir }}/mysql
+  register: mysql_database_dir_check
+  failed_when: mysql_database_dir_check.rc not in [0,1]
+
+- name: exec mysql_install_db script
+  tags:
+    - mysql
+  when: mysql_database_dir_check.rc != 0
+  command: /usr/bin/mysql_install_db --rpm --datadir="{{ mysql_datadir }}" --rpm --user=mysql --keep-my-cnf
+

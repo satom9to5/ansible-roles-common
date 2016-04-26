@@ -1,1 +1,4 @@
 mysql_version: 5.6
+mysql_datadir: /var/lib/mysql
+mysql_pidfile: /var/run/mysqld/mysqld.pid
+mysql_socket: "{{ mysql_datadir }}/mysql.sock"

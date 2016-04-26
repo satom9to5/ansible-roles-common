@@ -1,0 +1,3 @@
+dependencies:
+  - { role: common/supervisor/install }
+  - { role: common/mysql/install }
