@@ -1,0 +1,11 @@
+fluentd_filter_grep_configs: []
+
+#Sample
+#fluentd_filter_grep_configs: 
+#  - tag_name: hoge
+#    regexp:
+#      - name: status
+#        pattern: 200
+#    exclude:
+#      - name: path
+#        pattern: \.(js|css|jpe?g|gif|png)$

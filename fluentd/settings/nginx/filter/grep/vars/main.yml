@@ -1,0 +1,5 @@
+fluentd_filter_grep_configs: 
+  - tag_name: nginx.access_log
+    exclude:
+      - name: path
+        pattern: \.(js|css|jpe?g|gif|png)$

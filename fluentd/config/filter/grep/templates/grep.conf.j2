@@ -1,0 +1,17 @@
+<filter {{ item.tag_name }}>
+  @type grep
+{% if item.regexp is defined %}
+{% set regexp_num = 1 %}
+{% for regexp in item.regexp %}
+  regexp{{ regexp_num }} {{ regexp.name }} {{ regexp.pattern }}
+{% set regexp_num = regexp_num + 1 %}
+{% endfor %}
+{% endif %}
+{% if item.exclude is defined %}
+{% set exclude_num = 1 %}
+{% for exclude in item.exclude %}
+  exclude{{ exclude_num }} {{ exclude.name }} {{ exclude.pattern }}
+{% set exclude_num = exclude_num + 1 %}
+{% endfor %}
+{% endif %}
+</filter>

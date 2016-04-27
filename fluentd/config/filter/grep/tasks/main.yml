@@ -1,0 +1,8 @@
+- name: fluentd grep filter config copy
+  tags:
+    - fluentd
+  template: >
+    src=grep.conf.j2
+    dest=/etc/td-agent/filter.d/{{ item.tag_name }}.conf
+    mode=0755
+  with_items: '{{ fluentd_filter_grep_configs }}'
