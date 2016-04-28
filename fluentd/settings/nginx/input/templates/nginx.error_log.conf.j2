@@ -4,4 +4,5 @@
   path /var/log/nginx/error.log
   pos_file {{ fluentd_log_dir }}/{{ nginx_error_log_tag_name }}.pos
   format /^(?<time>.+) \[(?<level>[^\]]+)\] *(?<message>.*)$/
+  keep_time_key true
 </source>

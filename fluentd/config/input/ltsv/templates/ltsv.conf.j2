@@ -2,6 +2,7 @@
   type tail
   tag {{ item.tag_name }}
   format ltsv
+  keep_time_key true
   path {{ item.path }}
   pos_file {{ fluentd_log_dir }}/{{ item.tag_name }}.pos
 </source>
