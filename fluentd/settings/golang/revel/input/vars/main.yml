@@ -1,0 +1,6 @@
+revel_log_path: /var/log/revel
+revel_sql_log_path: "{{ revel_log_path }}/*sql.log"
+fluentd_revel_tail_configs:
+  - tag_name: revel.sql_log
+    path: "{{ revel_sql_log_path }}"
+    format: "/^\\[(?<time>.+)\\]: (?<message>.*)(|\\[(?<sql>.+)\\])$/"  

@@ -1,3 +1,2 @@
 dependencies:
   - { role: common/fluentd/config/input/tail }
-#  - { role: common/fluentd/default-settings/nginx/input }

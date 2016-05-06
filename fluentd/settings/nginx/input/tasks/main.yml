@@ -1,8 +1,0 @@
-- name: fluentd nginx error_log input config copy
-  tags:
-    - fluentd
-    - nginx
-  template: >
-    src=nginx.error_log.conf.j2
-    dest=/etc/td-agent/input.d/nginx.error_log.conf
-    mode=0755
