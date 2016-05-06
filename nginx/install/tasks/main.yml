@@ -148,6 +148,14 @@
     dest=/etc/nginx/log.conf
     mode=0755
 
+- name: nginx charset conf file copy
+  tags:
+    - nginx
+  template: >
+    src=charset.conf.j2
+    dest=/etc/nginx/charset.conf
+    mode=0755
+
 - name: nginx gzip conf file copy
   tags:
     - nginx
