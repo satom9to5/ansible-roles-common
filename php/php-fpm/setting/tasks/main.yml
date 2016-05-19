@@ -35,10 +35,10 @@
   tags:
     - php
     - php-fpm
-  when: pj_name != "" 
+  when: app_name != "" 
   template: >
     src=pool.conf.j2
-    dest={{ installed_php_dir }}/etc/php-fpm.d/{{ pj_name }}.conf
+    dest={{ installed_php_dir }}/etc/php-fpm.d/{{ app_name }}.conf
 
 - name: php-fpm listen directory check
   tags:
