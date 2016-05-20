@@ -1,4 +1,4 @@
-fluentd_elasticsearch_configs:
+fluentd_nginx_elasticsearch_configs:
   - tag_name: nginx.access_log
   - tag_name: nginx.error_log
 fluentd_elasticsearch_host: "#{ENV['FLUENTD_ELASTICSEARCH_HOST']}"
