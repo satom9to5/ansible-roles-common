@@ -1,5 +1,5 @@
 [program:revel]
-command=%(ENV_GOPATH)s/bin/%(ENV_APP_NAME)s/%(ENV_APP_NAME)s -importPath %(ENV_REVEL_PACKAGE)s -srcPath %(ENV_GOPATH)s/bin/%(ENV_APP_NAME)s/src -runMode %(APP_MODE)s
+command=%(ENV_GOPATH)s/bin/%(ENV_APP_NAME)s/%(ENV_APP_NAME)s -importPath %(ENV_REVEL_PACKAGE)s -srcPath %(ENV_GOPATH)s/bin/%(ENV_APP_NAME)s/src -runMode %(ENV_APP_MODE)s
 stdout_events_enabled=true
 stderr_events_enabled=true
 autostart = true
