@@ -1,0 +1,15 @@
+- name: load secure_path from sudoers
+  tags: 
+    - sudoers
+  become: true
+  shell: |
+    grep "^Defaults.*secure_path" /etc/sudoers
+  register: secure_path_result
+
+- name: copy add_secure_path
+  tags:
+    - sudoers
+  when: secure_path_result.stdout != ""
+  template: >
+    src=add_secure_path.j2
+    dest=/etc/sudoers.d/add_secure_path

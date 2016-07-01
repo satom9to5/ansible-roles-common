@@ -1,0 +1,7 @@
+- name: sudo install
+  tags:
+    - sudoers
+  ignore_errors: yes
+  yum: >
+    name=sudo
+    state=latest
