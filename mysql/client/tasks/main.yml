@@ -1,0 +1,15 @@
+- name: MySQL client install (MySQL Version: 5.6, RedHat Version 6)
+  tags:
+    - mysql
+  when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
+  yum: >
+    name=mysql
+    state=latest
+
+- name: MySQL client install (MySQL Version: 5.6, RedHat Version 7)
+  tags:
+    - mysql
+  when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  yum: >
+    name=mysql-community-client
+    state=latest
