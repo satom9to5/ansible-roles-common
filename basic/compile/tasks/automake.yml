@@ -10,6 +10,7 @@
   tags:
     - basic_pkg
     - automake
+  become: true
   when: automake_source_check.rc != 0
   get_url: >
     url=http://ftp.gnu.org/gnu/automake/{{ automake_fullname }}.tar.gz
@@ -28,6 +29,7 @@
   tags:
     - basic_pkg
     - automake
+  become: true
   when: automake_dir_check.rc == 0
   file: >
     path={{ automake_path }}
@@ -37,6 +39,7 @@
   tags:
     - basic_pkg
     - automake
+  become: true
   shell: |
     cd /usr/local/src
     tar xvzf {{ automake_path }}.tar.gz
@@ -45,6 +48,7 @@
   tags:
     - basic_pkg
     - automake
+  become: true
   shell: |
     cd {{ automake_path }}
     ./configure

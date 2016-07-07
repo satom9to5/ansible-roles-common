@@ -2,6 +2,7 @@
   tags:
     - basic
     - basic/compile
+  become: true
   ignore_errors: yes
   yum: >
     name={{ item }}

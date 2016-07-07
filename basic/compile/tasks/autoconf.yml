@@ -10,6 +10,7 @@
   tags:
     - basic_pkg
     - autoconf
+  become: true
   when: autoconf_source_check.rc != 0
   get_url: >
     url=http://ftp.gnu.org/gnu/autoconf/{{ autoconf_fullname }}.tar.gz
@@ -27,6 +28,7 @@
   tags:
     - basic_pkg
     - autoconf
+  become: true
   when: autoconf_dir_check.rc == 0
   file: >
     path={{ autoconf_path }}
@@ -36,6 +38,7 @@
   tags:
     - basic_pkg
     - autoconf
+  become: true
   shell: |
     cd /usr/local/src
     tar xvzf {{ autoconf_path }}.tar.gz
@@ -44,6 +47,7 @@
   tags:
     - basic_pkg
     - autoconf
+  become: true
   shell: |
     cd {{ autoconf_path }}
     ./configure

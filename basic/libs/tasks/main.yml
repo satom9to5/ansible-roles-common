@@ -8,6 +8,7 @@
 - name: add ld.so.conf config
   tags:
     - basic_lib
+  become: true
   when: usr_local_lib_conf_check.rc != 0
   template: >
     src=usr_local_lib.conf.j2
@@ -16,4 +17,5 @@
 - name: update shared library path with ldconfig
   tags:
     - basic_lib
+  become: true
   command: /sbin/ldconfig

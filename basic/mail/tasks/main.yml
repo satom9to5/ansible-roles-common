@@ -2,6 +2,7 @@
   tags:
     - basic
     - basic/mail
+  become: true
   ignore_errors: yes
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
   yum: >
