@@ -1,4 +1,4 @@
-- name: MySQL server install (MySQL Version: 5.6, RedHat Version 6)
+- name: MySQL server install (MySQL Version 5.6, RedHat Version 6)
   tags:
     - mysql
   when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
@@ -6,7 +6,7 @@
     name=server
     state=latest
 
-- name: MySQL server install (MySQL Version: 5.6, RedHat Version 7)
+- name: MySQL server install (MySQL Version 5.6, RedHat Version 7)
   tags:
     - mysql
   when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
