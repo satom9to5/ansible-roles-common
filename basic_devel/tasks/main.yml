@@ -1,9 +1,0 @@
-- name: devel packages install
-  tags:
-    - basic_devel
-  ignore_errors: yes
-  yum: name={{ item }} state=latest
-  with_items:
-    - openssl-devel
-    - libcurl-devel
-    - pcre-devel
