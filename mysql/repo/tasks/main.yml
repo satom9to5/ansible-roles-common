@@ -8,6 +8,7 @@
 - name: MySQL repo install
   tags:
     - mysql
+  become: true
   when: mysql_repo_check.rc != 0
   yum: >
     name=http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm

@@ -1,6 +1,7 @@
 - name: MySQL server start
   tags:
     - mysql
+  become: true
   service: >
     name=mysqld
     state=started
