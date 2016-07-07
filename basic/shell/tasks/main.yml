@@ -1,0 +1,11 @@
+- name: shell packages install
+  tags:
+    - basic
+    - basic/shell
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - zsh
+    - bash-completion

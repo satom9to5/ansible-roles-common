@@ -1,0 +1,28 @@
+- name: base packages install
+  tags:
+    - basic
+    - basic/base
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - which
+    - expect
+    - file
+    - initscripts
+    - dos2unix
+    - unix2dos
+
+- name: base packages install by EPEL
+  tags:
+    - basic
+    - basic/base
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+    enablerepo=remi
+  with_items:
+    - jq
+    - nkf

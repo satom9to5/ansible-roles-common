@@ -1,0 +1,12 @@
+- name: system packages install
+  tags:
+    - basic
+    - basic/system
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - lsof
+    - strace
+    - sysstat

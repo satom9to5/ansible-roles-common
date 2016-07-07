@@ -1,0 +1,13 @@
+- name: archive packages install
+  tags:
+    - basic
+    - basic/archive
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - tar
+    - zip
+    - unzip
+    - bzip2

@@ -1,0 +1,29 @@
+- name: network packages install
+  tags:
+    - basic
+    - basic/network
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - net-tools
+    - telnet
+    - curl
+    - wget
+    - bind-utils
+    - tcpdump
+
+- name: base packages install by EPEL
+  tags:
+    - basic
+    - basic/network
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+    enablerepo=remi
+  with_items:
+    - jwhois
+    - ngrep
+    - nmap
