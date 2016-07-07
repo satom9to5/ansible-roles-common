@@ -1,2 +1,3 @@
 dependencies:
-  - { role: common/basic_pkg }
+  - { role: common/basic/archive }
+  - { role: common/basic/compile }
