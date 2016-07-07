@@ -1,6 +1,7 @@
 - name: docker engine install
   tags:
     - docker
+  become: true
   ignore_errors: yes
   yum: >
     name=docker-engine
@@ -10,6 +11,7 @@
 - name: docker engine start
   tags:
     - docker
+  become: true
   service: >
     name=docker
     state=restarted

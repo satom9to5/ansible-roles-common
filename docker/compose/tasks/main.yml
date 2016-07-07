@@ -10,6 +10,7 @@
   tags:
     - docker
     - docker-compose
+  become: true
   when: docker_compose_file_check.rc != 0
   get_url: >
     url="https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
@@ -19,6 +20,7 @@
   tags:
     - docker
     - docker-compose
+  become: true
   ignore_errors: yes
   shell:  |
     chmod +x /usr/local/bin/docker-compose
