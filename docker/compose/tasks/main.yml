@@ -1,25 +1,35 @@
 - name: docker-compose file check
   tags:
     - docker
-    - docker-compose
-  command: test -d /usr/local/bin/docker-compose
+    - docker/compose
+  command: test -f /usr/local/bin/docker-compose
   register: docker_compose_file_check
   failed_when: docker_compose_file_check.rc not in [0,1]
+
+- name: docker-compose version check
+  tags:
+    - docker
+    - docker/compose
+  when: docker_compose_file_check.rc == 0
+  command: /usr/local/bin/docker-compose version | grep 'docker-compose version' | awk -F '[ ,]' '{ print $3 }'
+  register: docker_compose_version_check
+  failed_when: docker_compose_version_check.rc not in [0,1]
 
 - name: docker-compose file download
   tags:
     - docker
-    - docker-compose
+    - docker/compose
   become: true
-  when: docker_compose_file_check.rc != 0
+  when: docker_compose_file_check.rc != 0 or docker_compose_version_check.stdout != "{{ docker_compose_version }}"
   get_url: >
     url="https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64"
     dest=/usr/local/bin/docker-compose
+    force=yes
 
 - name: docker-compose add x permission
   tags:
     - docker
-    - docker-compose
+    - docker/compose
   become: true
   ignore_errors: yes
   shell:  |
