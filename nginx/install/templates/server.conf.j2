@@ -1,5 +1,5 @@
 server {
-  listen 80;
+  listen 80 reuseport;
   server_name _;
 
   root {{ nginx_root }};
