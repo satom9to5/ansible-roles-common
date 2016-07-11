@@ -1,0 +1,19 @@
+- name: add normal users (auto uid)
+  tags:
+    - user
+  include: >
+     ../../single/tasks/main.yml
+     normal_user_name={{ item.name }}
+     normal_user_uid=0
+  with_items: "{{ normal_users }}"
+  when: item.uid is undefined
+
+- name: add normal users (auto uid)
+  tags:
+    - user
+  include: >
+     ../../single/tasks/main.yml
+     normal_user_name={{ item.name }}
+     normal_user_uid={{ item.uid }}
+  with_items: "{{ normal_users }}"
+  when: item.uid is defined

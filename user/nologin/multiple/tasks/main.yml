@@ -1,0 +1,19 @@
+- name: add nologin users (auto uid)
+  tags:
+    - user
+  include: >
+     ../../single/tasks/main.yml
+     nologin_user_name={{ item.name }}
+     nologin_user_uid=0
+  with_items: "{{ nologin_users }}"
+  when: item.uid is undefined
+
+- name: add nologin users (auto uid)
+  tags:
+    - user
+  include: >
+     ../../single/tasks/main.yml
+     nologin_user_name={{ item.name }}
+     nologin_user_uid={{ item.uid }}
+  with_items: "{{ nologin_users }}"
+  when: item.uid is defined

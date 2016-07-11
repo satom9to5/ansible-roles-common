@@ -1,0 +1,20 @@
+- name: add normal user (auto uid)
+  tags:
+    - user
+  user: >
+    name={{ normal_user_name }}
+    shell=/bin/bash
+    state=present
+    append=yes
+  when: normal_user_uid | int == 0
+
+- name: add normal user (custom uid)
+  tags:
+    - user
+  user: >
+    name={{ normal_user_name }}
+    uid={{ normal_user_uid }}
+    shell=/bin/bash
+    state=present
+    append=yes
+  when: normal_user_uid | int > 0
