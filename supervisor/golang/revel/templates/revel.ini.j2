@@ -5,3 +5,6 @@ stderr_events_enabled=true
 autostart = true
 autorestart = true
 stopasgroup = true
+{% if supervisor_revel_user_env %}
+user=%(ENV_REVEL_USER)s
+{% endif %}
