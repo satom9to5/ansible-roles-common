@@ -1,4 +1,5 @@
 nginx_user: nginx
+nginx_user_uid: 1010
 nginx_port: 80
 nginx_root: "/var/www/html"
 nginx_default_do_not_cache: 0

@@ -69,15 +69,6 @@
      cd {{ nginx_make_work_directory }}
      make install
 
-- name: add nginx user
-  tags:
-    - nginx
-  user: >
-    name=nginx
-    shell=/sbin/nologin
-    state=present
-    append=yes
-
 - name: create nginx conf directory 
   tags:
     - nginx
