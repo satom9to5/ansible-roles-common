@@ -1,0 +1,5 @@
+- name: pip install
+  tags:
+    - python
+    - pip
+  shell: curl -kL https://bootstrap.pypa.io/get-pip.py | python

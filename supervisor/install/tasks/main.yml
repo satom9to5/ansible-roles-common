@@ -1,7 +1,50 @@
 - name: supervisor install
   tags:
     - supervisor
-  yum: >
-    name=supervisor
-    state=latest
-    enablerepo=epel
+  command: pip install supervisor
+
+- name: create supervisor conf directory
+  tags:
+    - supervisor
+  file: >
+    path=/etc/supervisord.d
+    state=directory
+
+- name: supervisor conf file copy
+  tags:
+    - supervisor
+  template: >
+    src=supervisord.conf.j2
+    dest=/etc/supervisord.conf
+    mode=0755
+
+- name: supervisor logrotate conf file copy
+  tags:
+    - supervisor
+  template: >
+    src=logrotate.supervisor.j2
+    dest=/etc/logrotate.d/supervisor
+    mode=0755
+
+- name: tmpfiles logrotate conf file copy
+  tags:
+    - supervisor
+  template: >
+    src=tmpfiles.supervisor.conf.j2
+    dest=/etc/tmpfiles.d/supervisor.conf
+    mode=0755
+
+- name: create supervisor log directory
+  tags:
+    - supervisor
+  file: >
+    path=/var/log/supervisor
+    state=directory
+
+- name: create supervisor socket directory
+  tags:
+    - supervisor
+  file: >
+    path=/var/run/supervisor
+    state=directory
+
