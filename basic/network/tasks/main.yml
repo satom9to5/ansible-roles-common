@@ -15,7 +15,7 @@
     - bind-utils
     - tcpdump
 
-- name: base packages install by EPEL
+- name: network packages install by EPEL
   tags:
     - basic
     - basic/network
