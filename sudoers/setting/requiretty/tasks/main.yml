@@ -2,6 +2,7 @@
   tags:
     - sudoers
     - sudoers/requiretty
+  become: true
   template: >
     src=requiretty.j2
     dest=/etc/sudoers.d/requiretty

@@ -11,6 +11,7 @@
   tags:
     - sudoers
     - sudoers/add_secure_path
+  become: true
   when: secure_path_result.stdout != ""
   template: >
     src=add_secure_path.j2
