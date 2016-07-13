@@ -1,0 +1,36 @@
+- name: docker-machine file check
+  tags:
+    - docker
+    - docker/machine
+  command: test -f /usr/local/bin/docker-machine
+  register: docker_machine_file_check
+  failed_when: docker_machine_file_check.rc not in [0,1]
+
+- name: docker-machine version check
+  tags:
+    - docker
+    - docker/machine
+  when: docker_machine_file_check.rc == 0
+  command: /usr/local/bin/docker-machine version | grep 'docker-machine version' | awk -F '[ ,]' '{ print $3 }'
+  register: docker_machine_version_check
+  failed_when: docker_machine_version_check.rc not in [0,1]
+
+- name: docker-machine file download
+  tags:
+    - docker
+    - docker/machine
+  become: true
+  when: docker_machine_file_check.rc != 0 or docker_machine_version_check.stdout != "{{ docker_machine_version }}"
+  get_url: >
+    url="https://github.com/docker/machine/releases/download/v{{ docker_machine_version }}/docker-machine-{{ uname_kernel }}-{{ uname_machine }}"
+    dest=/usr/local/bin/docker-machine
+    force=yes
+
+- name: docker-machine add x permission
+  tags:
+    - docker
+    - docker/machine
+  become: true
+  ignore_errors: yes
+  shell:  |
+    chmod +x /usr/local/bin/docker-machine

@@ -1,0 +1,29 @@
+- name: uname kernel check
+  tags:
+    - uname
+    - always
+  command: /usr/bin/uname -s
+  register: uname_kernel_result
+  failed_when: uname_kernel_result.rc not in [0,1]
+
+- name: uname kernel set
+  tags:
+    - uname
+    - always
+  set_fact: 
+    uname_kernel: "{{ uname_kernel_result.stdout }}"
+
+- name: uname machine check
+  tags:
+    - uname
+    - always
+  command: /usr/bin/uname -m
+  register: uname_machine_result
+  failed_when: uname_machine_result.rc not in [0,1]
+
+- name: uname machine set
+  tags:
+    - uname
+    - always
+  set_fact: 
+    uname_machine: "{{ uname_machine_result.stdout }}"
