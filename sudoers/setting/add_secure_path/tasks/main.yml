@@ -1,6 +1,7 @@
 - name: load secure_path from sudoers
   tags: 
     - sudoers
+    - sudoers/add_secure_path
   become: true
   shell: |
     grep "^Defaults.*secure_path" /etc/sudoers
@@ -9,6 +10,7 @@
 - name: copy add_secure_path
   tags:
     - sudoers
+    - sudoers/add_secure_path
   when: secure_path_result.stdout != ""
   template: >
     src=add_secure_path.j2

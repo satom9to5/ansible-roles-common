@@ -1,6 +1,7 @@
 - name: copy requiretty
   tags:
     - sudoers
+    - sudoers/requiretty
   template: >
     src=requiretty.j2
     dest=/etc/sudoers.d/requiretty
