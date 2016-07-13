@@ -1,6 +1,7 @@
 - name: sudo install
   tags:
     - sudoers
+  become: true
   ignore_errors: yes
   yum: >
     name=sudo
