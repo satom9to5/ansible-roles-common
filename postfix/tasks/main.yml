@@ -1,0 +1,16 @@
+- name: postfix install
+  tags:
+    - postfix
+  become: true
+  ignore_errors: yes
+  yum: >
+    name=postfix
+    state=latest
+
+- name: postfix main.cf file copy
+  tags:
+    - postfix
+  template: >
+    src=main.cf.j2
+    dest=/etc/postfix/main.cf
+    mode=0755

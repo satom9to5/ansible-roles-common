@@ -1,0 +1,6 @@
+postfix_myhostname: ""
+postfix_mydomain: ""
+postfix_myorigin: ""
+postfix_inet_interfaces: localhost
+postfix_mydestination: "$myhostname, localhost.$mydomain, localhost"
+postfix_mynetworks: ""
