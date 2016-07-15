@@ -1,1 +1,2 @@
 supervisor_revel_user_env: false
+supervisor_revel_umask_env: false 

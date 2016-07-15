@@ -8,3 +8,6 @@ stopasgroup = true
 {% if supervisor_revel_user_env %}
 user=%(ENV_REVEL_USER)s
 {% endif %}
+{% if supervisor_revel_umask_env %}
+umask = %(ENV_REVEL_UMASK)s
+{% endif %}
