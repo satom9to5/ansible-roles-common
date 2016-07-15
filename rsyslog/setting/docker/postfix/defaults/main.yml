@@ -1,1 +1,1 @@
-docker_postfix_log_dir: /var/log/postfix
+docker_postfix_log_dir: /var/log
