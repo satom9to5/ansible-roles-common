@@ -1,0 +1,9 @@
+- name: rsyslog supervisor ini copy
+  tags:
+    - supervisor
+    - rsyslog
+  template: >
+    src=rsyslog.ini.j2
+    dest={{ supervisor_conf_dir }}/rsyslog.ini
+    mode=0755
+

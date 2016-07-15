@@ -1,0 +1,8 @@
+- name: rsyslog install
+  tags:
+    - rsyslog
+  become: true
+  ignore_errors: yes
+  yum: >
+    name=rsyslog
+    state=latest

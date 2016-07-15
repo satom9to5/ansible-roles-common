@@ -1,0 +1,45 @@
+- name: disable rsyslog ModLoad imjournal setting
+  tags:
+    - rsyslog
+    - rsyslog/setting/docker
+  become: true
+  command: >
+    sed -i "s|^\($ModLoad imjournal\)|#\1|g" /etc/rsyslog.conf
+    removes=/etc/rsyslog.conf
+
+- name: change rsyslog OmitLocalLogging setting
+  tags:
+    - rsyslog
+    - rsyslog/setting/docker
+  become: true
+  command: >
+    sed -i "s|^\($OmitLocalLogging\) on|\1 off|g" /etc/rsyslog.conf
+    removes=/etc/rsyslog.conf
+
+- name: disable rsyslog IMJournalStateFile setting
+  tags:
+    - rsyslog
+    - rsyslog/setting/docker
+  become: true
+  command: >
+    sed -i "s|^\($IMJournalStateFile imjournal.state\)|#\1|g" /etc/rsyslog.conf
+    removes=/etc/rsyslog.conf
+
+- name: rsyslog listen.conf file check
+  tags:
+    - git
+  command: test -f /etc/rsyslog.d/listen.conf 
+  register: rsyslog_listen_conf_file_check
+  failed_when: rsyslog_listen_conf_file_check.rc not in [0,1]
+
+
+- name: disable rsyslog SystemLogSocketName setting
+  tags:
+    - rsyslog
+    - rsyslog/setting/docker
+  become: true
+  when: rsyslog_listen_conf_file_check.rc == 0
+  command: >
+    sed -i "s|^\($SystemLogSocketName\)|#\1|g" /etc/rsyslog.d/listen.conf
+    removes=/etc/rsyslog.d/listen.conf
+
