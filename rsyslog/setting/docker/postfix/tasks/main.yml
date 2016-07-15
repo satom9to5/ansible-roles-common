@@ -1,0 +1,18 @@
+- name: create postfix log directory
+  tags:
+    - rsyslog
+    - rsyslog/setting/docker/postfix
+  become: true
+  file: >
+    path={{ docker_postfix_log_dir }}
+    state=directory
+
+- name: change rsyslog mail log directory setting
+  tags:
+    - rsyslog
+    - rsyslog/setting/docker/postfix
+  become: true
+  when: rsyslog_listen_conf_file_check.rc == 0
+  command: >
+    sed -i "s|/var/log/maillog|{{ docker_postfix_log_dir }}/maillog|g" /etc/rsyslog.conf
+    removes=/etc/rsyslog.conf
