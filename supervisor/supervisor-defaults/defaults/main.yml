@@ -1,0 +1,4 @@
+supervisor_conf_dir: /etc/supervisord.d
+supervisor_log_dir: /var/log/supervisor
+supervisor_socket_dir: /var/run/supervisor
+supervisor_exec_shell_dir: /opt/supervisord/shell

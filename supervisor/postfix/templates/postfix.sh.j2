@@ -1,0 +1,16 @@
+#!/bin/sh
+function stop() {
+  echo "Stopping postfix"
+  /usr/sbin/postfix stop
+  exit 0
+}
+# call "postfix stop" when exiting
+trap "stop" EXIT
+trap "stop" SIGINT
+trap "stop" SIGTERM
+trap "/usr/sbin/postfix reload" SIGHUP
+
+# start postfix
+/usr/sbin/postfix -c /etc/postfix start
+# avoid exiting
+sleep infinity

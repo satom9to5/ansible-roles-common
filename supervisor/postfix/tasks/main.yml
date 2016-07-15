@@ -1,0 +1,17 @@
+- name: postfix supervisor ini copy
+  tags:
+    - supervisor
+    - postfix
+  template: >
+    src=postfix.ini.j2
+    dest={{ supervisor_conf_dir }}/postfix.ini
+    mode=0755
+
+- name: postfix exec shell copy
+  tags:
+    - supervisor
+    - postfix
+  template: >
+    src=postfix.sh.j2
+    dest={{ supervisor_exec_shell_dir }}/postfix.sh
+    mode=0755
