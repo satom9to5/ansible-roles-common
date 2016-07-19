@@ -1,0 +1,9 @@
+- name: pip packages install
+  tags:
+    - python
+    - pip
+  pip: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - boto
