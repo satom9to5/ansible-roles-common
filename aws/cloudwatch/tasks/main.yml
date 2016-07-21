@@ -54,6 +54,7 @@
   unarchive: >
     src={{ cloudwatch_script_path }}/{{ cloudwatch_monitoring_script_archive_name }}
     dest={{ cloudwatch_script_path }}
+    copy=no
 
 - name: create CloudWatch Monitoring Scripts config file
   tags:
