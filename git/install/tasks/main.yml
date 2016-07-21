@@ -35,7 +35,7 @@
 - name: Git source directory check
   tags:
     - git
-  command: test -f {{ git_path }}
+  command: test -d {{ git_path }}
   register: git_dir_check
   failed_when: git_dir_check.rc not in [0,1]
 
