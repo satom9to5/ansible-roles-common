@@ -7,9 +7,11 @@
     name={{ item }}
     state=latest
   with_items:
+    - perl-Switch 
     - perl-DateTime 
     - perl-Sys-Syslog 
     - perl-LWP-Protocol-https
+    - perl-Digest-SHA
 
 - name: create CloudWatch directory
   tags:
