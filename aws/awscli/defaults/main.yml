@@ -1,0 +1,1 @@
+aws_user_credential_directory: "{{ ansible_env.HOME }}/.aws"

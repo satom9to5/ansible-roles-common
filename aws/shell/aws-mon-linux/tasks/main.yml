@@ -1,0 +1,9 @@
+- name: aws-mon-linux clone
+  tags:
+    - aws
+    - aws/shell/aws-mon-linux
+  become: true
+  git: >
+    repo=https://github.com/moomindani/aws-mon-linux.git
+    dest={{ aws_mon_linux_path }}
+

@@ -2,9 +2,36 @@
   tags:
     - aws
     - aws/awscli
+  become: true
   ignore_errors: yes
   yum: >
     name=awscli
     state=latest
     enablerepo=epel
 
+- name: create .aws directory
+  tags:
+    - aws
+    - aws/awscli
+  file: >
+    path={{ aws_user_credential_directory }}
+    state=directory
+
+- name: create .aws credentials
+  tags:
+    - aws
+    - aws/awscli
+  when: aws_access_key_id != "" and aws_secret_key != ""
+  template: >
+    src=credentials.j2
+    dest={{ aws_user_credential_directory }}/credentials
+    mode=0600
+
+- name: create .aws config
+  tags:
+    - aws
+    - aws/awscli
+  template: >
+    src=config.j2
+    dest={{ aws_user_credential_directory }}/config
+    mode=0600
