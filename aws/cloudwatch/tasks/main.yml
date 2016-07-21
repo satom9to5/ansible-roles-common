@@ -1,0 +1,73 @@
+- name: necessaary package for CloudWatch Monitoring Scripts install
+  tags:
+    - aws
+    - aws/cloudwatch
+  become: true
+  yum: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - perl-DateTime 
+    - perl-Sys-Syslog 
+    - perl-LWP-Protocol-https
+
+- name: create CloudWatch directory
+  tags:
+    - aws
+    - aws/cloudwatch
+  file: >
+    path={{ cloudwatch_script_path }}
+    state=directory
+
+- name: CloudWatch directory check
+  tags:
+    - aws
+    - aws/cloudwatch
+  command: test -f {{ cloudwatch_script_path }}/{{ cloudwatch_monitoring_script_archive_name }}
+  register: cloudwatch_archive_check
+  failed_when: cloudwatch_archive_check.rc not in [0,1]
+
+- name: download CloudWatch Monitoring Scripts
+  tags:
+    - aws
+    - aws/cloudwatch
+  when: cloudwatch_archive_check.rc != 0
+  get_url: >
+    url=http://aws-cloudwatch.s3.amazonaws.com/downloads/{{ cloudwatch_monitoring_script_archive_name }}
+    dest={{ cloudwatch_script_path }}/{{ cloudwatch_monitoring_script_archive_name }}
+
+- name: CloudWatch directory check
+  tags:
+    - aws
+    - aws/cloudwatch
+  command: test -d {{ cloudwatch_monitoring_script_path }}
+  register: cloudwatch_dir_check
+  failed_when: cloudwatch_dir_check.rc not in [0,1]
+
+- name: unarchive CloudWatch Monitoring Scripts
+  tags:
+    - aws
+    - aws/cloudwatch
+  when: cloudwatch_dir_check.rc != 0
+  unarchive: >
+    src={{ cloudwatch_script_path }}/{{ cloudwatch_monitoring_script_archive_name }}
+    dest={{ cloudwatch_script_path }}
+
+- name: create CloudWatch Monitoring Scripts config file
+  tags:
+    - aws
+    - aws/cloudwatch
+  when: aws_access_key_id != "" and aws_secret_key != ""
+  template: >
+    src=awscreds.conf.j2
+    dest={{ cloudwatch_monitoring_script_path }}/awscreds.conf
+
+- name: add CloudWatch Monitoring Scripts cron
+  tags:
+    - aws
+    - aws/cloudwatch
+  cron:
+    name="CloudWatch Memory Monitoring"
+    minute="*/5"
+    job={{ cloudwatch_monitoring_script_path }}/mon-put-instance-data.pl --mem-util --mem-used --mem-avail --from-cron
+

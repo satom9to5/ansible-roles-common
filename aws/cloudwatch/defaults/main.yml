@@ -1,0 +1,5 @@
+cloudwatch_script_version: 1.2.1
+cloudwatch_script_path: /opt/cloudwatch
+cloudwatch_monitoring_script_archive_name: "CloudWatchMonitoringScripts-{{ cloudwatch_script_version }}.zip"
+cloudwatch_monitoring_script_name: aws-scripts-mon
+cloudwatch_monitoring_script_path: "{{ cloudwatch_script_path }}/{{ cloudwatch_monitoring_script_name }}"
