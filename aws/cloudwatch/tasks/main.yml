@@ -15,9 +15,11 @@
   tags:
     - aws
     - aws/cloudwatch
+  become: true
   file: >
     path={{ cloudwatch_script_path }}
     state=directory
+    owner={{ ansible_user_id }}
 
 - name: CloudWatch directory check
   tags:
