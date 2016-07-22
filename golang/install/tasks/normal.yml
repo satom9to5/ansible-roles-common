@@ -7,7 +7,8 @@
 
 - name: Golang download
   tags:
-   - git
+   - golang
+  become: true
   when: golang_directory_check.rc != 0
   get_url: >
     url=https://golang.org/dl/go{{ golang_version }}.linux-amd64.tar.gz
@@ -16,6 +17,7 @@
 - name: Golang unarchive
   tags:
     - golang
+  become: true
   when: golang_directory_check.rc != 0
   shell: |
     cd /usr/local/
@@ -24,6 +26,7 @@
 - name: copy export gopath environment shell
   tags:
     - golang
+  become: true
   template: >
     src=golang.sh.j2
     dest=/etc/profile.d/proglang/golang.sh

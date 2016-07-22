@@ -3,6 +3,7 @@
     - profile
     - anyenv
     - golang
+  become: true
   file: >
     path=/etc/profile.d/proglang
     state=directory
@@ -12,6 +13,7 @@
     - profile
     - anyenv
     - golang
+  become: true
   template: >
     src=proglang.sh.j2
     dest=/etc/profile.d/proglang.sh
