@@ -4,12 +4,12 @@
     - elasticsearch
   command: /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch
 
-- name: fluentd elasticsearch output config copy
+- name: fluentd elasticsearch match config copy
   tags:
     - fluentd
     - elasticsearch
   template: >
     src=elasticsearch.conf.j2
-    dest=/etc/td-agent/output.d/{{ item.tag_name }}.conf
+    dest=/etc/td-agent/match.d/{{ item.tag_name }}.conf
     mode=0755
   with_items: "{{ fluentd_elasticsearch_configs }}"

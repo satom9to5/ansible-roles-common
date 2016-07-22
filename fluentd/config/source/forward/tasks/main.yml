@@ -1,0 +1,7 @@
+- name: fluentd forward source config copy
+  tags:
+    - fluentd
+  template: >
+    src=forward.conf.j2
+    dest=/etc/td-agent/source.d/forward.conf
+    mode=0755

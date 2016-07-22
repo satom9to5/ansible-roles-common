@@ -1,7 +1,0 @@
-- name: fluentd forward input config copy
-  tags:
-    - fluentd
-  template: >
-    src=forward.conf.j2
-    dest=/etc/td-agent/input.d/forward.conf
-    mode=0755

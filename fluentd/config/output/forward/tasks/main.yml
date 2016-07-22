@@ -1,7 +1,0 @@
-- name: fluentd forward output config copy
-  tags:
-    - fluentd
-  template: >
-    src=forward.conf.j2
-    dest=/etc/td-agent/output.d/forward.conf
-    mode=0755

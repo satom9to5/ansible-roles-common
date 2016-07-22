@@ -7,11 +7,11 @@
     state=latest 
     enablerepo=treasuredata
 
-- name: create input config directory of fluentd
+- name: create source config directory of fluentd
   tags:
     - fluentd
   file: >
-    path=/etc/td-agent/input.d
+    path=/etc/td-agent/source.d
     state=directory
 
 - name: create filter config directory of fluentd
@@ -21,11 +21,11 @@
     path=/etc/td-agent/filter.d
     state=directory
 
-- name: create output config directory of fluentd
+- name: create match config directory of fluentd
   tags:
     - fluentd
   file: >
-    path=/etc/td-agent/output.d
+    path=/etc/td-agent/match.d
     state=directory
 
 - name: fluentd include setting check
