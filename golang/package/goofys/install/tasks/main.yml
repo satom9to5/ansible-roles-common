@@ -2,6 +2,7 @@
   tags:
     - golang
     - golang/package/goofys
+    - golang/package/goofys/install
   become: true
   yum: >
     name=fuse
@@ -11,8 +12,20 @@
   tags:
     - golang
     - golang/package/goofys
+    - golang/package/goofys/install
   ignore_errors: yes
   shell: |
     source /etc/profile.d/proglang.sh
     go get github.com/kahing/goofys
     go install github.com/kahing/goofys
+
+- name: create s3 mount directory by goofys
+  tags:
+    - golang
+    - golang/package/goofys
+    - golang/package/goofys/install
+  when: goofys_s3_bucket != "" and goofys_s3_path != ""
+  file: >
+    path={{ goofys_s3_path }}
+    state=directory
+    owner={{ ansible_user_id }}

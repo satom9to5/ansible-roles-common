@@ -1,0 +1,37 @@
+- name: goofys s3 bucket mount
+  tags:
+    - golang
+    - golang/package/goofys
+    - golang/package/goofys/mount
+  when: goofys_s3_bucket != "" and goofys_s3_path != ""
+  shell: |
+    source /etc/profile.d/proglang.sh
+    {{ gopath }}/bin/goofys {{ goofys_s3_bucket }} {{ goofys_s3_path }}
+
+- name: set goofys s3 bucket automount prefix
+  tags:
+    - golang
+    - golang/package/goofys
+    - golang/package/goofys/mount
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_automount == true and ansible_user_id != "root"
+  set_fact:
+    goofys_automount_command_prefix: "/bin/sudo -u {{ ansible_user_id }} "
+
+- name: check goofys s3 bucket automount setting
+  tags:
+    - golang
+    - golang/package/goofys
+    - golang/package/goofys/mount
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_automount == true
+  shell: grep goofys /etc/rc.local | grep {{ goofys_s3_bucket }}
+  register: goofys_automount_setting_result
+
+- name: add goofys s3 bucket automount setting
+  tags:
+    - golang
+    - golang/package/goofys
+    - golang/package/goofys/mount
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_automount == true and goofys_automount_setting_result.rc != 0
+  shell: |
+    source /etc/profile.d/proglang.sh
+    echo "{{ goofys_automount_command_prefix }}{{ gopath }}/bin/goofys {{ goofys_s3_bucket }} {{ goofys_s3_path }}" >> /etc/rc.local
