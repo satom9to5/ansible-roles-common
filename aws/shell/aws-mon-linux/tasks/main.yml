@@ -14,5 +14,5 @@
   cron: >
     name="aws-mon-linux Monitoring"
     minute="*/5"
-    job="{{ asw_mon_linux_path }}/aws-mon.sh --all-items --from-cron"
+    job="{{ aws_mon_linux_path }}/aws-mon.sh --all-items --from-cron"
 
