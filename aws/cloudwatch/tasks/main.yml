@@ -72,7 +72,7 @@
     - aws
     - aws/cloudwatch
   cron: >
-    name="CloudWatch Memory Monitoring"
+    name="CloudWatch Monitoring"
     minute="*/5"
     job="{{ cloudwatch_monitoring_script_path }}/mon-put-instance-data.pl --mem-util --mem-used --mem-avail --swap-util --swap-used --disk-path=/ --disk-space-util --disk-space-used --disk-space-avail --auto-scaling --from-cron"
 

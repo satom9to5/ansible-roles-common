@@ -7,3 +7,12 @@
     repo=https://github.com/moomindani/aws-mon-linux.git
     dest={{ aws_mon_linux_path }}
 
+- name: add aws-mon-linux cron
+  tags:
+    - aws
+    - aws/cloudwatch
+  cron: >
+    name="aws-mon-linux Monitoring"
+    minute="*/5"
+    job="{{ asw_mon_linux_path }}/aws-mon.sh --all-items --from-cron"
+
