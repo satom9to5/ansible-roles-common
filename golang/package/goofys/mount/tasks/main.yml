@@ -34,7 +34,7 @@
   become: true
   when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true 
   mount: >
-    src={{ goofys_gopath }}/bin/goofys#{{ goofys_s3_bucket }}
+    src={{ gopath }}/bin/goofys#{{ goofys_s3_bucket }}
     name={{ goofys_s3_path }}
     state=present
     fstype=fuse
