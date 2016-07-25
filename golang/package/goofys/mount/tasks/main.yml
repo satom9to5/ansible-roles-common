@@ -8,23 +8,43 @@
     source /etc/profile.d/proglang.sh
     {{ gopath }}/bin/goofys {{ goofys_s3_bucket }} {{ goofys_s3_path }}
 
+- name: get uid of goofys mount user
+  tags:
+    - golang
+    - golang/package/goofys
+    - golang/package/goofys/mount
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_mount_user != ""
+  shell: id {{ goofys_mount_user }} | awk -F '[=(]' '{ print $2 }'
+  register: goofys_mount_uid_result
+  failed_when: goofys_mount_uid_result.rc not in [0,1]
+
 - name: add goofys uid mount option
   tags:
     - golang
     - golang/package/goofys
     - golang/package/goofys/mount
-  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_mount_uid != ""
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_mount_user != "" and goofys_mount_uid_result.stdout != ""
   set_fact:
-    goofys_mount_option: "{{ goofys_mount_option }},--uid={{ goofys_mount_uid }}"
+    goofys_mount_option: "{{ goofys_mount_option }},--uid={{ goofys_mount_uid_result.stdout }}"
+
+- name: get gid of goofys mount group
+  tags:
+    - golang
+    - golang/package/goofys
+    - golang/package/goofys/mount
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_mount_group != ""
+  shell: getenv group {{ goofys_mount_group }} | awk -F ':' '{ print $3 }'
+  register: goofys_mount_gid_result
+  failed_when: goofys_mount_gid_result.rc not in [0,1]
 
 - name: add goofys gid mount option
   tags:
     - golang
     - golang/package/goofys
     - golang/package/goofys/mount
-  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_mount_gid != ""
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_mount_group != "" and goofys_mount_gid_result.stdout != ""
   set_fact:
-    goofys_mount_option: "{{ goofys_mount_option }},--gid={{ goofys_mount_gid }}"
+    goofys_mount_option: "{{ goofys_mount_option }},--gid={{ goofys_mount_gid_result.stdout }}"
 
 - name: add goofys s3 bucket mount setting
   tags:
