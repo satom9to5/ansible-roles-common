@@ -8,22 +8,34 @@
     source /etc/profile.d/proglang.sh
     {{ gopath }}/bin/goofys {{ goofys_s3_bucket }} {{ goofys_s3_path }}
 
-- name: check goofys s3 bucket fstab setting
+- name: add goofys uid mount option
   tags:
     - golang
     - golang/package/goofys
     - golang/package/goofys/mount
-  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true
-  shell: grep goofys /etc/fstab
-  register: goofys_fstab_setting_result
-  failed_when: goofys_fstab_setting_result.rc not in [0,1]
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_mount_uid != ""
+  set_fact:
+    goofys_mount_option: "{{ goofys_mount_option }},--uid={{ goofys_mount_uid }}"
 
-- name: add goofys s3 bucket fstab setting
+- name: add goofys gid mount option
+  tags:
+    - golang
+    - golang/package/goofys
+    - golang/package/goofys/mount
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_mount_gid != ""
+  set_fact:
+    goofys_mount_option: "{{ goofys_mount_option }},--gid={{ goofys_mount_gid }}"
+
+- name: add goofys s3 bucket mount setting
   tags:
     - golang
     - golang/package/goofys
     - golang/package/goofys/mount
   become: true
-  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_fstab_setting_result.rc != 0
-  shell: |
-    echo "goofys#{{ goofys_s3_bucket }}   {{ goofys_s3_path }}      fuse _netdev,allow_other,--file-mode=0666    0       0" >> /etc/fstab
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true 
+  mount: >
+    src={{ goofys_gopath }}/bin/goofys#{{ goofys_s3_bucket }}
+    name={{ goofys_s3_path }}
+    state=present
+    fstype=fuse
+    opts={{ goofys_mount_option }}

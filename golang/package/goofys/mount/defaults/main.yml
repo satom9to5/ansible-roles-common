@@ -1,3 +1,7 @@
 goofys_s3_bucket: ""
 goofys_s3_path: ""
 goofys_fstab: false
+goofys_gopath: "{{ gopath }}"
+goofys_mount_option: "_netdev,allow_other,--file-mode=0666"
+goofys_mount_uid: ""
+goofys_mount_gid: ""
