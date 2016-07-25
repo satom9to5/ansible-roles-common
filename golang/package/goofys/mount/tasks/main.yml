@@ -8,30 +8,22 @@
     source /etc/profile.d/proglang.sh
     {{ gopath }}/bin/goofys {{ goofys_s3_bucket }} {{ goofys_s3_path }}
 
-- name: set goofys s3 bucket automount prefix
+- name: check goofys s3 bucket fstab setting
   tags:
     - golang
     - golang/package/goofys
     - golang/package/goofys/mount
-  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_automount == true and ansible_user_id != "root"
-  set_fact:
-    goofys_automount_command_prefix: "/bin/sudo -u {{ ansible_user_id }} "
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true
+  shell: grep goofys /etc/fstab
+  register: goofys_fstab_setting_result
+  failed_when: goofys_fstab_setting_result.rc not in [0,1]
 
-- name: check goofys s3 bucket automount setting
+- name: add goofys s3 bucket fstab setting
   tags:
     - golang
     - golang/package/goofys
     - golang/package/goofys/mount
-  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_automount == true
-  shell: grep goofys /etc/rc.local | grep {{ goofys_s3_bucket }}
-  register: goofys_automount_setting_result
-
-- name: add goofys s3 bucket automount setting
-  tags:
-    - golang
-    - golang/package/goofys
-    - golang/package/goofys/mount
-  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_automount == true and goofys_automount_setting_result.rc != 0
+  become: true
+  when: goofys_s3_bucket != "" and goofys_s3_path != "" and goofys_fstab == true and goofys_fstab_setting_result.rc != 0
   shell: |
-    source /etc/profile.d/proglang.sh
-    echo "{{ goofys_automount_command_prefix }}{{ gopath }}/bin/goofys {{ goofys_s3_bucket }} {{ goofys_s3_path }}" >> /etc/rc.local
+    echo "goofys#{{ goofys_s3_bucket }}   {{ goofys_s3_path }}      fuse _netdev,allow_other,--file-mode=0666    0       0" >> /etc/fstab

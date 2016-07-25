@@ -1,4 +1,3 @@
 goofys_s3_bucket: ""
 goofys_s3_path: ""
-goofys_automount: false
-goofys_automount_command_prefix: ""
+goofys_fstab: false
