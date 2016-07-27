@@ -1,5 +1,5 @@
 <match *.**>
-  type forward
+  @type forward
   retry_limit 5
   flush_interval 5s
 
@@ -11,9 +11,10 @@
     weight {{ fluentd_forward_server.weight | default('60', true) }}
   </server>
 {% endfor %}
-
+{% if fluentd_forward_secondary_enable %}
   <secondary>
-    type file
+    @type file
     path {{ fluentd_log_dir }}/forward-failed.log
   </secondary>
+{% endif %}
 </match>

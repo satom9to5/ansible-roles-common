@@ -1,5 +1,5 @@
 <match {{ item.tag_name }}>
-  type elasticsearch
+  @type elasticsearch
   host "{{ fluentd_elasticsearch_host | default(elasticsearch_host, true) }}"
   port {{ fluentd_elasticsearch_port | default(elasticsearch_port, true) }}
   index_name {{ item.tag_name | replace(".", "_") }}

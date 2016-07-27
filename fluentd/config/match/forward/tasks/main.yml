@@ -1,6 +1,7 @@
 - name: fluentd forward match config copy
   tags:
     - fluentd
+    - fluentd/config/match/forward
   template: >
     src=forward.conf.j2
     dest=/etc/td-agent/match.d/forward.conf
