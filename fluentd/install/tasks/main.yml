@@ -1,32 +1,25 @@
 - name: fluentd install
   tags:
     - fluentd
+  become: true
   ignore_errors: yes
   yum: >
     name=td-agent
     state=latest 
     enablerepo=treasuredata
 
-- name: create source config directory of fluentd
+- name: create config directories of fluentd
   tags:
     - fluentd
+  become: true
   file: >
-    path=/etc/td-agent/source.d
+    path=/etc/td-agent/{{ item }}
     state=directory
-
-- name: create filter config directory of fluentd
-  tags:
-    - fluentd
-  file: >
-    path=/etc/td-agent/filter.d
-    state=directory
-
-- name: create match config directory of fluentd
-  tags:
-    - fluentd
-  file: >
-    path=/etc/td-agent/match.d
-    state=directory
+  with_items:
+    - source.d
+    - filter.d
+    - match.d
+    - partial.d
 
 - name: fluentd include setting check
   tags:
@@ -38,12 +31,14 @@
 - name: backup original fluentd config file
   tags:
     - fluentd
+  become: true
   when: fluentd_conf_include_check.rc != 0
   command: cp /etc/td-agent/td-agent.conf /etc/td-agent/td-agent.conf.orig
 
 - name: fluentd config copy
   tags:
     - fluentd
+  become: true
   when: fluentd_conf_include_check.rc != 0
   template: >
     src=td-agent.conf.j2
@@ -53,6 +48,7 @@
 - name: fluentd service enable 
   tags:
     - fluentd
+  become: true
   when: service_enable == 1
   service: >
     name=td-agent
@@ -61,6 +57,7 @@
 - name: fluentd restart
   tags:
     - fluentd
+  become: true
   when: service_enable == 1
   service: >
     name=td-agent
