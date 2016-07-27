@@ -2,12 +2,14 @@
   tags:
     - fluentd
     - fluentd/config/match/elasticsearch
+  become: true
   command: /opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-elasticsearch
 
 - name: fluentd elasticsearch match config copy
   tags:
     - fluentd
     - fluentd/config/match/elasticsearch
+  become: true
   template: >
     src=elasticsearch.conf.j2
     dest=/etc/td-agent/match.d/{{ item.tag_name }}.conf

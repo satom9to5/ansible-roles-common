@@ -2,6 +2,7 @@
   tags:
     - fluentd
     - fluentd/config/match/forward
+  become: true
   template: >
     src=forward.conf.j2
     dest=/etc/td-agent/match.d/forward.conf
