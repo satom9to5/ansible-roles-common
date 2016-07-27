@@ -19,4 +19,4 @@ log_format ltsv
     '\t' 'set_cookie:' '$sent_http_set_cookie'
     ;
 
-access_log  /var/log/nginx/access.log  ltsv;
+access_log  {{ nginx_log_dir }}/access.log  ltsv;
