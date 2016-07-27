@@ -1,0 +1,13 @@
+- name: ec2 instance check
+  tags:
+    - always
+  shell: /usr/bin/curl -m 5 -qf http://169.254.169.254/latest/meta-data/instance-id 2>/dev/null | grep "^i-"
+  register: aws_ec2_check_result
+  failed_when: aws_ec2_check_result.rc not in [0,1]
+
+- name: set_fact is_ec2
+  tags:
+    - always
+  when: aws_ec2_check_result.rc == 0
+  set_fact:
+    is_ec2: true
