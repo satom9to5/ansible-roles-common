@@ -4,5 +4,6 @@ fluentd_config_match_forest_configs: []
 # Sample
 #fluentd_config_match_forest_configs:
 #  - tag_name: foo
+#    pattern: foo
 #    subtype: s3
 #    remove_prefix: prefix

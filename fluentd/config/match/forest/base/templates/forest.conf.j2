@@ -1,4 +1,4 @@
-<match {{ item.tag_name }}>
+<match {{ item.pattern | default(item.tag_name, true) }}>
   @type forest
   subtype {{ item.subtype | default(fluentd_config_match_forest_default_subtype, true) }}
 {% if item.remove_prefix is defined %}
