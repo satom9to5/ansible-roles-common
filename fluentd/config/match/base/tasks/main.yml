@@ -23,5 +23,3 @@
     src=match.conf.j2
     dest=/etc/td-agent/match.conf
     mode=0755
-
-- debug: var=fluentd_config_match_base_conf_names
