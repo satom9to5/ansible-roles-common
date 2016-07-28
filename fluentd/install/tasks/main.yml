@@ -1,6 +1,7 @@
 - name: fluentd install
   tags:
     - fluentd
+    - fluentd/install
   become: true
   ignore_errors: yes
   yum: >
@@ -11,6 +12,7 @@
 - name: create config directories of fluentd
   tags:
     - fluentd
+    - fluentd/install
   become: true
   file: >
     path=/etc/td-agent/{{ item }}
@@ -24,30 +26,47 @@
 - name: fluentd include setting check
   tags:
     - fluentd
-  command: grep -P '^@include' /etc/td-agent/td-agent.conf
+    - fluentd/install
+  shell: head -1 /etc/td-agent/td-agent.conf | grep '^####'
   register: fluentd_conf_include_check
   failed_when: fluentd_conf_include_check.rc not in [0,1]
 
 - name: backup original fluentd config file
   tags:
     - fluentd
+    - fluentd/install
   become: true
-  when: fluentd_conf_include_check.rc != 0
+  when: fluentd_conf_include_check.rc == 0
   command: cp /etc/td-agent/td-agent.conf /etc/td-agent/td-agent.conf.orig
 
-- name: fluentd config copy
+- name: fluentd config file copy
   tags:
     - fluentd
+    - fluentd/install
   become: true
-  when: fluentd_conf_include_check.rc != 0
   template: >
     src=td-agent.conf.j2
     dest=/etc/td-agent/td-agent.conf
     mode=0755
 
+- name: fluentd sub config file copy
+  tags:
+    - fluentd
+    - fluentd/install
+  become: true
+  file: >
+    path=/etc/td-agent/{{ item }}.conf
+    state=file
+    mode=0755
+  with_items:
+    - source
+    - filter
+    - match
+
 - name: fluentd service enable 
   tags:
     - fluentd
+    - fluentd/install
   become: true
   when: service_enable == 1
   service: >
@@ -57,6 +76,7 @@
 - name: fluentd restart
   tags:
     - fluentd
+    - fluentd/install
   become: true
   when: service_enable == 1
   service: >
