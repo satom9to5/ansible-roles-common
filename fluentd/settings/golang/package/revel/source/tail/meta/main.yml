@@ -1,0 +1,4 @@
+dependencies:
+  - role: common/golang/package/revel/revel-defaults
+  - role: common/fluentd/config/source/tail
+    fluentd_config_source_tail_configs: "{{ fluentd_setting_golang_package_revel_source_tail_configs }}"

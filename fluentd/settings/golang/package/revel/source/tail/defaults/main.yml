@@ -1,0 +1,8 @@
+fluentd_setting_golang_package_revel_source_tail_configs: []
+
+# Sample
+#fluentd_setting_golang_package_revel_source_tail_configs: []
+#  - tag_name: "{{ app_name }}.error_log"
+#    path: "{{ revel_log_path }}/{{ app_name }}.*.error.log"
+#    format: ltsv
+

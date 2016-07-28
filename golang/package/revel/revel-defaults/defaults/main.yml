@@ -1,1 +1,2 @@
 revel_package: ""
+revel_log_path: /var/log/revel
