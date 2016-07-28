@@ -4,7 +4,7 @@
 {% if item.records is defined %}
   <record>
 {% for record in item.records %}
-  {{ record.name }} {{ record.value }}
+    {{ record.name }} {{ record.value }}
 {% endfor %}
   </record>
 {% endif %}
