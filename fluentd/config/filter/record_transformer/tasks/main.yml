@@ -1,0 +1,10 @@
+- name: fluentd record_transformer filter config copy
+  tags:
+    - fluentd
+    - fluentd/config/filter/record_transformer
+  become: true
+  template: >
+    src=record_transformer.conf.j2
+    dest=/etc/td-agent/filter.d/record_transformer.{{ item.tag_name }}.conf
+    mode=0755
+  with_items: "{{ fluentd_config_filter_record_transformer_configs }}"

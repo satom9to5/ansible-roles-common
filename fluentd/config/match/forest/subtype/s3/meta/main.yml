@@ -1,0 +1,7 @@
+dependencies:
+  - role: common/fluentd/config/partial/s3 
+    fluentd_config_partial_s3_use_forest: true
+    fluentd_config_partial_s3_configs: "{{ fluentd_config_match_forest_s3_configs }}" 
+  - role: common/fluentd/config/match/forest/base
+    fluentd_config_match_forest_default_subtype: s3
+    fluentd_config_match_forest_configs: "{{ fluentd_config_match_forest_s3_configs }}"  

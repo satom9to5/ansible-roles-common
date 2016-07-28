@@ -1,8 +1,7 @@
-fluentd_nginx_tail_configs:
-  - tag_name: nginx.access_log
-    path: /var/log/nginx/access.log
+fluentd_settings_nginx_source_configs:
+  - tag_name: "{{ fluentd_settings_nginx_access_log_tag_name }}"
+    path: "{{ nginx_log_dir }}/access.log"
     format: ltsv
-  - tag_name: nginx.error_log
-    path: /var/log/nginx/error.log
+  - tag_name: "{{ fluentd_settings_nginx_error_log_tag_name }}"
+    path: "{{ nginx_log_dir }}/error.log"
     format: "/^(?<time>.+) \\[(?<level>[^\\]]+)\\] *(?<message>.*)$/"
-fluentd_tail_configs: "{{ fluentd_nginx_tail_configs }}" 

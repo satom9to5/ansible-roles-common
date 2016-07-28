@@ -1,0 +1,11 @@
+- name: fluentd ec2_metadata filter config copy
+  tags:
+    - fluentd
+    - fluentd/config/filter/ec2_metadata
+  become: true
+  when: is_ec2 == true
+  template: >
+    src=ec2_metadata.conf.j2
+    dest=/etc/td-agent/filter.d/ec2_metadata.{{ item.tag_name }}.conf
+    mode=0755
+  with_items: "{{ fluentd_config_filter_ec2_metadata_configs }}"

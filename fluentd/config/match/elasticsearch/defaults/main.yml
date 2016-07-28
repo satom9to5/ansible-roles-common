@@ -1,1 +1,5 @@
-fluentd_elasticsearch_configs: []
+fluentd_config_match_elasticsearch_configs: []
+
+# Sample
+#fluentd_config_match_elasticsearch_configs:
+#  - tag_name: foo

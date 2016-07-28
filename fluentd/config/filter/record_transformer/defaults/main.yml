@@ -1,0 +1,10 @@
+fluentd_config_filter_record_transformer_configs: []
+
+#Sample
+#fluentd_config_filter_record_transformer_configs:
+#  - tag_name: foo
+#    records:
+#      - name:  original_tag
+#        value: "${tag}"
+#      - name: app_env
+#        value: "\"#{ENV['APP_ENV']}\""

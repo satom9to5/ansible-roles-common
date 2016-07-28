@@ -1,0 +1,5 @@
+dependencies:
+  - role: common/fluentd/config/partial/s3
+  - role: common/fluentd/config/match/base
+    fluentd_config_match_base_configs: "{{ fluentd_config_match_s3_configs }}"
+    fluentd_config_match_base_prefix: s3

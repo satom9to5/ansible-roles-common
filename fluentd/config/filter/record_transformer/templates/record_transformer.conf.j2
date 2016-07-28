@@ -1,0 +1,11 @@
+<filter {{ item.tag_name }}>
+  @type record_transformer
+
+{% if item.records is defined %}
+  <record>
+{% for record in item.records %}
+  {{ record.name }} {{ record.value }}
+{% endfor %}
+  </record>
+{% endif %}
+</filter>

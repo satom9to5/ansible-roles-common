@@ -1,0 +1,25 @@
+- name: add fluentd filter config list
+  tags:
+    - fluentd
+    - fluentd/config/filter/base
+  set_fact:
+    fluentd_config_filter_base_conf_name: "{{ fluentd_config_filter_base_prefix }}.{{ item.tag_name | default(item.name, true) }}" 
+  register: fluentd_config_filter_base_conf_name_result
+  with_items: "{{ fluentd_config_filter_base_configs }}"
+
+- name: append fluentd filter conf name list
+  tags:
+    - fluentd
+    - fluentd/config/filter/base
+  set_fact: 
+    fluentd_config_filter_base_conf_names: "{{ fluentd_config_filter_base_conf_names + fluentd_config_filter_base_conf_name_result.results | map(attribute='ansible_facts.fluentd_config_filter_base_conf_name') | list }}"
+
+- name: fluentd base filter config copy
+  tags:
+    - fluentd
+    - fluentd/config/filter/base
+  become: true
+  template: >
+    src=filter.conf.j2
+    dest=/etc/td-agent/filter.conf
+    mode=0755

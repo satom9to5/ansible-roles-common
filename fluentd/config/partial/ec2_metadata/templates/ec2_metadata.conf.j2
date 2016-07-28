@@ -1,0 +1,20 @@
+@type ec2_metadata
+
+{% if aws_access_key_id is defined and aws_access_key_id != "" %}
+aws_key_id {{ aws_access_key_id }}
+{% endif %}
+{% if aws_secret_key is defined and aws_secret_key != "" %}
+aws_sec_key {{ aws_secret_key }}
+{% endif %}
+
+{% if item.metadata_refresh_seconds is defined %}
+metadata_refresh_seconds {{ item.metadata_refresh_seconds }}
+{% endif %}
+
+{% if item.records is defined %}
+<record>
+{% for record in item.records %}
+  {{ record.name }} {{ record.value }}
+{% endfor %}
+</record>
+{% endif %}

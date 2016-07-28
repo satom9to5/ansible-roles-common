@@ -1,0 +1,11 @@
+<match {{ item.tag_name }}>
+  @type forest
+  subtype {{ item.subtype | default(fluentd_config_match_forest_default_subtype, true) }}
+{% if item.remove_prefix is defined %}
+  remove_prefix {{ item.remove_prefix }}
+{% endif %}
+
+  <template>
+    @include /etc/td-agent/partial.d/{{ item.subtype | default(fluentd_config_match_forest_default_subtype, true) }}.{{ item.tag_name }}.conf
+  </template>
+</match>

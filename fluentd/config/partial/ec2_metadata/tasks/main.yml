@@ -1,0 +1,11 @@
+- name: fluentd ec2_metadata partial config copy
+  tags:
+    - fluentd
+    - fluentd/config/partial/ec2_metadata
+  become: true
+  when: is_ec2 == true
+  template: >
+    src=ec2_metadata.conf.j2
+    dest=/etc/td-agent/partial.d/ec2_metadata.{{ item.tag_name }}.conf
+    mode=0755
+  with_items: '{{ fluentd_config_partial_ec2_metadata_configs }}'

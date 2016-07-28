@@ -1,0 +1,14 @@
+<match {{ item.tag_name }}>
+  @type record_reformer
+
+{% if item.output_tag is defined %}
+  tag {{ item.output_tag }}
+{% endif %}  
+{% if item.records is defined %}
+  <record>
+{% for record in item.records %}
+  {{ record.name }} {{ record.value }}
+{% endfor %}
+  </record>
+{% endif %}
+</match>

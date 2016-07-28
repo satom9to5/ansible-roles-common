@@ -1,0 +1,7 @@
+dependencies:
+  - role: common/fluentd/install
+  - role: common/fluentd/gem
+    fluentd_gems: 
+      - fluent-plugin-ec2-metadata
+  - role: common/aws/credentials
+  - role: common/aws/ec2/check

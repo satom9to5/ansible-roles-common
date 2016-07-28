@@ -1,4 +1,8 @@
 dependencies:
-  - { role: common/fluentd/install }
-  - { role: common/elasticsearch/elasticsearch-defaults }
-  - { role: common/fluentd/plugins/elasticsearch }
+  - role: common/fluentd/gem
+    fluentd_gems: 
+      - fluent-plugin-elasticsearch
+  - role: common/elasticsearch/elasticsearch-defaults
+  - role: common/fluentd/config/match/base
+    fluentd_config_match_base_configs: "{{ fluentd_config_match_elasticsearch_configs }}"
+    fluentd_config_match_base_prefix: elasticsearch

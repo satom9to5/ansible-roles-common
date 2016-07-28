@@ -1,0 +1,3 @@
+{% for source_conf_name in fluentd_config_source_base_conf_names %}
+@include /etc/td-agent/source.d/{{ source_conf_name }}.conf
+{% endfor %}

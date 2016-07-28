@@ -1,0 +1,27 @@
+- name: add fluentd match config list
+  tags:
+    - fluentd
+    - fluentd/config/match/base
+  set_fact:
+    fluentd_config_match_base_conf_name: "{{ fluentd_config_match_base_prefix }}.{{ item.tag_name | default(item.name, true) }}" 
+  register: fluentd_config_match_base_conf_name_result
+  with_items: "{{ fluentd_config_match_base_configs }}"
+
+- name: append fluentd match conf name list
+  tags:
+    - fluentd
+    - fluentd/config/match/base
+  set_fact: 
+    fluentd_config_match_base_conf_names: "{{ fluentd_config_match_base_conf_names + fluentd_config_match_base_conf_name_result.results | map(attribute='ansible_facts.fluentd_config_match_base_conf_name') | list }}"
+
+- name: fluentd base match config copy
+  tags:
+    - fluentd
+    - fluentd/config/match/base
+  become: true
+  template: >
+    src=match.conf.j2
+    dest=/etc/td-agent/match.conf
+    mode=0755
+
+- debug: var=fluentd_config_match_base_conf_names

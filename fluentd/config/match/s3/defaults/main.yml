@@ -1,0 +1,5 @@
+fluentd_config_match_s3_configs: []
+
+# Sample
+#fluentd_config_match_s3_configs:
+#  - tag_name: foo

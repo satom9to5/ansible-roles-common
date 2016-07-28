@@ -1,0 +1,3 @@
+<filter {{ item.tag_name }}>
+  @include /etc/td-agent/partial.d/ec2_metadata.{{ item.partial_conf_name | default(item.tag_name, true) }}.conf
+</filter>

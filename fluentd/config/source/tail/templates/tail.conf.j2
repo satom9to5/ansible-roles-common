@@ -1,8 +1,8 @@
 <source>
-  type tail
+  @type tail
   tag {{ item.tag_name }}
   path {{ item.path }}
   pos_file {{ fluentd_log_dir }}/{{ item.tag_name }}.pos
-  format {{ item.format }}
+  format {{ item.format | default('json', true) }}
   keep_time_key true
 </source>

@@ -1,0 +1,3 @@
+{% for match_conf_name in fluentd_config_match_base_conf_names %}
+@include /etc/td-agent/match.d/{{ match_conf_name }}.conf
+{% endfor %}

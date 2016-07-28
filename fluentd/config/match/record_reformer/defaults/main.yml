@@ -1,0 +1,11 @@
+fluentd_config_match_record_reformer_configs: []
+
+# Sample
+#fluentd_config_match_record_reformer_configs:
+#  - tag_name: foo
+#    output_tag: append.foo
+#    records:
+#      - name: hostname
+#        value: "${Socket.gethostname}"
+#      - name: tag
+#        value: "${tag}"

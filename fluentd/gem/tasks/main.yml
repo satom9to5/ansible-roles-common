@@ -1,0 +1,7 @@
+- name: fluentd gem install
+  tags:
+   - fluentd
+   - fluentd/gem
+  become: true
+  command: /opt/td-agent/embedded/bin/fluent-gem install {{ item }}
+  with_items: "{{ fluentd_gems }}"

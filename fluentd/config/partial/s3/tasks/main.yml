@@ -1,0 +1,10 @@
+- name: fluentd s3 partial config copy
+  tags:
+    - fluentd
+    - fluentd/config/partial/s3
+  become: true
+  template: >
+    src=s3.conf.j2
+    dest=/etc/td-agent/partial.d/s3.{{ item.tag_name }}.conf
+    mode=0755
+  with_items: '{{ fluentd_config_partial_s3_configs }}'

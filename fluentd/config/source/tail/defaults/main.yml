@@ -1,1 +1,7 @@
-fluentd_tail_configs: []
+fluentd_config_source_tail_configs: []
+
+# Sample
+#fluentd_config_source_tail_configs:
+#  - tag_name: foo.bar
+#    path: /var/log/messages
+#    format: json

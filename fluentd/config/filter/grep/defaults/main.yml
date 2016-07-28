@@ -1,8 +1,8 @@
-fluentd_filter_grep_configs: []
+fluentd_config_filter_grep_configs: []
 
 #Sample
-#fluentd_filter_grep_configs: 
-#  - tag_name: hoge
+#fluentd_config_filter_grep_configs: 
+#  - tag_name: foo
 #    regexp:
 #      - name: status
 #        pattern: 200

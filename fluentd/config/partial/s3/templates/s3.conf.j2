@@ -1,0 +1,23 @@
+{% if fluentd_config_partial_s3_use_forest == false %}
+@type s3
+{% endif %}
+
+{% if aws_access_key_id is defined and aws_access_key_id != "" %}
+aws_key_id {{ aws_access_key_id }}
+{% endif %}
+{% if aws_secret_key is defined and aws_secret_key != "" %}
+aws_sec_key {{ aws_secret_key }}
+{% endif %}
+
+s3_bucket {{ item.s3_bucket }}
+s3_region {{ item.s3_region | default(fluentd_config_partial_s3_default_s3_region, true) }}
+{% if item.s3_object_key_format is defined %}
+s3_object_key_format {{ item.s3_object_key_format }}
+{% endif %}
+
+{% if item.time_slice_format is defined %}
+time_slice_format {{ item.time_slice_format }}
+{% endif %}
+
+buffer_path {{ item.buffer_path | default(fluentd_buffer_dir, true) }}/{{ item.buffer_file | default(fluentd_config_partial_s3_default_buffer_file, true) }}
+flush_at_shutdown {{ item.flush_at_shutdown | default(fluentd_buffer_flush_at_shutdown, true) }}

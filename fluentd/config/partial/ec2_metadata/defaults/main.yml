@@ -1,0 +1,9 @@
+fluentd_config_partial_ec2_metadata_configs: []
+
+#Sample
+#fluentd_config_partial_ec2_metadata_configs:
+#  - records:
+#      - name:  hostname
+#        value: "${tagset_name}"
+#      - name: instance_id
+#        value: "${instance_id}"

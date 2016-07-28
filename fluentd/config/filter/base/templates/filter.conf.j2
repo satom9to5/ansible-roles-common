@@ -1,0 +1,3 @@
+{% for filter_conf_name in fluentd_config_filter_base_conf_names %}
+@include /etc/td-agent/filter.d/{{ filter_conf_name }}.conf
+{% endfor %}

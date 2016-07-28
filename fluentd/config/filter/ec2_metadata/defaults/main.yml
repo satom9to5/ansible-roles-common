@@ -1,0 +1,6 @@
+fluentd_config_filter_ec2_metadata_configs: []
+
+# Sample
+#fluentd_config_filter_ec2_metadata_configs:
+#  - tag_name: foo
+#    partial_conf_name: foo_ec2

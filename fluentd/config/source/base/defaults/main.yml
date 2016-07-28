@@ -1,0 +1,2 @@
+fluentd_config_source_base_conf_names:
+  - "*"

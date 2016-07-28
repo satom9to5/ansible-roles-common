@@ -1,0 +1,4 @@
+fluentd_config_filter_base_conf_names: []
+fluentd_config_filter_base_configs: []
+fluentd_config_filter_base_prefix: ""
+fluentd_config_filter_base_conf_name: ""

@@ -1,0 +1,12 @@
+fluentd_config_partial_s3_use_forest: false
+fluentd_config_partial_s3_default_s3_region: ap-northeast-1
+fluentd_config_partial_s3_default_buffer_file: "${tag}"
+fluentd_config_partial_s3_configs: []
+        
+# Sample
+#fluentd_config_partial_s3_configs:
+#  - s3_bucket: foo_bucket
+#    s3_region: ap-northeast-1
+#    buffer_path: "{{ fluentd_buffer_dir }}"
+#    buffer_file: "foo.bar"
+#    time_slice_format: "%Y%m%d-%H"

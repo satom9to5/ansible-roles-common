@@ -1,5 +1,5 @@
-fluentd_forward_servers:
+fluentd_config_match_forward_servers:
   - name: fluentd_forward_server
     host: '{{ fluentd_host }}'
     port: '{{ fluentd_port }}'
-fluentd_forward_secondary_enable: false
+fluentd_config_match_forward_secondary_enable: false

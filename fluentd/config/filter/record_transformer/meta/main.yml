@@ -1,0 +1,5 @@
+dependencies:
+  - role: common/fluentd/install
+  - role: common/fluentd/config/filter/base
+    fluentd_config_filter_base_configs: "{{ fluentd_config_filter_record_transformer_configs }}"
+    fluentd_config_filter_base_prefix: record_transformer

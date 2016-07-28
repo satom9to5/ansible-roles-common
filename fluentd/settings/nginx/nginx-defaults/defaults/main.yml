@@ -1,0 +1,2 @@
+fluentd_settings_nginx_access_log_tag_name: nginx.access_log
+fluentd_settings_nginx_error_log_tag_name: nginx.error_log

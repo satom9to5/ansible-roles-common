@@ -3,7 +3,7 @@
   retry_limit 5
   flush_interval 5s
 
-{% for fluentd_forward_server in fluentd_forward_servers %}
+{% for fluentd_forward_server in fluentd_config_match_forward_servers %}
   <server>
     name {{ fluentd_forward_server.name }}
     host "{{ fluentd_forward_server.host }}"
@@ -11,7 +11,7 @@
     weight {{ fluentd_forward_server.weight | default('60', true) }}
   </server>
 {% endfor %}
-{% if fluentd_forward_secondary_enable %}
+{% if fluentd_config_match_forward_secondary_enable %}
   <secondary>
     @type file
     path {{ fluentd_log_dir }}/forward-failed.log

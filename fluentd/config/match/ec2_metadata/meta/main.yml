@@ -1,0 +1,5 @@
+dependencies:
+  - role: common/fluentd/config/partial/ec2_metadata
+  - role: common/fluentd/config/match/base
+    fluentd_config_match_base_configs: "{{ fluentd_config_match_ec2_metadata_configs }}"
+    fluentd_config_match_base_prefix: record_reformer

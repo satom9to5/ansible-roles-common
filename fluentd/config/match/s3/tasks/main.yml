@@ -1,0 +1,10 @@
+- name: fluentd s3 match config copy
+  tags:
+    - fluentd
+    - fluentd/config/match/s3
+  become: true
+  template: >
+    src=s3.conf.j2
+    dest=/etc/td-agent/match.d/s3.{{ item.tag_name }}.conf
+    mode=0755
+  with_items: "{{ fluentd_config_match_s3_configs }}"

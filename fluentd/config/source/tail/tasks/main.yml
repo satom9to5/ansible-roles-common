@@ -3,6 +3,6 @@
     - fluentd
   template: >
     src=tail.conf.j2
-    dest=/etc/td-agent/source.d/{{ item.tag_name }}.conf
+    dest=/etc/td-agent/source.d/tail.{{ item.tag_name }}.conf
     mode=0755
-  with_items: "{{ fluentd_tail_configs }}"
+  with_items: "{{ fluentd_config_source_tail_configs }}"

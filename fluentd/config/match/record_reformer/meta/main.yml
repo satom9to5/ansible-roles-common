@@ -1,0 +1,7 @@
+dependencies:
+  - role: common/fluentd/gem
+    fluentd_gems: 
+      - fluent-plugin-record-reformer
+  - role: common/fluentd/config/match/base
+    fluentd_config_match_base_configs: "{{ fluentd_config_match_record_reformer_configs }}"
+    fluentd_config_match_base_prefix: record_reformer

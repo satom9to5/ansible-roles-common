@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/fluentd/install }
+  - role: common/fluentd/config/source/base

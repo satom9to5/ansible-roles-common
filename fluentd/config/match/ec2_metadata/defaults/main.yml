@@ -1,0 +1,7 @@
+fluentd_config_match_ec2_metadata_configs: []
+
+# Sample
+#fluentd_config_match_ec2_metadata_configs:
+#  - tag_name: foo
+#    partial_conf_name: partial.foo
+#    output_tag: "${instance_id}.${tag}"

@@ -56,7 +56,7 @@
   become: true
   file: >
     path=/etc/td-agent/{{ item }}.conf
-    state=file
+    state=touch
     mode=0755
   with_items:
     - source

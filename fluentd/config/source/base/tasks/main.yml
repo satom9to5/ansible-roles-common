@@ -1,0 +1,9 @@
+- name: fluentd base source config copy
+  tags:
+    - fluentd
+    - fluentd/config/source/base
+  become: true
+  template: >
+    src=source.conf.j2
+    dest=/etc/td-agent/source.conf
+    mode=0755

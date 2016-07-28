@@ -1,0 +1,6 @@
+dependencies:
+  - role: common/fluentd/install
+  - role: common/fluentd/gem
+    fluentd_gems: 
+      - fluent-plugin-s3
+  - role: common/aws/credentials
