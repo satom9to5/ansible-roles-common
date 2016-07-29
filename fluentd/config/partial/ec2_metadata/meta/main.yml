@@ -4,4 +4,3 @@ dependencies:
     fluentd_gems: 
       - fluent-plugin-ec2-metadata
   - role: common/aws/credentials
-  - role: common/aws/ec2/check
