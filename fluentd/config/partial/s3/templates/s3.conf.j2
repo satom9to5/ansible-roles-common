@@ -17,6 +17,17 @@ s3_object_key_format {{ item.s3_object_key_format }}
 
 {% if item.time_slice_format is defined %}
 time_slice_format {{ item.time_slice_format }}
+
+{% if item.time_slice_wait is defined %}
+time_slice_wait {{ item.time_slice_wait }}
+{% elif item.flush_interval is defined %}
+flush_interval {{ item.flush_interval }}
+{% elif fluentd_buffer_time_slice_wait is defined and fluentd_buffer_time_slice_wait != "" %}
+time_slice_wait {{ fluentd_buffer_time_slice_wait }}
+{% endif %}
+
+{% elif item.flush_interval is defined %}
+flush_interval {{ item.flush_interval }}
 {% endif %}
 
 buffer_path {{ item.buffer_path | default(fluentd_buffer_dir, true) }}/{{ item.buffer_file | default(fluentd_config_partial_s3_default_buffer_file, true) }}
