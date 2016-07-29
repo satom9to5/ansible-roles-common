@@ -1,0 +1,5 @@
+- name: create read env run shell script file
+  template: >
+    src=run.sh.j2
+    dest={{ shell_read_env_run_target_file }}
+    mode=0775

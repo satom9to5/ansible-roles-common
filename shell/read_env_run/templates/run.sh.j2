@@ -1,0 +1,12 @@
+#!/bin/sh
+
+for env_file in {% for env_file in shell_read_env_run_env_files %}{{ env_file }}
+{% endfor %}
+do
+  for line in $(grep -v "^#" ${env_file})
+  do
+    export $line
+  done
+done
+
+{{ shell_read_env_run_command }}
