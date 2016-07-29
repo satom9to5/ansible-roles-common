@@ -5,4 +5,4 @@ fluentd_log_dir: /var/log/td-agent
 fluentd_buffer_dir: "{{ fluentd_log_dir }}/buffer"
 fluentd_buffer_flush_at_shutdown: true
 fluentd_buffer_flush_interval: 60
-fluentd_buffer_time_slice_wait: 5m
+fluentd_buffer_time_slice_wait: 3m
