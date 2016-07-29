@@ -1,1 +1,2 @@
-supervisor_fluentd_command: "/usr/sbin/td-agent -c /etc/td-agent/td-agent.conf"
+supervisor_fluentd_default_command: "/usr/sbin/td-agent -c /etc/td-agent/td-agent.conf"
+supervisor_fluentd_command: "{{ supervisor_fluentd_default_command }}"
