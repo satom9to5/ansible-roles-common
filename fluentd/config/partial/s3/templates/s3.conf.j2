@@ -20,4 +20,4 @@ time_slice_format {{ item.time_slice_format }}
 {% endif %}
 
 buffer_path {{ item.buffer_path | default(fluentd_buffer_dir, true) }}/{{ item.buffer_file | default(fluentd_config_partial_s3_default_buffer_file, true) }}
-flush_at_shutdown {{ item.flush_at_shutdown | default(fluentd_buffer_flush_at_shutdown, true) }}
+flush_at_shutdown {{ item.flush_at_shutdown | default(fluentd_buffer_flush_at_shutdown, true) | lower }}
