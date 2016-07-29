@@ -4,4 +4,4 @@ dependencies:
   - role: common/fluentd/config/filter/base
     fluentd_config_filter_base_configs: "{{ fluentd_config_filter_ec2_metadata_configs }}"
     fluentd_config_filter_base_prefix: ec2_metadata
-    when: is_ec2 == true
+    when: "{{ is_ec2 | bool }}"
