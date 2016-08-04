@@ -2,7 +2,7 @@
   tags:
     - docker
     - docker/compose
-  command: test -f /usr/local/bin/docker-compose
+  command: test -f {{ docker_compose_path }}
   register: docker_compose_file_check
   failed_when: docker_compose_file_check.rc not in [0,1]
 
@@ -11,7 +11,8 @@
     - docker
     - docker/compose
   when: docker_compose_file_check.rc == 0
-  command: /usr/local/bin/docker-compose version | grep 'docker-compose version' | awk -F '[ ,]' '{ print $3 }'
+  shell: |
+    {{ docker_compose_path }} version | grep 'docker-compose version' | awk -F '[ ,]' '{ print $3 }'
   register: docker_compose_version_check
   failed_when: docker_compose_version_check.rc not in [0,1]
 
@@ -23,7 +24,7 @@
   when: docker_compose_file_check.rc != 0 or docker_compose_version_check.stdout != "{{ docker_compose_version }}"
   get_url: >
     url="https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ uname_kernel }}-{{ uname_machine }}"
-    dest=/usr/local/bin/docker-compose
+    dest={{ docker_compose_path }}
     force=yes
 
 - name: docker-compose add x permission
@@ -33,4 +34,4 @@
   become: true
   ignore_errors: yes
   shell:  |
-    chmod +x /usr/local/bin/docker-compose
+    chmod +x {{ docker_compose_path }}

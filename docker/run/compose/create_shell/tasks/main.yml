@@ -1,0 +1,30 @@
+- name: docker run compose shell directory check
+  tags:
+    - docker
+    - docker/run/compose/create_shell
+  command: test -d {{ docker_run_compose_shell_directory }}
+  register: docker_run_compose_shell_directory_check
+  failed_when: docker_run_compose_shell_directory_check.rc not in [0,1]
+
+- name: docker run compose shell directory create
+  tags:
+    - docker
+    - docker/run/compose/create_shell
+  become: true
+  when: docker_run_compose_shell_directory_check.rc != 0
+  file: >
+    path={{ docker_run_compose_shell_directory }}
+    state=directory
+    owner={{ ansible_user_id }}
+
+- name: docker run compose shell directory create
+  tags:
+    - docker
+    - docker/run/compose/create_shell
+  become: true
+  template: >
+    src=run.sh.j2
+    dest={{ docker_run_compose_shell_directory }}/{{ docker_run_compose_shell_environment }}.sh
+    mode=0644
+    owner={{ ansible_user_id }}
+
