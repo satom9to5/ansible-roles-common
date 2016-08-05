@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+  zoone_registry:
+    image: registry:{{ docker_image_registry_tag }}
+    container_name: {{ docker_image_registry_container_name }}
+    ports:
+      - "{{ docker_image_registry_host_port }}:{{ docker_image_registry_forward_port }}"
+    networks: 
+      zoone_registry_net:
+        ipv4_address: {{ docker_image_registry_net_ip }}
+  
+networks:
+  zoone_registry_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: {{ docker_image_registry_net_subnet }}
+          gateway: {{ docker_image_registry_net_gateway }}

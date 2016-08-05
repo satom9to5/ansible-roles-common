@@ -1,0 +1,3 @@
+dependencies:
+  - role: common/docker/compose
+  - role: common/docker/run/compose/create_shell

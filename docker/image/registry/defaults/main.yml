@@ -1,0 +1,19 @@
+docker_image_registry_directory: /opt/docker/compose/registry
+docker_image_registry_tag: 2
+docker_image_registry_net_subnet: 172.30.255.0/24
+docker_image_registry_net_gateway: 172.30.255.1
+docker_image_registry_net_ip: 172.30.255.2
+docker_image_registry_host: docker.registry
+docker_image_registry_host_port: 5000
+docker_image_registry_forward_port: 5000
+docker_image_registry_container_name: docker_registry
+docker_image_registry_environment_settings: []
+
+# Sample
+#docker_image_registry_environment_settings: 
+#  - environment: localhost
+#    env_files:
+#      - "{{ docker_image_registry_directory }}/localhost.env"
+#  - environment: production
+#    env_files:
+#      - "{{ docker_image_registry_directory }}/production.env"

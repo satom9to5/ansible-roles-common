@@ -1,0 +1,41 @@
+- name: create docker registry directory
+  tags:
+    - docker
+    - docker/image/registry
+  become: true
+  file: >
+    path={{ docker_image_registry_directory }}
+    state=directory
+    owner={{ ansible_user_id }}
+
+- name: create docker-compose.yml
+  tags:
+    - docker
+    - docker/image/registry
+  become: true
+  template: >
+    src=docker-compose.yml.j2
+    dest={{ docker_image_registry_directory }}/docker-compose.yml
+    owner={{ ansible_user_id }}
+
+- name: create environment docker-compose.yml 
+  tags:
+    - docker
+    - docker/image/registry
+  become: true
+  template: >
+    src=docker-compose.environment.yml.j2
+    dest={{ docker_image_registry_directory }}/docker-compose.{{ item.environment }}.yml
+    owner={{ ansible_user_id }}
+  with_items: "{{ docker_image_registry_environment_settings }}"
+
+- name: docker registry ip add to /etc/hosts
+  tags:
+    - docker
+    - docker/image/registry
+  become: true
+  blockinfile:
+    dest: /etc/hosts
+    marker: "# {mark} docker registry image ip"
+    block: |
+      {{ docker_image_registry_net_ip }} {{ docker_image_registry_host }} 

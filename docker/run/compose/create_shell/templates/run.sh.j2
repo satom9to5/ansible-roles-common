@@ -4,4 +4,4 @@ DOCKER_COMPOSE={{ docker_compose_path }}
 CURDIR=$(cd $(dirname $0) && pwd)
 
 cd ${CURDIR}
-${DOCKER_COMPOSE} -f docker-compose.yml -f docker-compose.{{ docker_run_compose_shell_environment }}.yml $@
+${DOCKER_COMPOSE} -f docker-compose.yml -f docker-compose.{{ item }}.yml $@

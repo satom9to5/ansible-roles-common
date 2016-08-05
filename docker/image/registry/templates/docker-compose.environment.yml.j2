@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+  zoone_registry:
+{% if item.env_files is defined %}
+    env_file:
+{% for env_file in item.env_files %}
+      - {{ env_file }}
+{% endfor %}
+{% endif %}

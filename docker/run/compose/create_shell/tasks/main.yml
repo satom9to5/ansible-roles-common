@@ -24,7 +24,7 @@
   become: true
   template: >
     src=run.sh.j2
-    dest={{ docker_run_compose_shell_directory }}/{{ docker_run_compose_shell_environment }}.sh
+    dest={{ docker_run_compose_shell_directory }}/{{ item }}.sh
     mode=0644
     owner={{ ansible_user_id }}
-
+  with_items: "{{ docker_run_compose_shell_environments }}"

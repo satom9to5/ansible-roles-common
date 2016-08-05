@@ -25,13 +25,5 @@
   get_url: >
     url="https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ uname_kernel }}-{{ uname_machine }}"
     dest={{ docker_compose_path }}
+    mode=+x
     force=yes
-
-- name: docker-compose add x permission
-  tags:
-    - docker
-    - docker/compose
-  become: true
-  ignore_errors: yes
-  shell:  |
-    chmod +x {{ docker_compose_path }}
