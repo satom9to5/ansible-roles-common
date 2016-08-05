@@ -7,13 +7,20 @@ docker_image_registry_host: docker.registry
 docker_image_registry_host_port: 5000
 docker_image_registry_forward_port: 5000
 docker_image_registry_container_name: docker_registry
+docker_image_registry_env_file_directory: "{{ docker_image_registry_directory }}/.env"
+docker_image_registry_s3_region: ap-northeast-1
+docker_image_registry_delete_enabled: true
 docker_image_registry_environment_settings: []
 
 # Sample
 #docker_image_registry_environment_settings: 
 #  - environment: localhost
-#    env_files:
-#      - "{{ docker_image_registry_directory }}/localhost.env"
+#    s3_accesskey: foo
+#    s3_secretkey: bar
+#    s3_bucket: devt_bucket
 #  - environment: production
+#    s3_accesskey: foo
+#    s3_secretkey: bar
+#    s3_bucket: prod_bucket
 #    env_files:
-#      - "{{ docker_image_registry_directory }}/production.env"
+#      - "{{ docker_image_registry_directory }}/common.env"

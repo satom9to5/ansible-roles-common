@@ -2,9 +2,12 @@ version: "2"
 
 services:
   zoone_registry:
-{% if item.env_files is defined %}
+{% if item.s3_access_key is defined and item.s3_secretkey is defined and item.s3_bucket is defined %}
     env_file:
+      - {{ item.environment }}.env
+{% if item.env_files is defined %}
 {% for env_file in item.env_files %}
       - {{ env_file }}
 {% endfor %}
+{% endif %}
 {% endif %}

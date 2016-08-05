@@ -29,6 +29,29 @@
     owner={{ ansible_user_id }}
   with_items: "{{ docker_image_registry_environment_settings }}"
 
+- name: create docker env_file directory
+  tags:
+    - docker
+    - docker/image/registry
+  become: true
+  file: >
+    path={{ docker_image_registry_env_file_directory }}
+    state=directory
+    owner={{ ansible_user_id }}
+    mode=0700
+
+- name: create environment env_file 
+  tags:
+    - docker
+    - docker/image/registry
+  become: true
+  when: item.s3_accesskey is defined and item.s3_secretkey is defined and item.s3_bucket
+  template: >
+    src=env_file.j2
+    dest={{ docker_image_registry_env_file_directory }}/{{ item.environment }}.env
+    owner={{ ansible_user_id }}
+  with_items: "{{ docker_image_registry_environment_settings }}"
+
 - name: docker registry ip add to /etc/hosts
   tags:
     - docker
