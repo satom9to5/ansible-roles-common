@@ -1,4 +1,4 @@
-upstream {{ nginx_config_proxy_upstream }} {
+upstream @{{ nginx_config_proxy_upstream }} {
 {% for nginx_config_proxy_server in nginx_config_proxy_servers %}
   server {{ nginx_config_proxy_server }}; 
 {% endfor %}

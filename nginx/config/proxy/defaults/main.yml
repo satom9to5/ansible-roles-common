@@ -1,6 +1,6 @@
 nginx_config_proxy_config_name: config_proxy
-nginx_config_proxy_location: "@{{ nginx_config_proxy_config_name }}"
-nginx_config_proxy_upstream: "@upstream_{{ nginx_config_proxy_config_name }}"
+nginx_config_proxy_location: "{{ nginx_config_proxy_config_name }}"
+nginx_config_proxy_upstream: "upstream_{{ nginx_config_proxy_config_name }}"
 nginx_config_proxy_host: localhost
 nginx_config_proxy_port: 8080
 nginx_config_proxy_root: ""

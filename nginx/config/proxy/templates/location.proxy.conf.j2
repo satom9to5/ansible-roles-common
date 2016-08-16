@@ -1,10 +1,10 @@
 location / {
-  try_files $uri $uri/ {{ nginx_config_proxy_location }};
+  try_files $uri $uri/ @{{ nginx_config_proxy_location }};
 {% if nginx_config_proxy_root is defined and nginx_config_proxy_root != "" %}
   root {{ nginx_config_proxy_root }};
 {% endif %}
 }
 
-location {{ nginx_config_proxy_location }} {
-  proxy_pass http://{{ nginx_config_proxy_upstream }};
+location @{{ nginx_config_proxy_location }} {
+  proxy_pass http://@{{ nginx_config_proxy_upstream }};
 }
