@@ -1,6 +1,0 @@
-nginx_kibana_host: '{{ kibana_host }}'
-nginx_kibana_port: '{{ kibana_port }}'
-nginx_kibana_upstream: "@upstream_kibana"
-nginx_kibana_location: "{{ kibana_server_basepath }}"
-nginx_location_confs:
-  - kibana 

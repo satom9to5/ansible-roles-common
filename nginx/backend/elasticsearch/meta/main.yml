@@ -1,0 +1,7 @@
+dependencies:
+  - role: common/nginx/config/rewrite_proxy
+    nginx_config_rewrite_proxy_config_name: "{{ nginx_backend_elasticsearch_config_name }}"
+    nginx_config_rewrite_proxy_host: "{{ nginx_backend_elasticsearch_host }}"
+    nginx_config_rewrite_proxy_port: "{{ nginx_backend_elasticsearch_port }}"
+    nginx_config_rewrite_proxy_root: ""
+  - role: common/elasticsearch/elasticsearch-defaults

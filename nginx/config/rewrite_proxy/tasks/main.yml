@@ -1,0 +1,17 @@
+- name: copy rewrite_proxy upstream config file
+  tags:
+    - nginx
+    - nginx/config/rewrite_proxy
+  become: true
+  template: >
+    src=upstream.rewrite_proxy.conf.j2
+    dest=/etc/nginx/conf.d/upstream/{{ nginx_config_rewrite_proxy_config_name }}.conf
+
+- name: copy rewrite_proxy location config file
+  tags:
+    - nginx
+    - nginx/config/rewrite_proxy
+  become: true
+  template: >
+    src=location.rewrite_proxy.conf.j2
+    dest=/etc/nginx/conf.d/location/{{ nginx_config_rewrite_proxy_config_name }}.conf

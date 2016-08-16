@@ -1,0 +1,3 @@
+dependencies:
+  - { role: common/golang/package/revel/revel-defaults }
+  - { role: common/nginx/install }

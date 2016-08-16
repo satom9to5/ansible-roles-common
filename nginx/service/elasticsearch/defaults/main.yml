@@ -1,6 +1,0 @@
-nginx_elasticsearch_host: '{{ elasticsearch_host }}'
-nginx_elasticsearch_port: '{{ elasticsearch_port }}'
-nginx_elasticsearch_upstream: "@upstream_elasticsearch"
-nginx_elasticsearch_location: "/elasticsearch"
-nginx_location_confs:
-  - elasticsearch 

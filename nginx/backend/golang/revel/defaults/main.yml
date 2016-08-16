@@ -1,0 +1,7 @@
+nginx_backend_golang_revel_config_name: revel
+nginx_backend_golang_revel_location: "@revel"
+nginx_backend_golang_revel_upstream: "@upstream_{{ nginx_backend_golang_revel_config_name }}"
+nginx_backend_golang_revel_host: "{{ nginx_backend_golang_revel_config_name }}"
+nginx_backend_golang_revel_port: 9000
+nginx_backend_golang_revel_servers:
+  - "{{ nginx_backend_golang_revel_host }}:{{ nginx_backend_golang_revel_port }}" 

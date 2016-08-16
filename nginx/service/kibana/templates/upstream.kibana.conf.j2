@@ -1,4 +1,0 @@
-# upstream Setting
-upstream {{ nginx_kibana_upstream }} {
-    server {{ nginx_kibana_host | default(kibana_host, true) }}:{{ nginx_kibana_port | default(kibana_port, true) }};
-}

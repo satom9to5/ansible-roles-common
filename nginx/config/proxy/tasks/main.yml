@@ -1,0 +1,17 @@
+- name: copy proxy upstream config file
+  tags:
+    - nginx
+    - nginx/config/proxy
+  become: true
+  template: >
+    src=upstream.proxy.conf.j2
+    dest=/etc/nginx/conf.d/upstream/{{ nginx_config_proxy_config_name }}.conf
+
+- name: copy proxy location config file
+  tags:
+    - nginx
+    - nginx/config/proxy
+  become: true
+  template: >
+    src=location.proxy.conf.j2
+    dest=/etc/nginx/conf.d/location/{{ nginx_config_proxy_config_name }}.conf

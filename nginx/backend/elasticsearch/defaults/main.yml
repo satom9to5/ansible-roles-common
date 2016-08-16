@@ -1,0 +1,3 @@
+nginx_backend_elasticsearch_config_name: elasticsearch
+nginx_backend_elasticsearch_host: "{{ elasticsearch_host }}"
+nginx_backend_elasticsearch_port: "{{ elasticsearch_port }}"

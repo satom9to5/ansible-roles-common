@@ -1,0 +1,7 @@
+location / {
+  try_files $uri $uri/ {{ nginx_backend_golang_revel_location }};
+}
+
+location {{ nginx_backend_golang_revel_location }} {
+  proxy_pass http://{{ nginx_backend_golang_revel_upstream }};
+}

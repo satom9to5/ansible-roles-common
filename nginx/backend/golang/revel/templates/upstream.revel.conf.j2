@@ -1,0 +1,5 @@
+upstream {{ nginx_backend_golang_revel_upstream }} {
+{% for nginx_backend_golang_revel_server in nginx_backend_golang_revel_servers %}
+  server {{ nginx_backend_golang_revel_server }}; 
+{% endfor %}
+}

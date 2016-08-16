@@ -1,0 +1,15 @@
+- name: copy nginx upstream config file of revel
+  tags:
+    - nginx
+    - nginx/backend/golang/revel
+  template: >
+    src=upstream.revel.conf.j2
+    dest=/etc/nginx/conf.d/upstream/{{ nginx_backend_golang_revel_config_name }}.conf
+
+- name: copy nginx location config file of revel
+  tags:
+    - nginx
+    - nginx/backend/golang/revel
+  template: >
+    src=location.revel.conf.j2
+    dest=/etc/nginx/conf.d/location/{{ nginx_backend_golang_revel_config_name }}.conf
