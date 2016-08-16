@@ -31,7 +31,7 @@ http {
     client_max_body_size          10M;
     client_body_buffer_size       64k;
 
-    sendfile        on;
+    sendfile        {{ nginx_sendfile }};
     tcp_nopush      on;
 
     keepalive_timeout  65;

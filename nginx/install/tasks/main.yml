@@ -2,15 +2,18 @@
   tags:
     - nginx
   ignore_errors: yes
-  yum: name={{ item }} state=latest
+  yum: >
+    name={{ item }}
+    state=latest
   with_items:
     - libxslt-devel
 
 - name: create nginx-build work directory
   tags:
     - nginx
-  shell: |
-    mkdir -p {{ nginx_build_work_directory }}
+  file: >
+    path={{ nginx_build_work_directory }}
+    state=directory
 
 - name: nginx third party module config copy
   tags:

@@ -3,6 +3,7 @@ nginx_user_uid: 1010
 nginx_port: 80
 nginx_root: "/var/www/html"
 nginx_log_dir: "/var/log/nginx"
+nginx_sendfile: on
 nginx_default_do_not_cache: 0
 nginx_location_confs: []
 nginx_charset: UTF-8
