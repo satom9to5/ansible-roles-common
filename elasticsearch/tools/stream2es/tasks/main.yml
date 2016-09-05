@@ -12,9 +12,5 @@
   get_url: >
     url=http://download.elasticsearch.org/stream2es/stream2es
     dest=/usr/local/bin/stream2es
+    mode=755
     timeout=60
-
-- name: stream2es chmod
-  tags: 
-    - elasticsearch
-  shell: chmod +x /usr/local/bin/stream2es
