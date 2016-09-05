@@ -1,0 +1,3 @@
+dependencies:
+  - { role: common/basic/archive }
+  - { role: common/basic/compile }

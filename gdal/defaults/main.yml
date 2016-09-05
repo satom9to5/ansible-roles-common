@@ -1,0 +1,3 @@
+gdal_version: 1.9.2
+gdal_fullname: "gdal-{{ gdal_version }}"
+gdal_path: "/usr/local/src/{{ gdal_fullname }}"

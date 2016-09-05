@@ -1,0 +1,56 @@
+- name: GDAL source file check
+  tags:
+    - gdal
+  command: test -f {{ gdal_path }}.tar.gz
+  register: gdal_source_check
+  failed_when: gdal_source_check.rc not in [0,1]
+
+- name: GDAL download
+  tags:
+    - gdal
+  become: true
+  when: gdal_source_check.rc != 0
+  get_url: >
+    url=http://download.osgeo.org/gdal/{{ gdal_fullname }}.tar.gz
+    dest={{ gdal_path }}.tar.gz
+    timeout=60
+
+- name: GDAL source directory check
+  tags:
+    - gdal
+  command: test -d {{ gdal_path }}
+  register: gdal_dir_check
+  failed_when: gdal_dir_check.rc not in [0,1]
+
+- name: GDAL source directory remove
+  tags:
+    - gdal
+  become: true
+  when: gdal_dir_check.rc == 0
+  file: >
+    path={{ gdal_path }}
+    state=absent
+
+- name: GDAL unarchive
+  tags:
+    - gdal
+  become: true
+  shell: |
+    cd /usr/local/src
+    tar xvzf {{ gdal_path }}.tar.gz
+
+- name: GDAL install
+  tags:
+    - gdal
+  become: true
+  shell: |
+    cd {{ gdal_path }} 
+    ./configure
+    make prefix=/usr/local
+    make install prefix=/usr/local
+
+- name: update shared library path with ldconfig
+  tags:
+    - gdal
+  become: true
+  command: /sbin/ldconfig
