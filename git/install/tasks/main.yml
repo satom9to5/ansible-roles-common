@@ -8,8 +8,6 @@
     - which
     - patch
     - wget
-    - tar
-    - gcc
     - openssl-devel
     - libcurl-devel
     - expat-devel
@@ -62,5 +60,5 @@
   become: true
   shell: |
     cd {{ git_path }} 
-    make prefix=/usr
-    make install prefix=/usr
+    make prefix=/usr/local
+    make install prefix=/usr/local
