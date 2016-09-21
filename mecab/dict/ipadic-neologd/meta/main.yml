@@ -1,0 +1,3 @@
+dependencies:
+  - role: common/mecab/install
+  - role: common/mecab/mecab-defaults

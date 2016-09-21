@@ -1,0 +1,15 @@
+- name: mecab-ipadic-neologd clone
+  tags:
+    - mecab
+    - mecab/dict/ipadic-neologd
+  become: true
+  git: >
+    repo=https://github.com/neologd/mecab-ipadic-neologd.git
+    dest={{ mecab_dict_ipadic_neologd_path }}
+
+- name: mecab-ipadic-neologd install
+  tags:
+    - mecab
+    - mecab/dict/ipadic-neologd
+  become: true
+  command: "{{ mecab_dict_ipadic_neologd_path }}/bin/install-mecab-ipadic-neologd -n -y"
