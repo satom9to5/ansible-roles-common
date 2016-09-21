@@ -1,0 +1,7 @@
+mecab_version: 0.996
+mecab_fullname: "mecab-{{ mecab_version }}"
+mecab_path: "/usr/local/src/{{ mecab_fullname }}"
+mecab_archive_path: "{{ mecab_path }}.tar.gz"
+mecab_archive_url: "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7cENtOXlicTFaRUE"
+mecab_configure_option: "--enable-utf8-only"
+

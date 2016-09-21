@@ -1,0 +1,69 @@
+- name: mecab dict ipadic archive file check
+  tags:
+    - mecab
+    - mecab/dict/ipadic
+  command: test -f {{ mecab_dict_ipadic_archive_path }}
+  register: mecab_dict_ipadic_archive_check
+  failed_when: mecab_dict_ipadic_archive_check.rc not in [0,1]
+
+- name: mecab dict ipadic archive download
+  tags:
+    - mecab
+    - mecab/dict/ipadic
+  become: true
+  when: mecab_dict_ipadic_archive_check.rc != 0
+  get_url: >
+    url={{ mecab_dict_ipadic_archive_url }}
+    dest={{ mecab_dict_ipadic_archive_path }}
+
+- name: get mecab dict ipadic unarchive directry
+  tags:
+    - mecab
+    - mecab/dict/ipadic
+  shell: tar tvf {{ mecab_dict_ipadic_archive_path }} | head -1 | awk '{ print $6 }'
+  register: mecab_dict_ipadic_unarchive_directory
+
+- name: get mecab dict ipadic unarchive  path
+  tags:
+    - mecab
+    - mecab/dict/ipadic
+  set_fact:
+    mecab_dict_unarchive_path: "{{ mecab_dict_ipadic_basepath }}{{ mecab_dict_ipadic_unarchive_directory.stdout }}"
+
+- name: mecab dict ipadic source directory check
+  tags:
+    - mecab
+    - mecab/dict/ipadic
+  command: test -d {{ mecab_dict_unarchive_path }}
+  register: mecab_dict_ipadic_dir_check
+  failed_when: mecab_dict_ipadic_dir_check.rc not in [0,1]
+
+- name: mecab dict ipadic source directory remove
+  tags:
+    - mecab
+    - mecab/dict/ipadic
+  become: true
+  when: mecab_dict_ipadic_dir_check.rc == 0
+  file: >
+    path={{ mecab_dict_unarchive_path }}
+    state=absent
+
+- name: mecab dict ipadic unarchive
+  tags:
+    - mecab
+    - mecab/dict/ipadic
+  become: true
+  shell: |
+    cd /usr/local/src
+    tar xvzf {{ mecab_dict_ipadic_archive_path }}
+
+- name: mecab dict ipadic install
+  tags:
+    - mecab
+    - mecab/dict/ipadic
+  become: true
+  shell: |
+    cd {{ mecab_dict_unarchive_path }} 
+    ./configure --with-charset={{ mecab_charset }}
+    make prefix=/usr/local
+    make install prefix=/usr/local

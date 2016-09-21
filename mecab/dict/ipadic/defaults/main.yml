@@ -1,0 +1,5 @@
+mecab_dict_ipadic_version: 2.7.0
+mecab_dict_ipadic_fullname: "mecab-ipadic-{{ mecab_dict_ipadic_version }}"
+mecab_dict_ipadic_basepath: "/usr/local/src/"
+mecab_dict_ipadic_archive_path: "{{ mecab_dict_ipadic_basepath }}{{ mecab_dict_ipadic_fullname }}.tar.gz"
+mecab_dict_ipadic_archive_url: "https://drive.google.com/uc?export=download&id=0B4y35FiV1wh7MWVlSDBCSXZMTXM"

@@ -1,0 +1,3 @@
+dependencies:
+  - role: common/basic/compile
+  - role: common/mecab/mecab-defaults

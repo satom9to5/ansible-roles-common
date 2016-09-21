@@ -1,0 +1,55 @@
+- name: mecab archive file check
+  tags:
+    - mecab
+  command: test -f {{ mecab_archive_path }}
+  register: mecab_archive_check
+  failed_when: mecab_archive_check.rc not in [0,1]
+
+- name: mecab archive download
+  tags:
+    - mecab
+  become: true
+  when: mecab_archive_check.rc != 0
+  get_url: >
+    url={{ mecab_archive_url }}
+    dest={{ mecab_archive_path }}
+
+- name: mecab source directory check
+  tags:
+    - mecab
+  command: test -d {{ mecab_path }}
+  register: mecab_dir_check
+  failed_when: mecab_dir_check.rc not in [0,1]
+
+- name: mecab source directory remove
+  tags:
+    - mecab
+  become: true
+  when: mecab_dir_check.rc == 0
+  file: >
+    path={{ mecab_path }}
+    state=absent
+
+- name: mecab unarchive
+  tags:
+    - mecab
+  become: true
+  shell: |
+    cd /usr/local/src
+    tar xvzf {{ mecab_archive_path }}
+
+- name: mecab install
+  tags:
+    - mecab
+  become: true
+  shell: |
+    cd {{ mecab_path }} 
+    ./configure {{ mecab_configure_option }}
+    make prefix=/usr/local
+    make install prefix=/usr/local
+
+- name: update shared library path with ldconfig
+  tags:
+    - mecab
+  become: true
+  command: /sbin/ldconfig
