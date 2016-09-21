@@ -1,1 +1,2 @@
 mecab_charset: utf-8
+mecab_config_path: "/usr/local/etc/mecabrc"

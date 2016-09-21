@@ -1,1 +1,2 @@
 mecab_dict_ipadic_neologd_path: "/usr/local/src/mecab-ipadic-neologd"
+mecab_dict_ipadic_neologd_dicpath: "/usr/local/lib/mecab/dic/mecab-ipadic-neologd"

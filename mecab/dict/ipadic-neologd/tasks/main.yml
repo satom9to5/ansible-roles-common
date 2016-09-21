@@ -13,3 +13,13 @@
     - mecab/dict/ipadic-neologd
   become: true
   command: "{{ mecab_dict_ipadic_neologd_path }}/bin/install-mecab-ipadic-neologd -n -y"
+
+- name: mecab-ipadic-neologd create config file
+  tags:
+    - mecab
+    - mecab/dict/ipadic-neologd
+  become: true
+  template: >
+    src=mecabrc.j2
+    dest={{ mecab_config_path }}
+    mode=0755
