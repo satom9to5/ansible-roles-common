@@ -72,51 +72,30 @@
      cd {{ nginx_make_work_directory }}
      make install
 
-- name: create nginx conf directory 
+- name: create nginx conf directories 
   tags:
     - nginx
   file: >
-    path=/etc/nginx/conf.d
+    path={{ item }}
     state=directory
+  with_items:
+    - /etc/nginx/conf.d
+    - /etc/nginx/conf.d/server
+    - /etc/nginx/conf.d/upstream
+    - /etc/nginx/conf.d/location
+    - /etc/nginx/conf.d/lua
 
-- name: create nginx upstream conf directory 
+- name: create nginx data directories
   tags:
     - nginx
   file: >
-    path=/etc/nginx/conf.d/upstream
-    state=directory
-
-- name: create nginx location conf directory 
-  tags:
-    - nginx
-  file: >
-    path=/etc/nginx/conf.d/location
-    state=directory
-
-- name: create nginx lua script directory 
-  tags:
-    - nginx
-  file: >
-    path=/etc/nginx/conf.d/lua
-    state=directory
-
-- name: create nginx temp directory
-  tags:
-    - nginx
-  file: >
-    path=/var/lib/nginx/tmp
+    path={{ item }}
     state=directory
     owner={{ nginx_user }}
     group={{ nginx_user }}
-
-- name: create nginx cache directory
-  tags:
-    - nginx
-  file: >
-    path=/var/cache/nginx
-    state=directory
-    owner={{ nginx_user }}
-    group={{ nginx_user }}
+  with_items:
+    - /var/lib/nginx/tmp
+    - /var/cache/nginx
 
 - name: nginx conf file copy
   tags:
@@ -174,12 +153,12 @@
     dest=/etc/nginx/fastcgi_cache.conf
     mode=0755
 
-- name: nginx server conf file copy
+- name: nginx server default conf file copy
   tags:
     - nginx
   template: >
     src=server.conf.j2
-    dest=/etc/nginx/server.conf
+    dest=/etc/nginx/server/default.conf
     mode=0755
 
 - name: nginx sysconfig copy
