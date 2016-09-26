@@ -1,0 +1,4 @@
+charset {{ nginx_charset }};
+{% if (nginx_charset_types | length) > 0 %}
+charset_types{% for nginx_charset_type in nginx_charset_types %} {{ nginx_charset_type }}{% endfor %};
+{% endif %}

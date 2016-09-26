@@ -1,0 +1,32 @@
+- name: nginx conf files copy
+  tags:
+    - nginx
+    - nginx/config/custom
+  template: >
+    src={{ item.src }}
+    dest={{ item.dest }}
+    mode=0755
+  with_items:
+    - src: custom.conf.j2
+      dest: /etc/nginx/custom.conf
+    - src: env.conf.j2
+      dest: /etc/nginx/env.conf
+    - src: log.conf.j2
+      dest: /etc/nginx/log.conf
+    - src: charset.conf.j2
+      dest: /etc/nginx/charset.conf
+    - src: gzip.conf.j2
+      dest: /etc/nginx/gzip.conf
+    - src: proxy.conf.j2
+      dest: /etc/nginx/proxy.conf
+    - src: fastcgi_cache.conf.j2
+      dest: /etc/nginx/fastcgi_cache.conf
+
+- name: nginx servers conf file touch
+  tags:
+    - nginx
+    - nginx/config/custom
+  file: >
+    path=/etc/nginx/servers.conf
+    state=touch
+    mode=0755
