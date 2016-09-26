@@ -1,6 +1,7 @@
 - name: nginx depends library install
   tags:
     - nginx
+    - nginx/install
   ignore_errors: yes
   yum: >
     name={{ item }}
@@ -11,6 +12,7 @@
 - name: create nginx-build work directory
   tags:
     - nginx
+    - nginx/install
   file: >
     path={{ nginx_build_work_directory }}
     state=directory
@@ -18,6 +20,7 @@
 - name: nginx third party module config copy
   tags:
     - nginx
+    - nginx/install
   template: >
     src=third_party_modules.j2
     dest={{ nginx_module_file_path }}
@@ -25,6 +28,7 @@
 - name: nginx configure
   tags:
     - nginx
+    - nginx/install
   ignore_errors: yes
   shell: |
     source /etc/profile.d/proglang.sh
@@ -68,13 +72,15 @@
 - name: nginx install
   tags:
     - nginx
+    - nginx/install
   shell: |
      cd {{ nginx_make_work_directory }}
      make install
 
-- name: create nginx conf directories 
+- name: create nginx conf directories
   tags:
     - nginx
+    - nginx/install
   file: >
     path={{ item }}
     state=directory
@@ -88,6 +94,7 @@
 - name: create nginx data directories
   tags:
     - nginx
+    - nginx/install
   file: >
     path={{ item }}
     state=directory
@@ -97,73 +104,28 @@
     - /var/lib/nginx/tmp
     - /var/cache/nginx
 
-- name: nginx conf file copy
+- name: nginx conf files copy
   tags:
     - nginx
+    - nginx/install
   template: >
     src=nginx.conf.j2
     dest=/etc/nginx/nginx.conf
     mode=0755
 
-- name: nginx env conf file copy
+- name: nginx include conf file touch
   tags:
     - nginx
-  template: >
-    src=env.conf.j2
-    dest=/etc/nginx/env.conf
-    mode=0755
-
-- name: nginx log conf file copy
-  tags:
-    - nginx
-  template: >
-    src=log.conf.j2
-    dest=/etc/nginx/log.conf
-    mode=0755
-
-- name: nginx charset conf file copy
-  tags:
-    - nginx
-  template: >
-    src=charset.conf.j2
-    dest=/etc/nginx/charset.conf
-    mode=0755
-
-- name: nginx gzip conf file copy
-  tags:
-    - nginx
-  template: >
-    src=gzip.conf.j2
-    dest=/etc/nginx/gzip.conf
-    mode=0755
-
-- name: nginx proxy conf file copy
-  tags:
-    - nginx
-  template: >
-    src=proxy.conf.j2
-    dest=/etc/nginx/proxy.conf
-    mode=0755
-
-- name: nginx fastcgi_cache conf file copy
-  tags:
-    - nginx
-  template: >
-    src=fastcgi_cache.conf.j2
-    dest=/etc/nginx/fastcgi_cache.conf
-    mode=0755
-
-- name: nginx server default conf file copy
-  tags:
-    - nginx
-  template: >
-    src=server.conf.j2
-    dest=/etc/nginx/server/default.conf
+    - nginx/install
+  file: >
+    path=/etc/nginx/custom.conf
+    state=touch
     mode=0755
 
 - name: nginx sysconfig copy
   tags:
     - nginx
+    - nginx/install
   template: >
     src=sysconfig.j2
     dest=/etc/sysconfig/nginx
@@ -171,6 +133,7 @@
 - name: nginx init.d script copy
   tags:
     - nginx
+    - nginx/install
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   template: >
     src=init.d.j2
@@ -180,6 +143,7 @@
 - name: nginx systemd service copy
   tags:
     - nginx
+    - nginx/install
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
   template: >
     src=nginx.service.j2
@@ -189,6 +153,7 @@
 - name: nginx service enable by RHEL6
   tags:
     - nginx
+    - nginx/install
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6' and service_enable == 1
   service: >
     name=nginx
@@ -197,6 +162,7 @@
 - name: nginx service enable by RHEL7
   tags:
     - nginx
+    - nginx/install
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7' and service_enable == 1
   service: >
     name=nginx.service

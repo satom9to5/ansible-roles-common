@@ -1,9 +1,0 @@
-# キャッシュの場所、ディレクトリ構造、
-# キーゾーン名とオブジェクトを保存するキーの全体サイズ（オブジェクト1つにつき128バイト消費する）、
-# 合計の最大キャッシュサイズ、保存期間
-fastcgi_cache_path  /var/cache/nginx/fastcgi levels=1:2 keys_zone=fastcgi_cache_zone:8m max_size=500m inactive=1d;
-
-# キャッシュに付与されるキー
-fastcgi_cache_key $scheme://$host$request_uri;
-
-fastcgi_cache_use_stale error timeout invalid_header http_500;

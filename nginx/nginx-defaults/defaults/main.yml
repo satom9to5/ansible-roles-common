@@ -1,11 +1,11 @@
 nginx_user: nginx
 nginx_user_uid: 1010
+nginx_log_dir: "/var/log/nginx"
+nginx_error_log_level: warn
+nginx_worker_connections: 1024
+
 nginx_port: 80
 nginx_root: "/var/www/html"
-nginx_log_dir: "/var/log/nginx"
-nginx_sendfile: "on"
-nginx_default_do_not_cache: 0
-nginx_location_confs: []
 nginx_charset: UTF-8
 nginx_charset_types:
   - text/css
@@ -36,3 +36,5 @@ nginx_log_format_ltsv: "
 "
 nginx_log_format_type: ltsv
 nginx_log_format: "{{ nginx_log_format_ltsv }}"
+
+nginx_install: true
