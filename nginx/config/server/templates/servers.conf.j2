@@ -1,0 +1,3 @@
+{% for nginx__server_conf in nginx__server_confs %}
+include /etc/nginx/conf.d/server/{{ nginx__server_conf.name | default('default', true) }}.conf;
+{% endfor %}

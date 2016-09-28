@@ -1,13 +1,13 @@
-location {{ nginx_config_rewrite_proxy_location }} {
-    rewrite ^{{ nginx_config_rewrite_proxy_location }}/(.*) /$1 break;
+location {{ nginx_config_rewrite_proxy__location }} {
+    rewrite ^{{ nginx_config_rewrite_proxy__location }}/(.*) /$1 break;
 
-    try_files $uri @{{ nginx_config_rewrite_proxy_config_name }};
-{% if nginx_config_rewrite_proxy_root is defined and nginx_config_rewrite_proxy_root != "" %}
-    root {{ nginx_config_rewrite_proxy_root }};
+    try_files $uri {{ nginx_config_rewrite_proxy__proxy_location }};
+{% if nginx_config_rewrite_proxy__root is defined and nginx_config_rewrite_proxy__root != "" %}
+    root {{ nginx_config_rewrite_proxy__root }};
 {% endif %}
 }
 
-location @{{ nginx_config_rewrite_proxy_config_name }} {
-    proxy_pass     http://@{{ nginx_config_rewrite_proxy_upstream }}$uri$is_args$query_string;
-    proxy_redirect / $scheme://$http_host{{ nginx_config_rewrite_proxy_location }}/;
+location {{ nginx_config_rewrite_proxy__proxy_location }} {
+    proxy_pass     {{ nginx_config_rewrite_proxy__proxy_pass }};
+    proxy_redirect / $scheme://$http_host{{ nginx_config_rewrite_proxy__location }}/;
 }

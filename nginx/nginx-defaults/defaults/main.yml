@@ -38,3 +38,16 @@ nginx_log_format_type: ltsv
 nginx_log_format: "{{ nginx_log_format_ltsv }}"
 
 nginx_install: true
+
+nginx__default_proxy_protocol: http
+
+# VirtualServer単位
+# location設定を複数サーバで使用するケースがあるため、自動でlocation追加は行わない
+# nginx__server_confs:
+#   - name: hoge.net (required)
+#     port: 8080
+#     root: /var/local/www
+#     locations:
+#       - hoge
+#       - fuga
+nginx__server_confs: []

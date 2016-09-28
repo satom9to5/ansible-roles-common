@@ -1,0 +1,17 @@
+server {
+{% if item.name == '' %}
+  listen {{ item.port | default(nginx_port, true) }} reuseport default_server;
+  server_name _;
+{% else %}
+  listen {{ item.port | default(nginx_port, true) }};
+  server_name {{ item.name }};
+{% endif %}
+
+  root {{ item.root | default(nginx_root, true) }};
+
+{% if item.locations is defined and item.locations | length > 0 %}
+{% for nginx_config_server__location in item.locations %}
+  include /etc/nginx/conf.d/location/{{ nginx_config_server__location }}.conf;
+{% endfor %}
+{% endif %}
+}

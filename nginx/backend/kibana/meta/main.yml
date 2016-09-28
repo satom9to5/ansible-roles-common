@@ -1,7 +1,7 @@
 dependencies:
   - role: common/nginx/config/rewrite_proxy
-    nginx_config_rewrite_proxy_config_name: "{{ nginx_backend_kibana_config_name }}"
-    nginx_config_rewrite_proxy_host: "{{ nginx_backend_kibana_host }}"
-    nginx_config_rewrite_proxy_port: "{{ nginx_backend_kibana_port }}"
-    nginx_config_rewrite_proxy_root: ""
+    nginx_config_rewrite_proxy__config_name: "{{ nginx_backend_kibana_config_name }}"
+    nginx_config_rewrite_proxy__host: "{{ nginx_backend_kibana_host }}"
+    nginx_config_rewrite_proxy__port: "{{ nginx_backend_kibana_port }}"
+    nginx_config_rewrite_proxy__root: ""
   - role: common/elasticsearch/kibana/kibana-defaults

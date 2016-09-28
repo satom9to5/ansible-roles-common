@@ -1,5 +1,5 @@
-upstream @{{ nginx_config_rewrite_proxy_upstream }} {
-{% for nginx_config_rewrite_proxy_server in nginx_config_rewrite_proxy_servers %}
-  server {{ nginx_config_rewrite_proxy_server }}; 
+upstream {{ nginx_config_rewrite_proxy__upstream }} {
+{% for nginx_config_rewrite_proxy__server in nginx_config_rewrite_proxy__servers %}
+  server {{ nginx_config_rewrite_proxy__server }}; 
 {% endfor %}
 }

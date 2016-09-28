@@ -1,8 +1,11 @@
-nginx_config_proxy_config_name: config_proxy
-nginx_config_proxy_location: "{{ nginx_config_proxy_config_name }}"
-nginx_config_proxy_upstream: "upstream_{{ nginx_config_proxy_config_name }}"
-nginx_config_proxy_host: localhost
-nginx_config_proxy_port: 8080
-nginx_config_proxy_root: ""
-nginx_config_proxy_servers:
-  - "{{ nginx_config_proxy_host }}:{{ nginx_config_proxy_port }}" 
+nginx_config_proxy__config_name: config_proxy
+nginx_config_proxy__location: "{{ nginx_config_proxy__config_name }}"
+nginx_config_proxy__upstream: "@upstream_{{ nginx_config_proxy__config_name }}"
+nginx_config_proxy__proxy_location: "@{{ nginx_config_proxy__config_name }}"
+# nginx__default_proxy_protocol = http
+nginx_config_proxy__proxy_pass: "{{ nginx__default_proxy_protocol }}://{{ nginx_config_proxy__upstream }}"
+nginx_config_proxy__host: localhost
+nginx_config_proxy__port: 8080
+nginx_config_proxy__root: ""
+nginx_config_proxy__servers:
+  - "{{ nginx_config_proxy__host }}:{{ nginx_config_proxy__port }}" 

@@ -1,0 +1,3 @@
+# nginx-defaults/nginx__server_confsとマージして使用
+nginx_config_server__default_conf:
+  - name: ''
