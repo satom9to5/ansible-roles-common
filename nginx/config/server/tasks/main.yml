@@ -30,5 +30,5 @@
     - nginx/config/server
   template: >
     src=servers.conf.j2
-    dest=/etc/nginx/server.conf
+    dest=/etc/nginx/servers.conf
     mode=0755
