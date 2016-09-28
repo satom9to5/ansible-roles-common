@@ -1,0 +1,64 @@
+- name: Git necessary package install
+  tags:
+    - git
+  become: true
+  ignore_errors: yes
+  yum: name={{ item }} state=latest
+  with_items:
+    - which
+    - patch
+    - wget
+    - openssl-devel
+    - libcurl-devel
+    - expat-devel
+    - perl-ExtUtils-MakeMaker
+    - gettext
+
+- name: Git source file check
+  tags:
+    - git
+  command: test -f {{ git_path }}.tar.gz
+  register: git_source_check
+  failed_when: git_source_check.rc not in [0,1]
+
+- name: Git download
+  tags:
+    - git
+  become: true
+  when: git_source_check.rc != 0
+  get_url: >
+    url=https://www.kernel.org/pub/software/scm/git/{{ git_fullname }}.tar.gz
+    dest={{ git_path }}.tar.gz
+
+- name: Git source directory check
+  tags:
+    - git
+  command: test -d {{ git_path }}
+  register: git_dir_check
+  failed_when: git_dir_check.rc not in [0,1]
+
+- name: Git source directory remove
+  tags:
+    - git
+  become: true
+  when: git_dir_check.rc == 0
+  file: >
+    path={{ git_path }}
+    state=absent
+
+- name: Git unarchive
+  tags:
+    - git
+  become: true
+  shell: |
+    cd /usr/local/src
+    tar xvzf {{ git_path }}.tar.gz
+
+- name: Git install
+  tags:
+    - git
+  become: true
+  shell: |
+    cd {{ git_path }} 
+    make prefix=/usr/local
+    make install prefix=/usr/local

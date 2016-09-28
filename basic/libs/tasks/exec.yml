@@ -1,0 +1,21 @@
+- name: ld.so.conf file check
+  tags:
+    - basic/libs
+  command: test -f {{ usr_local_lib_conf_path }}
+  register: usr_local_lib_conf_check
+  failed_when: usr_local_lib_conf_check.rc not in [0,1]
+
+- name: add ld.so.conf config
+  tags:
+    - basic/libs
+  become: true
+  when: usr_local_lib_conf_check.rc != 0
+  template: >
+    src=usr_local_lib.conf.j2
+    dest={{ usr_local_lib_conf_path }}
+
+- name: update shared library path with ldconfig
+  tags:
+    - basic/libs
+  become: true
+  command: /sbin/ldconfig

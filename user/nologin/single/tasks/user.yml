@@ -1,0 +1,20 @@
+- name: add nologin user (auto uid)
+  tags:
+    - user
+  user: >
+    name={{ nologin_user_name }}
+    shell=/sbin/nologin
+    state=present
+    append=yes
+  when: nologin_user_uid | int == 0
+
+- name: add nologin user (custom uid)
+  tags:
+    - user
+  user: >
+    name={{ nologin_user_name }}
+    uid={{ nologin_user_uid }}
+    shell=/sbin/nologin
+    state=present
+    append=yes
+  when: nologin_user_uid | int > 0

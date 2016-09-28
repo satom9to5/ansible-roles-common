@@ -1,3 +1,5 @@
 dependencies:
   - role: common/supervisor/install
+    when: "{{ nginx_install | bool }}"
   - role: common/nginx/install
+    when: "{{ nginx_install | bool }}"

@@ -1,0 +1,56 @@
+- name: supervisor install
+  tags:
+    - supervisor
+  command: pip install supervisor
+
+- name: create supervisor conf directory
+  tags:
+    - supervisor
+  file: >
+    path={{ supervisor_conf_dir }}
+    state=directory
+
+- name: supervisor conf file copy
+  tags:
+    - supervisor
+  template: >
+    src=supervisord.conf.j2
+    dest=/etc/supervisord.conf
+    mode=0755
+
+- name: supervisor logrotate conf file copy
+  tags:
+    - supervisor
+  template: >
+    src=logrotate.supervisor.j2
+    dest=/etc/logrotate.d/supervisor
+    mode=0755
+
+- name: tmpfiles logrotate conf file copy
+  tags:
+    - supervisor
+  template: >
+    src=tmpfiles.supervisor.conf.j2
+    dest=/etc/tmpfiles.d/supervisor.conf
+    mode=0755
+
+- name: create supervisor log directory
+  tags:
+    - supervisor
+  file: >
+    path={{ supervisor_log_dir }}
+    state=directory
+
+- name: create supervisor socket directory
+  tags:
+    - supervisor
+  file: >
+    path={{ supervisor_socket_dir }}
+    state=directory
+
+- name: create supervisor exec shell directory
+  tags:
+    - supervisor
+  file: >
+    path={{ supervisor_exec_shell_dir }}
+    state=directory
