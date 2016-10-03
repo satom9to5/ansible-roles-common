@@ -1,0 +1,7 @@
+- name: Ruby install
+  tags:
+    - ruby
+    - ruby/install
+  shell: |
+    ruby-build {{ ruby_version }} {{ ruby__path }}    
+

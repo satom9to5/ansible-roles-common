@@ -1,2 +1,5 @@
 dependencies:
-  - { role: common/anyenv/rbenv }
+  - role: common/ruby/ruby-build # 通常時
+    when: is_anyenv == false
+  - role: common/anyenv/rbenv # rbenv使用時
+    when: is_anyenv == true

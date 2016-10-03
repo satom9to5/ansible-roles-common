@@ -1,22 +1,4 @@
-- name: Ruby installed check
-  tags:
-    - ruby
-  command: test -d {{ rbenv_path }}/versions/{{ ruby_version }}
-  register: ruby_directory_check
-  failed_when: ruby_directory_check.rc not in [0,1]
-
-- name: Ruby install
-  tags:
-    - ruby
-  when: ruby_directory_check.rc != 0
-  shell: |
-    source /etc/profile.d/proglang.sh
-    rbenv install {{ ruby_version }}
-
-- name: Ruby Version fix
-  tags:
-    - ruby
-  shell: |
-    source /etc/profile.d/proglang.sh
-    rbenv global {{ ruby_version }}
-    rbenv rehash
+- include: normal.yml
+  when: is_anyenv == false
+- include: rbenv.yml
+  when: is_anyenv == true
