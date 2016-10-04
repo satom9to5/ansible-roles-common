@@ -3,5 +3,21 @@
     - ruby
     - ruby/install
   shell: |
-    ruby-build {{ ruby_version }} {{ ruby__path }}    
+    ruby-build {{ ruby__version }} {{ ruby__path }}    
 
+- name: copy export ruby environment shell
+  tags:
+    - ruby
+    - ruby/install
+  become: true
+  template: >
+    src=ruby.sh.j2
+    dest=/etc/profile.d/proglang/ruby.sh
+
+- name: gem update
+  tags: 
+    - ruby
+    - ruby/install
+  environment:
+    PATH: "{{ ruby__path }}/bin:{{ ansible_env.PATH }}"
+  command: gem update --system 

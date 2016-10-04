@@ -1,0 +1,30 @@
+- name: simgle gem package regist 
+  tags: 
+    - ruby
+    - ruby/gem/install
+  when: "{{ gem__packages | length }} == 0 and gem__package != ''"
+  set_fact:
+    gem__packages:
+      - name: "{{ gem__package }}"
+        state: "{{ gem__state | default('present', true) }}"
+
+- name: gem install
+  tags: 
+    - ruby
+    - ruby/gem/install
+  environment:
+    PATH: "{{ ruby__path }}/bin:{{ ansible_env.PATH }}"
+  gem: > 
+    name={{ item.name }}
+    state={{ item.state | default('present', true) }}
+    user_install=no
+  with_items: "{{ gem__packages }}"
+
+- name: clear vars after gem install
+  tags: 
+    - ruby
+    - ruby/gem/install
+  set_fact:  
+    gem__package: ''
+    gem__state: ''
+    gem__packages: []

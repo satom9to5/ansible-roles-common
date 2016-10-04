@@ -1,4 +1,6 @@
 dependencies:
+  - role: common/profile
+  - role: common/ruby/ruby-defaults
   - role: common/ruby/ruby-build # 通常時
     when: is_anyenv == false
   - role: common/anyenv/rbenv # rbenv使用時

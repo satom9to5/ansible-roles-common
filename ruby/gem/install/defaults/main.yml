@@ -1,0 +1,8 @@
+gem__package: ''
+gem__state: ''
+# 複数一括でインストールする場合
+# gem__packages:
+#   - name: hoge
+#   - name: fuga
+#     state: latest
+gem__packages: []
