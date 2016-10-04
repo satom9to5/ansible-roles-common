@@ -1,3 +1,4 @@
-git_version: 2.5.1
-git_fullname: "git-{{ git_version }}"
-git_path: "/usr/local/src/{{ git_fullname }}"
+git__version: 2.5.1
+git__fullname: "git-{{ git__version }}"
+git__path: "/usr/local/src/{{ git__fullname }}"
+git__install: true

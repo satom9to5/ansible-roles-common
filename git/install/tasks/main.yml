@@ -1,1 +1,2 @@
 - include: install.yml
+  when: "{{ git__install | bool }} == true"
