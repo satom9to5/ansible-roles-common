@@ -1,2 +1,7 @@
 dependencies:
-  - { role: common/anyenv/ndenv }
+  - role: common/profile
+  - role: common/node/node-defaults
+  - role: common/node/node-build # 通常時
+    when: "{{ node__install | bool }} and {{ is_anyenv | bool }} == false"
+  - role: common/anyenv/ndenv # ndenv使用時
+    when: "{{ node__install | bool }} and {{ is_anyenv | bool }} == true"

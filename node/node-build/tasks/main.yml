@@ -1,0 +1,18 @@
+- name: node-build clone
+  tags:
+    - node
+    - node/node-build
+  become: true
+  git: >
+    repo=https://github.com/riywo/node-build.git
+    dest={{ node_build__path }}
+
+- name: node-build install
+  tags:
+    - node
+    - node/node-build
+  become: true
+  ignore_errors: yes # install.sh内でのエラー抑制
+  shell: |
+    cd {{ node_build__path }}
+    ./install.sh
