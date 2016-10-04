@@ -1,2 +1,3 @@
 ruby__version: 2.3.0
 ruby__path: /usr/local/ruby
+ruby__install: true

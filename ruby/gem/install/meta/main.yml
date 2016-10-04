@@ -1,3 +1,4 @@
 dependencies:
   - role: common/ruby/ruby-defaults
   - role: common/ruby/install
+    when: "{{ ruby__install | bool }}"
