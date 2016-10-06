@@ -1,0 +1,11 @@
+- name: ruby required library install
+  tags:
+    - ruby
+    - ruby/install
+  ignore_errors: yes
+  yum: >
+    name={{ item }}
+    state=latest
+  with_items:
+    - readline-devel
+

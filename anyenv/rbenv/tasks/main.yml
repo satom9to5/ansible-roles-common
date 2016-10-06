@@ -1,14 +1,16 @@
 - name: rbenv dir check
   tags:
-    - rbenv
-    - node
+    - anyenv
+    - anyenv/rbenv
+    - ruby
   command: test -d {{ rbenv_path }}
   register: rbenv_dir_check
   failed_when: rbenv_dir_check.rc not in [0,1] 
 
 - name: rbenv install
   tags:
-    - rbenv
+    - anyenv
+    - anyenv/rbenv
     - ruby
   when: rbenv_dir_check.rc != 0
   shell: |
@@ -17,8 +19,17 @@
 
 - name: rbenv releases check
   tags:
-    - rbenv
+    - anyenv
+    - anyenv/rbenv
     - ruby
   shell: |
     source /etc/profile.d/proglang.sh
     rbenv install -l
+
+- name: rewrite ruby__path
+  tags:
+    - anyenv
+    - anyenv/rbenv
+    - ruby
+  set_fact:
+    ruby__bin_path: "{{ rbenv_path }}/shims:{{ rbenv_path }}/bin"

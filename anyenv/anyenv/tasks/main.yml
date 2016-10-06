@@ -1,2 +1,2 @@
 - include: anyenv.yml
-  when: is_anyenv == true
+  when: "{{ is_anyenv | bool }} == true"

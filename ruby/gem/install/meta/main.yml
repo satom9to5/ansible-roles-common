@@ -1,4 +1,6 @@
 dependencies:
   - role: common/ruby/ruby-defaults
   - role: common/ruby/install
-    when: "{{ ruby__install | bool }}"
+    when: "{{ ruby__install | bool }} == true"
+  - role: common/anyenv/rbenv
+    when: "{{ is_anyenv | bool }} == true"

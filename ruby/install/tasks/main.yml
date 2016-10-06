@@ -1,4 +1,5 @@
+- include: common.yml
 - include: normal.yml
-  when: is_anyenv == false
+  when: "{{ is_anyenv | bool }} == false"
 - include: rbenv.yml
-  when: is_anyenv == true
+  when: "{{ is_anyenv | bool }} == true"

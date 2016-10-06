@@ -13,7 +13,7 @@
     - ruby
     - ruby/gem/install
   environment:
-    PATH: "{{ ruby__path }}/bin:{{ ansible_env.PATH }}"
+    PATH: "{{ ruby__bin_path }}:{{ ansible_env.PATH }}"
   gem: > 
     name={{ item.name }}
     state={{ item.state | default('present', true) }}
