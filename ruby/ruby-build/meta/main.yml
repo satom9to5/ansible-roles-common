@@ -1,2 +1,3 @@
 dependencies:
   - role: common/basic/archive
+  - role: common/ruby/ruby-defaults
