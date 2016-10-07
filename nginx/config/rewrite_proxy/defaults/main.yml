@@ -3,8 +3,12 @@ nginx_config_rewrite_proxy__location: "/{{ nginx_config_rewrite_proxy__config_na
 nginx_config_rewrite_proxy__upstream: "@upstream_{{ nginx_config_rewrite_proxy__config_name }}"
 nginx_config_rewrite_proxy__proxy_location: "@{{ nginx_config_rewrite_proxy__config_name }}"
 nginx_config_rewrite_proxy__proxy_pass: "{{ nginx__default_proxy_protocol }}://{{ nginx_config_rewrite_proxy__upstream }}$uri$is_args$query_string"
+nginx_config_rewrite_proxy__proxy_redirect: "{{ nginx_config_rewrite_proxy__proxy_redirect__default }}"
 nginx_config_rewrite_proxy__host: localhost
 nginx_config_rewrite_proxy__port: 8080
 nginx_config_rewrite_proxy__root: ""
 nginx_config_rewrite_proxy__servers:
   - "{{ nginx_config_rewrite_proxy__host }}:{{ nginx_config_rewrite_proxy__port }}" 
+
+# デフォルト値
+nginx_config_rewrite_proxy__proxy_redirect__default: "/ $scheme://$http_host{{ nginx_config_rewrite_proxy__location }}/"
