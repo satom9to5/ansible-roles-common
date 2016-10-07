@@ -1,2 +1,3 @@
 is_anyenv: false # デフォルトはanyenvインストールしない
 anyenv_path: /opt/anyenv
+anyenv__bin_path: "{{ anyenv_path }}/bin"

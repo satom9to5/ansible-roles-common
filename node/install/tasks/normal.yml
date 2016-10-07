@@ -1,4 +1,4 @@
-- name: node.js install
+- name: node install
   tags:
     - node
     - node/install
@@ -10,6 +10,7 @@
     - node
     - node/install
   become: true
+  when: node__path != node__path__default
   template: >
     src=node.sh.j2
     dest=/etc/profile.d/proglang/node.sh

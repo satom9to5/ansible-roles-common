@@ -1,6 +1,7 @@
 - name: ndenv dir check
   tags:
-    - ndenv
+    - anyenv
+    - anyenv/ndenv
     - node
   command: test -d {{ ndenv_path }}
   register: ndenv_dir_check
@@ -8,17 +9,27 @@
 
 - name: ndenv install
   tags:
-    - ndenv
+    - anyenv
+    - anyenv/ndenv
     - node
   when: ndenv_dir_check.rc != 0
   shell: |
     source /etc/profile.d/proglang.sh
-    anyenv install ndenv 
+    anyenv install ndenv
 
 - name: ndenv releases check
   tags:
-    - ndenv
+    - anyenv
+    - anyenv/ndenv
     - node
   shell: |
     source /etc/profile.d/proglang.sh
     ndenv install -l
+
+- name: rewrite node__path
+  tags:
+    - anyenv
+    - anyenv/ndenv
+    - node
+  set_fact:
+    node__bin_path: "{{ ndenv_path }}/shims:{{ ndenv_path }}/bin"
