@@ -1,3 +1,6 @@
+~envコマンドの実行は、全部sourceコマンド実行後に行う。
+ただ単にPATHを変更しただけでは上手く動かないため。
+
 anyenv/source_pathは、～envを全てインストール後に実行
 この中ではsourceコマンドでPATH読込を行う
 ※metaで複数指定しててもansibleは1回しか実行しないので
