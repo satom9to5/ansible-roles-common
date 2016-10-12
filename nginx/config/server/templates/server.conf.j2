@@ -9,6 +9,7 @@ server {
 
   root {{ item.root | default(nginx_root, true) }};
 
+  include /etc/nginx/conf.d/location_proxy/*.conf;
 {% if item.locations is defined and item.locations | length > 0 %}
 {% for nginx_config_server__location in item.locations %}
   include /etc/nginx/conf.d/location/{{ nginx_config_server__location }}.conf;
