@@ -7,6 +7,15 @@
 - 特殊な用途で使う変数は、大文字から始める。
   この場合の命名ルールは[用途名]__[role名]__[変数名]
   以下用途名の種類。
-    Defaults: 使い回す変数の初期値。原則として処理終了後にこの値で初期化する。
     Register: registerで登録した変数。
     Fact: set_factで新たに登録した変数。
+    Arg: playbookで渡した変数。
+
+# 変数の初期化
+- 一旦初期化した変数は、playbook内でset_factすると、その後その値で固定される。
+　変数を使い回す場合は、set_factで書き換えない事。
+
+# 変数のスコープ
+Global, Play, Hostの３種類が存在する。
+roleのdefaultsはPlayスコープ。roleを実行する度に初期化される様子。
+参考： http://docs.ansible.com/ansible/playbooks_variables.html#variable-scopes
