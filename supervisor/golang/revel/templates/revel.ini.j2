@@ -5,9 +5,9 @@ stderr_events_enabled=true
 autostart = true
 autorestart = true
 stopasgroup = true
-{% if supervisor_revel_user_env %}
+{% if (supervisor_revel_user_env | bool) == true %}
 user=%(ENV_REVEL_USER)s
 {% endif %}
-{% if supervisor_revel_umask_env %}
+{% if (supervisor_revel_umask_env | bool) == true %}
 umask = %(ENV_REVEL_UMASK)s
 {% endif %}
