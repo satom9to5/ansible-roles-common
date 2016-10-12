@@ -1,0 +1,11 @@
+nginx_config_upstream__conf_name: ""
+nginx_config_upstream__upstream: "@upstream_{{ nginx_config_upstream__conf_name }}"
+# upstreamでの接続先ホスト情報
+# 例:
+# nginx_config_upstream__servers:
+#   ネットワーク接続
+#   - host: localhost
+#     port: 8080
+#   Unix Domain Socket接続
+#   - host: unix://tmp/www.sock
+nginx_config_upstream__servers: []

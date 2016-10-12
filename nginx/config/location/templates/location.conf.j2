@@ -1,0 +1,19 @@
+location {{ Fact__nginx_config_location__location }} {
+{% for For_item in nginx_config_location__sets %}
+  set {{ For_item.name }} {{ For_item.value }};
+{% endfor %}
+
+{% for For_item in nginx_config_location__rewrite_rules %}
+{% if For_item.flag is defined and For_item.flag != "" %}
+  rewrite {{ For_item.regex }} {{ For_item.replacement }} {{ For_item.flag }};
+{% else %}
+  rewrite {{ For_item.regex }} {{ For_item.replacement }};
+{% endif %}
+{% endfor %}
+
+  try_files {{ nginx_config_location__try_files_files }} {{ nginx_config_location__try_files_uri }}; 
+
+{% if nginx_config_location__root is defined and nginx_config_location__root != "" %}
+  root {{ nginx_config_location__root }};
+{% endif %}
+}

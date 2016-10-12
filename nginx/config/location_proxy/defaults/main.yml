@@ -1,0 +1,13 @@
+nginx_config_location_proxy__conf_name: ""
+nginx_config_location_proxy__location: "@{{ nginx_config_location_proxy__conf_name }}" # locationの名前
+nginx_config_location_proxy__upstream: "@upstream_{{ nginx_config_location_proxy__conf_name }}" # 引き渡すupstreamの名前
+
+nginx_config_location_proxy__proxy_host_header: "$host" #エンドポイントに送るHostヘッダ 
+# proxy_set_headerでセットする値一覧
+# 例:
+# nginx_config_location_proxy__proxy_set_headers:
+#   - name: Host
+#     value: "$host"
+nginx_config_location_proxy__proxy_set_headers: []
+nginx_config_location_proxy__proxy_pass: "{{ nginx__proxy_protocol }}://{{ nginx_config_location_proxy__upstream }}$uri$is_args$query_string"
+nginx_config_location_proxy__proxy_redirect: "" # proxy_redirect使用時の値

@@ -1,0 +1,8 @@
+- name: copy nginx location proxy conf
+  tags:
+    - nginx
+    - nginx/config/location_proxy
+  when: nginx_config_location_proxy__conf_name != ""
+  template: >
+    src=location_proxy.conf.j2
+    dest=/etc/nginx/conf.d/location_proxy/{{ nginx_config_location_proxy__conf_name }}.conf

@@ -1,0 +1,9 @@
+upstream {{ nginx_config_upstream__upstream }} {
+{% for For_item in nginx_config_upstream__servers %}
+{% if For_item.port is defined and For_item.port != 0 %}
+  server {{ For_item.host }}:{{ For_item.port }}; 
+{% else %}
+  server {{ For_item.host }}; 
+{% endif %}
+{% endfor %}
+}

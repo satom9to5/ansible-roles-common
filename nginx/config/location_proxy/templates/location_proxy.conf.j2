@@ -1,0 +1,14 @@
+location {{ nginx_config_location_proxy__location }} {
+{% if nginx_config_location_proxy__proxy_host_header != "" %}
+  proxy_set_header Host {{ nginx_config_location_proxy__proxy_host_header }};
+{% endif %}
+{% for For_item in nginx_config_location_proxy__proxy_set_headers %}
+  proxy_set_header {{ For_item.name }} {{ For_item.value }};
+{% endfor %}
+
+  proxy_pass {{ nginx_config_location_proxy__proxy_pass }};
+
+{% if nginx_config_location_proxy__proxy_redirect != "" %}
+  proxy_redirect {{ nginx_config_location_proxy__proxy_redirect }};
+{% endif %}
+}

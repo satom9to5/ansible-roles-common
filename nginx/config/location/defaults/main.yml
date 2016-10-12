@@ -1,0 +1,21 @@
+nginx_config_location__conf_name: ""
+nginx_config_location__location: "/" # locationのパス
+nginx_config_location__location_prefix: "" # 正規表現フラグ等 参考: http://nginx.org/en/docs/http/ngx_http_core_module.html#location
+nginx_config_location__location_proxy: "@{{ nginx_config_location__conf_name }}" # location_proxyのパス
+# 変数一覧
+# 例:
+# nginx_config_location__sets:
+#   - name: hoge
+#     value: fuga
+nginx_config_location__sets: []
+# rewriteルールの定義一覧
+# 例:
+# nginx_config_location__rewrite_rules: 
+#   - regex: /hoge
+#     replacement: fuga
+#     flag: break
+nginx_config_location__rewrite_rules: []
+nginx_config_location__root: "{{ nginx_root }}" # rootディレクトリのパス
+# try_filesでチェックするファイル一覧
+nginx_config_location__try_files_files: "$uri $uri/"
+nginx_config_location__try_files_uri: "{{ nginx_config_location__location_proxy }}" # try_filesの最終リダイレクトURL

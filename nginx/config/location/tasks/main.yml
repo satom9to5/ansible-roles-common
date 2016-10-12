@@ -1,0 +1,24 @@
+- name: set nginx location conf by prefix exist.
+  tags:
+    - nginx
+    - nginx/config/location
+  when: nginx_config_location__location_prefix != ""
+  set_fact:
+    Fact__nginx_config_location__location: "{{ nginx_config_location__location_prefix }} {{ nginx_config_location__location | default(Default__nginx_config_location__location, true) }}"
+
+- name: set nginx location conf by prefix nonexist.
+  tags:
+    - nginx
+    - nginx/config/location
+  when: nginx_config_location__location_prefix == ""
+  set_fact:
+    Fact__nginx_config_location__location: "{{ nginx_config_location__location }}"
+
+- name: copy nginx location conf
+  tags:
+    - nginx
+    - nginx/config/location
+  when: nginx_config_location__conf_name != ""
+  template: >
+    src=location.conf.j2
+    dest=/etc/nginx/conf.d/location/{{ nginx_config_location__conf_name }}.conf
