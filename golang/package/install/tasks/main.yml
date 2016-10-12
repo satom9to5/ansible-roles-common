@@ -12,7 +12,7 @@
     - golang
     - golang/package/install
   environment:
-    PATH: "{{ golang__bin_path }}:{{ ansible_env.PATH }}"
-    GOPATH: "{{ golang__gopath }}"
+    PATH: "{{ golang__real_bin_path }}:{{ ansible_env.PATH }}"
+    GOPATH: "{{ golang__real_gopath }}"
   shell: go get -u {{ item }}
   with_items: "{{ golang__packages }}"

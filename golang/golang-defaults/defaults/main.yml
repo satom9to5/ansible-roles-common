@@ -1,5 +1,12 @@
 golang__version: 1.7
 golang__path: /usr/local/go
-golang__gopath: "${HOME}/golang"
+golang__gopath: "{{ Default__golang_path }}"
 golang__bin_path: "{{ golang__gopath }}/bin:{{ golang__path }}/bin"
+# ansible内でのenvironmentセット用
+golang__real_path: "{{ golang__path }}"
+golang__real_gopath: "{{ golang__path }}"
+golang__real_bin_path: "{{ golang__real_gopath }}/bin:{{ golang__real_path }}/bin"
 golang__install: true
+
+# デフォルト値
+Default__golang_gopath: "${HOME}/golang"
