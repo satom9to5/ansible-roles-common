@@ -1,4 +1,5 @@
 golang__version: 1.7
 golang__path: /usr/local/go
 golang__gopath: "${HOME}/golang"
+golang__bin_path: "{{ golang__gopath }}/bin:{{ golang__path }}/bin"
 golang__install: true

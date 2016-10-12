@@ -1,2 +1,6 @@
-revel_package: ""
+golang_package_revel__packages:
+  - github.com/revel/revel
+  - github.com/revel/cmd/revel
+
+#revel_package: ""
 revel_log_path: /var/log/revel

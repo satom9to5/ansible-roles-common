@@ -1,0 +1,6 @@
+dependencies:
+  - role: common/golang/golang-defaults
+  - role: common/golang/install
+    when: "{{ golang__install | bool }} == true"
+  - role: common/anyenv/goenv
+    when: "{{ is_anyenv | bool }} == true"

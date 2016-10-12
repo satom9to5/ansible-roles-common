@@ -1,0 +1,6 @@
+golang__package: ''
+golang__state: ''
+# 複数一括でインストールする場合
+# golang__packages:
+#   - hoge
+golang__packages: []

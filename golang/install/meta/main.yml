@@ -1,4 +1,5 @@
 dependencies:
+  - role: common/profile 
   - role: common/golang/golang-defaults
-  - role: common/profile # 通常時
   - role: common/anyenv/goenv # goenv利用時
+    when: "{{ golang__install | bool }} == true and {{ is_anyenv | bool }} == true"

@@ -1,0 +1,18 @@
+- name: simgle golang package regist 
+  tags: 
+    - golang
+    - golang/package/install
+  when: "{{ golang__packages | length }} == 0 and golang__package != ''"
+  set_fact:
+    golang__packages:
+      - "{{ golang__package }}"
+
+- name: golang package install
+  tags: 
+    - golang
+    - golang/package/install
+  environment:
+    PATH: "{{ golang__bin_path }}:{{ ansible_env.PATH }}"
+    GOPATH: "{{ golang__gopath }}"
+  shell: go get -u {{ item }}
+  with_items: "{{ golang__packages }}"

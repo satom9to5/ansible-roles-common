@@ -1,0 +1,15 @@
+- name: echo gopath
+  tags: 
+    - golang
+    - golang/golang-defaults
+  command: echo {{ golang__gopath }}
+  register: Register__golang_gopath
+  failed_when: Register__golang_gopath.rc not in [0]
+
+- name: set real gopath
+  tags: 
+    - golang
+    - golang/golang-defaults
+  when: Register__golang_gopath.rc == 0
+  set_fact:
+    golang__gopath: "{{ Register__golang_gopath.stdout }}"
