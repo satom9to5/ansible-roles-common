@@ -19,12 +19,3 @@
     state={{ item.state | default('present', true) }}
     user_install=no
   with_items: "{{ gem__packages }}"
-
-- name: clear vars after gem install
-  tags: 
-    - ruby
-    - ruby/gem/install
-  set_fact:  
-    gem__package: ''
-    gem__state: ''
-    gem__packages: []
