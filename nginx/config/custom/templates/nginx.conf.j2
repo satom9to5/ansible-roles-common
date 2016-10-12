@@ -54,6 +54,9 @@ http {
     # include upstream config
     include /etc/nginx/conf.d/upstream/*.conf;
 
+    # include location proxy config
+    include /etc/nginx/conf.d/location_proxy/*.conf;
+
     # include virtual server config
     include /etc/nginx/servers.conf;
 }

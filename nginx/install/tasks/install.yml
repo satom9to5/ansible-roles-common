@@ -89,6 +89,7 @@
     - /etc/nginx/conf.d/server
     - /etc/nginx/conf.d/upstream
     - /etc/nginx/conf.d/location
+    - /etc/nginx/conf.d/location_proxy
     - /etc/nginx/conf.d/lua
 
 - name: create nginx data directories
