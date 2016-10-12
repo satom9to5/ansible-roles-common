@@ -1,7 +1,4 @@
 node__version: v4.6.0
-node__path: "{{ node__path__default }}"
+node__path: /usr/local
 node__bin_path: "/usr/local/bin"
 node__install: true
-
-# Default
-node__path__default: /usr/local
