@@ -1,27 +1,27 @@
 - name: Golang installed check
   tags:
     - golang
-  command: test -d {{ golang_path }}
-  register: golang_directory_check
-  failed_when: golang_directory_check.rc not in [0,1]
+  command: test -d {{ golang__path }}
+  register: Register__golang_directory_check
+  failed_when: Register__golang_directory_check.rc not in [0,1]
 
 - name: Golang download
   tags:
    - golang
   become: true
-  when: golang_directory_check.rc != 0
+  when: Register__golang_directory_check.rc != 0
   get_url: >
-    url=https://golang.org/dl/go{{ golang_version }}.linux-amd64.tar.gz
-    dest={{ golang_path }}.tar.gz
+    url=https://golang.org/dl/go{{ golang__version }}.linux-amd64.tar.gz
+    dest={{ golang__path }}.tar.gz
 
 - name: Golang unarchive
   tags:
     - golang
   become: true
-  when: golang_directory_check.rc != 0
+  when: Register__golang_directory_check.rc != 0
   shell: |
     cd /usr/local/
-    tar xvzf {{ golang_path }}.tar.gz
+    tar xvzf {{ golang__path }}.tar.gz
 
 - name: copy export gopath environment shell
   tags:

@@ -1,3 +1,4 @@
-golang_version: 1.7
-golang_path: /usr/local/go
-gopath: "${HOME}/golang"
+golang__version: 1.7
+golang__path: /usr/local/go
+golang__gopath: "${HOME}/golang"
+golang__install: true
