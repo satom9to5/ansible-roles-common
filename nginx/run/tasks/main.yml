@@ -1,4 +1,4 @@
-- name: nginx restart
+- name: nginx run
   tags:
     - nginx
   when: ansible_virtualization_type != 'docker'
