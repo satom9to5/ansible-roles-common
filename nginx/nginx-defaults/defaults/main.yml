@@ -47,7 +47,12 @@ nginx__proxy_protocol: http
 #   - name: hoge.net (required)
 #     port: 8080
 #     root: /var/local/www
+#     server_name: hoge
 #     locations:
 #       - hoge
 #       - fuga
+#     pre_options:
+#       - directive: set_by_lua
+#         value: "$app_version 'return os.getenv('APP_VERSION')"
+#     post_options: []
 nginx__server_confs: []

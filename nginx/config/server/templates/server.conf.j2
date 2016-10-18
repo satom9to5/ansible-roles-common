@@ -1,10 +1,11 @@
 server {
+{% include "pre_options.conf.j2" ignore missing %}
 {% if item.name == '' %}
   listen {{ item.port | default(nginx_port, true) }} reuseport default_server;
   server_name _;
 {% else %}
   listen {{ item.port | default(nginx_port, true) }};
-  server_name {{ item.name }};
+  server_name {{ item.server_name | default(item.name, true) }};
 {% endif %}
 
   root {{ item.root | default(nginx_root, true) }};
@@ -15,4 +16,5 @@ server {
   include /etc/nginx/conf.d/location/{{ nginx_config_server__location }}.conf;
 {% endfor %}
 {% endif %}
+{% include "post_options.conf.j2" ignore missing %}
 }

@@ -1,0 +1,8 @@
+- name: set return_env lua file
+  tags:
+    - nginx
+    - nginx/lua/return_env
+  template: >
+    src=return_env.lua.j2
+    dest=/etc/nginx/conf.d/lua/return_env.lua
+    mode=0755

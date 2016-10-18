@@ -1,0 +1,5 @@
+{% if item.pre_options is defined and item.pre_options | length > 0 %}
+{% for For_item in item.pre_options %}
+  {{ For_item.directive }} {{ For_item.value }};
+{% endfor %}
+{% endif %}
