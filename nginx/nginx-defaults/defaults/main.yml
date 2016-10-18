@@ -56,3 +56,6 @@ nginx__proxy_protocol: http
 #         value: "$app_version 'return os.getenv('APP_VERSION')"
 #     post_options: []
 nginx__server_confs: []
+
+# nginxの起動コマンド
+nginx__run_command: "/usr/sbin/nginx -c /etc/nginx/nginx.conf"
