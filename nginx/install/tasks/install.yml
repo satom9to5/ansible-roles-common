@@ -92,6 +92,19 @@
     - /etc/nginx/conf.d/location_proxy
     - /etc/nginx/conf.d/lua
 
+- name: create nginx templates directories
+  tags:
+    - nginx
+    - nginx/install
+  file: >
+    path={{ item }}
+    state=directory
+  with_items:
+    - /etc/nginx/templates/server
+    - /etc/nginx/templates/upstream
+    - /etc/nginx/templates/location
+    - /etc/nginx/templates/location_proxy
+
 - name: create nginx data directories
   tags:
     - nginx
