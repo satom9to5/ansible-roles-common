@@ -8,6 +8,7 @@
     state=latest
   with_items:
     - libxslt-devel
+    - gettext
 
 - name: create nginx-build work directory
   tags:
