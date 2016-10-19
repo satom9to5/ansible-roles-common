@@ -10,7 +10,8 @@
     - ruby
     - ruby/install
   become: true
-  when: ruby__path != ruby__path__default
+  when: ruby__bin_path != Default__ruby__bin_path
   template: >
     src=ruby.sh.j2
     dest=/etc/profile.d/proglang/ruby.sh
+    mode=755

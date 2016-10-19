@@ -10,7 +10,8 @@
     - node
     - node/install
   become: true
-  when: node__path != node__path__default
+  when: node__bin_path != Default__node__bin_path
   template: >
     src=node.sh.j2
     dest=/etc/profile.d/proglang/node.sh
+    mode=755

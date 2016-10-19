@@ -1,4 +1,6 @@
 ruby__version: 2.3.0
 ruby__path: /usr/local
-ruby__bin_path: "/usr/local/bin"
+ruby__bin_path: "{{ Default__ruby__bin_path }}"
 ruby__install: true
+
+Default__ruby__bin_path: "/usr/local/bin"
