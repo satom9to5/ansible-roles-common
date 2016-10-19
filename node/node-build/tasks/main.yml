@@ -16,3 +16,12 @@
   shell: |
     cd {{ node_build__path }}
     ./install.sh
+
+- name: get node versions
+  tags:
+    - node
+    - node/node-build
+  become: true
+  ignore_errors: yes # install.sh内でのエラー抑制
+  shell: |
+    node-build --definitions
