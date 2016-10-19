@@ -4,25 +4,53 @@
     - nginx/config/server
   when: nginx__server_confs | length > 0
   set_fact: 
-    register__nginx__server_confs_default_conf: "{{ nginx__server_confs | selectattr('name', 'equalto', '') | list }}"
+    Register__nginx__server_confs_default_conf: "{{ nginx__server_confs | selectattr('name', 'equalto', '') | list }}"
 
 - name: add nginx server default conf list
   tags:
     - nginx
     - nginx/config/server
-  when: register__nginx__server_confs_default_conf | length == 0
+  when: Register__nginx__server_confs_default_conf | length == 0
   set_fact:
     nginx__server_confs: "{{ nginx__server_confs + nginx_config_server__default_conf | list }}" 
+
+- name: create fact of nginx template confs
+  tags:
+    - nginx
+    - nginx/config/server
+  set_fact:
+    Fact__nginx_config_server__template_confs: "{{ nginx__server_confs | selectattr('template', 'defined') | selectattr('template', 'equalto', true) | list }}"
 
 - name: set nginx server conf files
   tags:
     - nginx
     - nginx/config/server
+  when: item.template is undefined or (item.template | bool) == false
   template: >
     src=server.conf.j2
     dest=/etc/nginx/conf.d/server/{{ item.name | default('default', true) }}.conf
     mode=0755
   with_items: "{{ nginx__server_confs }}"
+
+- name: set nginx server template files
+  tags:
+    - nginx
+    - nginx/config/server
+  template: >
+    src=server.conf.j2
+    dest=/etc/nginx/templates/server/{{ item.name | default('default', true) }}.template
+    mode=0755
+  with_items: "{{ Fact__nginx_config_server__template_confs }}"
+
+- name: set nginx dummy conf files for templates
+  tags:
+    - nginx
+    - nginx/config/server
+  file: >
+    path=/etc/nginx/conf.d/server/{{ item.name | default('default', true) }}.conf
+    state=touch
+    mode=0755
+  with_items: "{{ Fact__nginx_config_server__template_confs }}"
 
 - name: set nginx servers conf file
   tags:

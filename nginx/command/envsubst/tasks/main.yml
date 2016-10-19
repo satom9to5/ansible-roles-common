@@ -1,0 +1,8 @@
+- name: copy nginx envsubst shells
+  tags:
+    - nginx
+    - nginx/command/envsubst
+  template: >
+    src=envsubst.sh.j2
+    dest={{ nginx__run_sh_path }}
+    mode=0755

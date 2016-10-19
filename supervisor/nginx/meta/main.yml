@@ -4,3 +4,5 @@ dependencies:
   - role: common/nginx/nginx-defaults
   - role: common/nginx/install
     when: "{{ nginx_install | bool }} == true"
+  - role: common/nginx/command/envsubst
+    nginx__run_sh_path: /etc/supervisord.d/nginx.sh

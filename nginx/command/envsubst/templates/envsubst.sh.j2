@@ -1,0 +1,6 @@
+#!/bin/sh
+
+{% for For_item in nginx_command_envsubst__confs %}
+/usr/bin/envsubst '{{ For_item.vars | regex_replace('^', '$$') | join('') }}' < {{ For_item.template_dir | default(nginx_command_envsubst__template_dir, true) }}/{{ For_item.name }}.template > {{ For_item.conf_dir | default(nginx_command_envsubst__conf_dir, true) }}/{{ For_item.name }}.conf
+{% endfor %}
+{{ nginx__run_command }}

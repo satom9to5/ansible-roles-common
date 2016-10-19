@@ -1,0 +1,14 @@
+# テンプレートと展開先のパスを指定
+# nameがhogeの場合、デフォルトのパスは
+# テンプレート: /etc/nginx/templates/hoge.template
+# confファイル：/etc/nginx/conf.d/hoge.conf
+# になる
+# nginx_command_envsubst__confs:
+#   - name: hoge
+#     template_dir: ""
+#     conf_dir: ""
+#     vars: 
+#       - HOGE
+nginx_command_envsubst__confs: []
+nginx_command_envsubst__template_dir: /etc/nginx/templates
+nginx_command_envsubst__conf_dir: /etc/nginx/conf.d
