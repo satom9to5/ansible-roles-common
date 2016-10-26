@@ -1,0 +1,4 @@
+ruby_gem_packages_bundler__path: ""
+ruby_gem_packages_bundler__bin_path: "{{ Default__ruby_gem_packages_bundler__bin_path }}"
+
+Default__ruby_gem_packages_bundler__bin_path: "{{ ruby_gem_packages_bundler__path }}/ruby/{{ ruby__version }}/bin"

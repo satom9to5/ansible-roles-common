@@ -1,0 +1,33 @@
+- name: set ruby bin path
+  tags:
+    - ruby
+    - ruby/gem/packages/bundler
+  set_fact:
+    Fact__ruby_gem_packages_bundler__bin_path: ""
+
+- name: append ruby bin path to PATH env
+  tags:
+    - ruby
+    - ruby/gem/packages/bundler
+  when: ruby__bin_path != Default__ruby__bin_path
+  set_fact:
+    Fact__ruby_gem_packages_bundler__bin_path: "{{ ruby_bin_path }}:"
+
+- name: append bundler bin path to PATH env
+  tags:
+    - ruby
+    - ruby/gem/packages/bundler
+  when: ruby_gem_packages_bundler__path != ""
+  set_fact:
+    Fact__ruby_gem_packages_bundler__bin_path: "{{ ruby_gem_packages_bundler__bin_path }}:{{ Fact__ruby_gem_packages_bundler__bin_path }}"
+
+- name: copy export ruby environment shell
+  tags:
+    - ruby
+    - ruby/gem/packages/bundler
+  become: true
+  when: Fact__ruby_gem_packages_bundler__bin_path != ""
+  template: >
+    src=ruby.sh.j2
+    dest=/etc/profile.d/proglang/ruby.sh
+    mode=755
