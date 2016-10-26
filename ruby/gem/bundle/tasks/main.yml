@@ -1,9 +1,0 @@
-- name: bundle gem install
-  tags: 
-    - ruby
-    - gem
-    - bundle
-  ignore_errors: yes
-  shell: |
-    source /etc/profile.d/proglang.sh
-    gem install bundle
