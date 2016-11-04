@@ -1,0 +1,6 @@
+docker_commands_entrykit__version: 0.4.0
+docker_commands_entrykit__directory: /usr/local/bin/
+docker_commands_entrykit__path: "{{ docker_commands_entrykit__directory }}/entrykit"
+docker_commands_entrykit__archive_path: "/tmp/entrykit.tgz"
+
+docker_commands_entrykit__download: false

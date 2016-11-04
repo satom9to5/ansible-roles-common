@@ -1,0 +1,2 @@
+- include: install.yml
+  when: ansible_machine == "x86_64" 

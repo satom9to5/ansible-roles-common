@@ -1,0 +1,76 @@
+- name: entrykit file check
+  tags:
+    - docker
+    - docker/commands/entrykit
+  command: test -f {{ docker_commands_entrykit__path }}
+  register: Register__docker_commands_entrykit__path
+  failed_when: Register__docker_commands_entrykit__path.rc not in [0,1]
+
+- name: entrykit version check
+  tags:
+    - docker
+    - docker/commands/entrykit
+  when: Register__docker_commands_entrykit__path.rc == 0
+  shell: |
+    {{ docker_commands_entrykit__path }} -v
+  register: Register__docker_commands_entrykit__current_version
+  failed_when: Register__docker_commands_entrykit__current_version.rc not in [0,1]
+
+- name: entrykit download check
+  tags:
+    - docker
+    - docker/commands/entrykit
+  when: Register__docker_commands_entrykit__path.rc != 0 or Register__docker_commands_entrykit__current_version.stdout != "{{ docker_commands_entrykit__version }}"
+  set_fact:
+    docker_commands_entrykit__download: true
+
+- name: entrykit file download
+  tags:
+    - docker
+    - docker/commands/entrykit
+  become: true
+  when: "{{ docker_commands_entrykit__download | bool }} == true"
+  get_url: >
+    url="https://github.com/progrium/entrykit/releases/download/v{{ docker_commands_entrykit__version }}/entrykit_{{ docker_commands_entrykit__version }}_{{ ansible_system }}_{{ ansible_machine }}.tgz"
+    dest={{ docker_commands_entrykit__archive_path }}
+
+- name: entrykit unarchive
+  tags:
+    - docker
+    - docker/commands/entrykit
+  become: true
+  when: "{{ docker_commands_entrykit__download | bool }} == true"
+  unarchive: >
+    src={{ docker_commands_entrykit__archive_path }}
+    dest={{ docker_commands_entrykit__directory }}
+    copy=no
+
+- name: add x mode of entrykit
+  tags:
+    - docker
+    - docker/commands/entrykit
+  become: true
+  when: "{{ docker_commands_entrykit__download | bool }} == true"
+  file: >
+    path={{ docker_commands_entrykit__path }}
+    state=touch
+    mode=0755
+
+- name: create entrykit subcommand
+  tags:
+    - docker
+    - docker/commands/entrykit
+  become: true
+  when: "{{ docker_commands_entrykit__download | bool }} == true"
+  command: "{{ docker_commands_entrykit__path }} --symlink"
+
+- name: delete entrykit archive file
+  tags:
+    - docker
+    - docker/commands/entrykit
+  become: true
+  when: "{{ docker_commands_entrykit__download | bool }} == true"
+  file: >
+    path={{ docker_commands_entrykit__archive_path }}
+    state=absent
+
