@@ -1,0 +1,5 @@
+allow_duplicates: yes
+dependencies:
+  - role: common/supervisor/supervisor-defaults
+  - role: common/supervisor/install
+    when: "{{ supervisor__install | bool }} == true"

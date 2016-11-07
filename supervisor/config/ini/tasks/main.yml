@@ -1,0 +1,9 @@
+- name: supervisor common ini copy
+  tags:
+    - supervisor
+    - supervisor/common/ini
+  template: >
+    src=ini.j2
+    dest={{ supervisor_conf_dir }}/{{ supervisor_config_ini__name }}.ini
+    mode=0755
+

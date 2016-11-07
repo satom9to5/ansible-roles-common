@@ -1,0 +1,7 @@
+[program:rails]
+command = {{ supervisor_ruby_rails__command }}
+stdout_events_enabled = true
+stderr_events_enabled = true
+autostart = true
+autorestart = true
+stopasgroup = true

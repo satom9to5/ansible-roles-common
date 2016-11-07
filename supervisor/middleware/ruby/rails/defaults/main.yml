@@ -1,0 +1,3 @@
+supervisor_ruby_rails__path: "/rails"
+supervisor_ruby_rails__command: "{{ supervisor_exec_shell_dir }}/rails.sh" 
+supervisor_ruby_rails__rails_command: "rails s"

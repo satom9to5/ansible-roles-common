@@ -1,0 +1,11 @@
+dependencies:
+  - role: common/ruby/install
+    when: "{{ ruby__install | bool }} == true"
+  - role: common/node/install
+    when: "{{ node__install | bool }} == true"
+  - role: common/ruby/gem/packages/rails
+    when: "{{ ruby_gem_packages_rails__install | bool }} == true"
+  - role: common/supervisor/supervisor-defaults
+  - role: common/supervisor/config/ini
+    supervisor_config_ini__name: rails
+    supervisor_config_ini__command: "{{ supervisor_ruby_rails__command }}"
