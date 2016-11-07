@@ -1,7 +1,10 @@
 - name: change supervisor nodaemon config
   tags:
     - supervisor
-  command: >
-    sed -i 's|^nodaemon=false|nodaemon=true|g' /etc/supervisord.conf
-    removes=/etc/supervisord.conf
-
+    - supervisor/daemon
+  lineinfile: >
+    dest=/etc/supervisord.conf
+    state=present
+    backrefs=yes
+    regexp='^nodaemon=false'
+    line='nodaemon=true'
