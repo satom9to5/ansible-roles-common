@@ -1,8 +1,0 @@
-- name: rails run shell copy
-  tags:
-    - supervisor
-    - supervisor/ruby/rails
-  template: >
-    src=rails.sh.j2
-    dest={{ supervisor_ruby_rails__command }}
-    mode=0755
