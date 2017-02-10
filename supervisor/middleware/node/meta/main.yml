@@ -1,0 +1,7 @@
+dependencies:
+  - role: common/node/install
+    when: "{{ node__install | bool }} == true"
+  - role: common/supervisor/supervisor-defaults
+  - role: common/supervisor/config/ini
+    supervisor_config_ini__name: node
+    supervisor_config_ini__command: "{{ supervisor_node__command }}"
