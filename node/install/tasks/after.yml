@@ -5,3 +5,11 @@
   environment:
     PATH: "{{ node__bin_path }}:{{ ansible_env.PATH }}"
   command: npm update -g npm
+
+- name: npm-check-updates install
+  tags: 
+    - node
+    - node/install
+  environment:
+    PATH: "{{ node__bin_path }}:{{ ansible_env.PATH }}"
+  command: npm install -g npm-check-updates
