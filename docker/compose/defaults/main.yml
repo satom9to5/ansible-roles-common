@@ -1,2 +1,2 @@
-docker_compose_version: 1.7.1
+docker_compose_version: 1.10.1
 docker_compose_path: /usr/local/bin/docker-compose
