@@ -20,5 +20,5 @@
     - node/install
   environment:
     PATH: "{{ node__bin_path }}:{{ ansible_env.PATH }}"
-  command: npm update -g yarn
+  command: npm install -g yarn
 
