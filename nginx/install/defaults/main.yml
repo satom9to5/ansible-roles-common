@@ -1,4 +1,4 @@
-nginx_version: 1.9.7
+nginx_version: 1.10.3
 nginx_build_work_directory: /usr/local/src/nginx-build/
 nginx_make_work_directory: "{{ nginx_build_work_directory }}nginx/{{ nginx_version }}/nginx-{{ nginx_version }}"
 nginx_module_file_path: "{{ nginx_build_work_directory }}/third_party_modules.cfg"
