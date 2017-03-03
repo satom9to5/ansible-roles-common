@@ -12,6 +12,7 @@
   tags: 
     - ruby
     - ruby/gem/install
+  become: true
   environment:
     PATH: "{{ ruby__bin_path }}:{{ ansible_env.PATH }}"
   gem: > 

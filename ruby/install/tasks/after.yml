@@ -2,6 +2,7 @@
   tags: 
     - ruby
     - ruby/install
+  become: true
   environment:
     PATH: "{{ ruby__bin_path }}:{{ ansible_env.PATH }}"
   command: gem update --system 

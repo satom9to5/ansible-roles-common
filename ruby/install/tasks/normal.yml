@@ -2,8 +2,9 @@
   tags:
     - ruby
     - ruby/install
+  become: true
   shell: |
-    ruby-build {{ ruby__version }} {{ ruby__path }}    
+    /usr/local/bin/ruby-build {{ ruby__version }} {{ ruby__path }}    
 
 - name: copy export ruby environment shell
   tags:
