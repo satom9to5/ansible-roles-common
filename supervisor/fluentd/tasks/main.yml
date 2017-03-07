@@ -2,6 +2,7 @@
   tags:
     - supervisor
     - fluentd
+  become: true
   template: >
     src=fluentd.ini.j2
     dest=/etc/supervisord.d/fluentd.ini
