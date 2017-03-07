@@ -1,0 +1,13 @@
+[Unit]
+Description = {{ systemd_regist__unit_description }}
+{% if systemd_regist__unit_requires != "" %}Requires = {{ systemd_regist__unit_requires }}{% endif %}
+{% if systemd_regist__unit_after != "" %}After = {{ systemd_regist__unit_after }}{% endif %}
+
+[Service]
+Type = {{ systemd_regist__service_type }}
+Restart = {{ systemd_regist__service_restart }}
+ExecStart = {{ systemd_regist__service_exec_start }}
+ExecStop = {{ systemd_regist__service_exec_stop }}
+
+[Install]
+WantedBy = {{ systemd_regist__install_wantedby }}

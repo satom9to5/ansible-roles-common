@@ -1,0 +1,1 @@
+systemd_commands_stop__service_name: "{{ systemd__service_name }}"

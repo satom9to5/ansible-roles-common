@@ -1,0 +1,12 @@
+systemd_regist__service_name: "{{ systemd__service_name }}"
+
+systemd_regist__unit_description: ""
+systemd_regist__unit_requires: ""
+systemd_regist__unit_after: ""
+
+systemd_regist__service_type: "simple"
+systemd_regist__service_restart: "no"
+systemd_regist__service_exec_start: ""
+systemd_regist__service_exec_stop: ""
+
+systemd_regist__install_wantedby: "default.target"

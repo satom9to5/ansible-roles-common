@@ -1,0 +1,9 @@
+- name: systemd service start
+  tags: 
+    - systemd
+    - systemd/commands
+    - systemd/commands/start
+  become: true
+  systemd:
+    name: "{{ systemd_commands_start__service_name }}"
+    state: started

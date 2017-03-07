@@ -1,0 +1,9 @@
+- name: systemd service disable
+  tags: 
+    - systemd
+    - systemd/commands
+    - systemd/commands/disable
+  become: true
+  systemd:
+    name: "{{ systemd_commands_disable__service_name }}"
+    enabled: no

@@ -1,0 +1,9 @@
+- name: systemd service stop
+  tags: 
+    - systemd
+    - systemd/commands
+    - systemd/commands/stop
+  become: true
+  systemd:
+    name: "{{ systemd_commands_stop__service_name }}"
+    state: stopped

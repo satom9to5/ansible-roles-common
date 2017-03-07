@@ -1,0 +1,9 @@
+- name: systemd service enable
+  tags: 
+    - systemd
+    - systemd/commands
+    - systemd/commands/enable
+  become: true
+  systemd:
+    name: "{{ systemd_commands_enable__service_name }}"
+    enabled: yes
