@@ -2,6 +2,7 @@
   tags:
     - supervisor
     - supervisor/daemon
+  become: true
   lineinfile: >
     dest=/etc/supervisord.conf
     state=present
