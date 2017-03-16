@@ -1,0 +1,3 @@
+embulk__url: "https://dl.embulk.org/embulk-latest.jar" 
+embulk__path: /usr/local/bin/embulk 
+

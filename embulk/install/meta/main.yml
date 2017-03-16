@@ -1,0 +1,4 @@
+dependencies:
+  - role: common/defaults
+  - role: common/java
+    when: "{{ java__install | bool }} == true"
