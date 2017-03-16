@@ -5,6 +5,7 @@
     - ndenv
     - phpenv
     - rbenv
+  become: true
   git: >
     repo=https://github.com/riywo/anyenv
     dest={{ anyenv_path }}
@@ -16,6 +17,7 @@
     - ndenv
     - phpenv
     - rbenv
+  become: true
   template: >
     src=anyenv.sh.j2
     dest=/etc/profile.d/proglang/anyenv.sh
