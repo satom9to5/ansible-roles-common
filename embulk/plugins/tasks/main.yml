@@ -1,0 +1,7 @@
+- name: embulk plugins install
+  tags:
+   - embulk
+   - embulk/plugins
+  become: true
+  shell: "{{ embulk__path }} gem install {{ item }}"
+  with_items: "{{ embulk__plugins }}"
