@@ -10,6 +10,7 @@
   tags:
     - node
     - node/install
+  become: true
   when: register__node__directory_check.rc != 0
   shell: |
     source /etc/profile.d/proglang.sh
@@ -19,6 +20,7 @@
   tags:
     - node
     - node/install
+  become: true
   shell: |
     source /etc/profile.d/proglang.sh
     ndenv global {{ node__version }}

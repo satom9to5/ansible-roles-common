@@ -2,8 +2,9 @@
   tags:
     - node
     - node/install
+  become: true
   shell: |
-    node-build {{ node__version }} {{ node__path }}    
+    {{ node__bin_path }}/node-build {{ node__version }} {{ node__path }}    
 
 - name: copy export node environment shell
   tags:

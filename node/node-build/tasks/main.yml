@@ -4,7 +4,7 @@
     - node/node-build
   become: true
   git: >
-    repo=https://github.com/riywo/node-build.git
+    repo=https://github.com/nodenv/node-build.git
     dest={{ node_build__path }}
 
 - name: node-build install
@@ -24,4 +24,4 @@
   become: true
   ignore_errors: yes # install.sh内でのエラー抑制
   shell: |
-    node-build --definitions
+    {{ node__bin_path }}/node-build --definitions
