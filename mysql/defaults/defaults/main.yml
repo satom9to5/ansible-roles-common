@@ -1,0 +1,6 @@
+mysql__version: 5.7
+mysql__datadir: /var/lib/mysql
+mysql__pidfile: /var/run/mysqld/mysqld.pid
+mysql__socket: "{{ mysql__datadir }}/mysql.sock"
+mysql__conf_base_dir: /etc/my.cnf.d/
+mysql__character_set: utf8mb4
