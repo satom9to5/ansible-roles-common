@@ -2,6 +2,7 @@
   tags:
     - supervisor
     - mysql
+  become: true
   template: >
     src=mysql.ini.j2
     dest=/etc/supervisord.d/mysql.ini

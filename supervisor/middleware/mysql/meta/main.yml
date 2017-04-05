@@ -1,0 +1,3 @@
+dependencies:
+  - role: common/mysql/server/install
+  - role: common/supervisor/install
