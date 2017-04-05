@@ -5,11 +5,11 @@
   register: mysql_repo_check
   failed_when: mysql_repo_check.rc not in [0,1]
 
-- name: MySQL repo install
+- name: MySQL repo install 
   tags:
     - mysql
   become: true
   when: mysql_repo_check.rc != 0
   yum: >
-    name=http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
+    name=http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
     state=present

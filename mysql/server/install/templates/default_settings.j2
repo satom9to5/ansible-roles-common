@@ -1,5 +1,8 @@
 [mysqld]
-character-set-server={{ mysql_character_set }}
+datadir={{ mysql__datadir }}
+socket={{ mysql__socket }}
+pid-file={{ mysql__pidfile }}
+character-set-server={{ mysql__character_set }}
 skip-external-locking
 key_buffer_size = 512M
 innodb_buffer_pool_size = 2G
@@ -14,6 +17,7 @@ thread_stack = 128K
 innodb_file_per_table
 open_files_limit = 10000
 innodb_open_files = 8000
+explicit_defaults_for_timestamp = 1
 server-id       = 1
 
 [mysqldump]
@@ -28,4 +32,4 @@ sort_buffer_size = 8M
 interactive-timeout
 
 [mysql]
-default-character-set={{ mysql_character_set }}
+default-character-set={{ mysql__character_set }}

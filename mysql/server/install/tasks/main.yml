@@ -1,17 +1,17 @@
-- name: MySQL server install (MySQL Version 5.6, RedHat Version 6)
+- name: MySQL server install (RedHat Version 6)
   tags:
     - mysql
   become: true
-  when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '6'
   yum: >
-    name=server
+    name=mysql-server
     state=latest
 
-- name: MySQL server install (MySQL Version 5.6, RedHat Version 7)
+- name: MySQL server install (RedHat Version 7)
   tags:
     - mysql
   become: true
-  when: mysql_version == 5.6 and ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '7'
   yum: >
     name=mysql-community-server
     state=latest
@@ -47,4 +47,4 @@
   become: true
   template: >
     src=default_settings.j2
-    dest={{ mysql_conf_base_dir }}/default_settings.cnf
+    dest={{ mysql__conf_base_dir }}/default_settings.cnf
