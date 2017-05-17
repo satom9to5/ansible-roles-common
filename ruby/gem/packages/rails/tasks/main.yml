@@ -5,6 +5,7 @@
   yum: >
     name={{ item }}
     state=latest
+  become: true
   with_items:
     - sqlite-devel
 
