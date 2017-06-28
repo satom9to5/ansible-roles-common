@@ -46,6 +46,7 @@
   file: >
     path={{ supervisor__log_dir }}
     state=directory
+    owner={{ supervisor__user }}
 
 - name: create supervisor socket directory
   tags:
@@ -54,6 +55,7 @@
   file: >
     path={{ supervisor__socket_dir }}
     state=directory
+    owner={{ supervisor__user }}
 
 - name: create supervisor exec shell directory
   tags:
@@ -62,3 +64,4 @@
   file: >
     path={{ supervisor__exec_shell_dir_dir }}
     state=directory
+    owner={{ supervisor__user }}

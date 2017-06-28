@@ -1,6 +1,9 @@
 supervisor__conf_dir: /etc/supervisord.d
 supervisor__log_dir: /var/log/supervisor
-supervisor__socket_dir: /var/run/supervisor
+supervisor__pidfile_dir: /var/run
+supervisor__socket_dir: "{{ supervisor__pidfile_dir }}/supervisor"
 supervisor__exec_shell_dir_dir: /opt/supervisord/shell
+
+supervisor__user: "{{ ansible_user }}"
 
 supervisor__install: true
