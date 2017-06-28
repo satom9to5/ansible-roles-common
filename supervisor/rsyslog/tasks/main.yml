@@ -4,6 +4,6 @@
     - rsyslog
   template: >
     src=rsyslog.ini.j2
-    dest={{ supervisor_conf_dir }}/rsyslog.ini
+    dest={{ supervisor__conf_dir }}/rsyslog.ini
     mode=0755
 

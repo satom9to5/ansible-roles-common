@@ -4,7 +4,7 @@
     - postfix
   template: >
     src=postfix.ini.j2
-    dest={{ supervisor_conf_dir }}/postfix.ini
+    dest={{ supervisor__conf_dir }}/postfix.ini
     mode=0755
 
 - name: postfix exec shell copy
@@ -13,5 +13,5 @@
     - postfix
   template: >
     src=postfix.sh.j2
-    dest={{ supervisor_exec_shell_dir }}/postfix.sh
+    dest={{ supervisor__exec_shell_dir_dir }}/postfix.sh
     mode=0755

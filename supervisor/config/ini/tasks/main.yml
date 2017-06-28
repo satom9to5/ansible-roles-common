@@ -5,6 +5,6 @@
   become: true
   template: >
     src=ini.j2
-    dest={{ supervisor_conf_dir }}/{{ supervisor_config_ini__name }}.ini
+    dest={{ supervisor__conf_dir }}/{{ supervisor_config_ini__name }}.ini
     mode=0755
 
