@@ -2,6 +2,7 @@
   tags:
     - nginx
     - nginx/config/custom
+  become: true
   template: >
     src={{ item.src }}
     dest={{ item.dest }}
@@ -26,6 +27,7 @@
   tags:
     - nginx
     - nginx/config/custom
+  become: true
   file: >
     path=/etc/nginx/servers.conf
     state=touch
