@@ -8,6 +8,7 @@
 - name: LuaJIT source directory remove
   tags:
     - luajit
+  become: true
   when: luajit_dir_check.rc == 0
   file: >
     path=/usr/local/src/LuaJIT-{{ luajit_version }}
@@ -23,6 +24,7 @@
 - name: LuaJIT source download
   tags:
     - luajit
+  become: true
   when: luajit_source_check.rc != 0
   get_url: >
     url="http://luajit.org/download/LuaJIT-{{ luajit_version }}.tar.gz"
@@ -31,6 +33,7 @@
 - name: LuaJIT source decompress
   tags:
     - luajit
+  become: true
   ignore_errors: yes
   shell:  |
     cd /usr/local/src
@@ -39,6 +42,7 @@
 - name: LuaJIT install
   tags:
     - luajit
+  become: true
   ignore_errors: yes
   shell: |
     cd /usr/local/src/LuaJIT-{{ luajit_version }}
@@ -49,4 +53,5 @@
 - name: update shared library path with ldconfig
   tags:
     - luajit
+  become: true
   command: /sbin/ldconfig

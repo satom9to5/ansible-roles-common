@@ -1,2 +1,2 @@
 dependencies:
-  - role: common/nginx/nginx-defaults
+  - role: common/nginx/defaults

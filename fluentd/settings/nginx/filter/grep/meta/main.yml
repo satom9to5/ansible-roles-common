@@ -1,4 +1,4 @@
 dependencies:
-  - role: common/fluentd/settings/nginx/nginx-defaults
+  - role: common/fluentd/settings/nginx/defaults
   - role: common/fluentd/config/filter/grep
     fluentd_config_filter_grep_configs: "{{ fluentd_settings_nginx_filter_grep_configs }}"

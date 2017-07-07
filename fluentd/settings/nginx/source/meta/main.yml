@@ -1,4 +1,4 @@
 dependencies:
-  - role: common/fluentd/settings/nginx/nginx-defaults
+  - role: common/fluentd/settings/nginx/defaults
   - role: common/fluentd/config/source/tail
     fluentd_config_source_tail_configs: "{{ fluentd_settings_nginx_source_configs }}"

@@ -2,6 +2,7 @@
   tags:
     - nginx
     - nginx/command/envsubst
+  become: true
   template: >
     src=envsubst.sh.j2
     dest={{ nginx__run_sh_path }}

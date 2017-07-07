@@ -1,7 +1,7 @@
 dependencies:
   - role: common/supervisor/install
     when: "{{ nginx_install | bool }} == true"
-  - role: common/nginx/nginx-defaults
+  - role: common/nginx/defaults
   - role: common/nginx/install
     when: "{{ nginx_install | bool }} == true"
   - role: common/nginx/command/envsubst

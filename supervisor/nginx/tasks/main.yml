@@ -2,6 +2,7 @@
   tags:
     - supervisor
     - nginx
+  become: true
   template: >
     src=nginx.ini.j2
     dest=/etc/supervisord.d/nginx.ini
