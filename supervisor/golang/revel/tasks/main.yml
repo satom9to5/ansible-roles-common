@@ -3,6 +3,7 @@
     - supervisor
     - golang
     - revel
+  become: true
   template: >
     src=revel.ini.j2
     dest=/etc/supervisord.d/revel.ini
