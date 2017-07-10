@@ -1,4 +1,4 @@
 # common以外のディレクトリからも参照するので一旦親ディレクトリを指す
 dependencies:
   - { role: common/php/php-defaults }
-  - { role: common/nginx/defaults }
+  - { role: common/nginx/default }

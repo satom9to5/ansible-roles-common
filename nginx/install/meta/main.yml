@@ -1,7 +1,7 @@
 dependencies:
   - role: common/service
   - role: common/basic/compile
-  - role: common/nginx/defaults
+  - role: common/nginx/default
   - role: common/nginx/adduser
   - role: common/nginx/nginx-build
   - role: common/lua/luajit
