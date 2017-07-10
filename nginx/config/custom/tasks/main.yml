@@ -9,19 +9,19 @@
     mode=0755
   with_items:
     - src: nginx.conf.j2
-      dest: /etc/nginx/nginx.conf
+      dest: "{{ nginx__conf_dir }}/nginx.conf"
     - src: env.conf.j2
-      dest: /etc/nginx/env.conf
+      dest: "{{ nginx__conf_dir }}/env.conf"
     - src: log.conf.j2
-      dest: /etc/nginx/log.conf
+      dest: "{{ nginx__conf_dir }}/log.conf"
     - src: charset.conf.j2
-      dest: /etc/nginx/charset.conf
+      dest: "{{ nginx__conf_dir }}/charset.conf"
     - src: gzip.conf.j2
-      dest: /etc/nginx/gzip.conf
+      dest: "{{ nginx__conf_dir }}/gzip.conf"
     - src: proxy.conf.j2
-      dest: /etc/nginx/proxy.conf
+      dest: "{{ nginx__conf_dir }}/proxy.conf"
     - src: fastcgi_cache.conf.j2
-      dest: /etc/nginx/fastcgi_cache.conf
+      dest: "{{ nginx__conf_dir }}/fastcgi_cache.conf"
 
 - name: nginx servers conf file touch
   tags:
@@ -29,6 +29,6 @@
     - nginx/config/custom
   become: true
   file: >
-    path=/etc/nginx/servers.conf
+    path={{ nginx__conf_dir }}/servers.conf
     state=touch
     mode=0755

@@ -1,5 +1,5 @@
 error_log  {{ nginx__log_dir }}/error.log {{ nginx__error_log_level }};
-pid        /var/run/nginx.pid;
+pid        {{ nginx__pidfile_dir }}/nginx.pid;
 
 events {
     worker_connections {{ nginx__worker_connections }};

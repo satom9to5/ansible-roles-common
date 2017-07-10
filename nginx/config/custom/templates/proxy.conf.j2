@@ -14,10 +14,10 @@ proxy_cache_valid     any 1m;
 # キャッシュの場所、ディレクトリ構造、
 # キーゾーン名とオブジェクトを保存するキーの全体サイズ（オブジェクト1つにつき128バイト消費する）、
 # 合計の最大キャッシュサイズ、保存期間
-proxy_cache_path  /var/cache/nginx/proxy levels=1:2 keys_zone=proxy_cache_zone:8m max_size=500m inactive=1d;
+proxy_cache_path  {{ nginx__cache_dir }}/proxy levels=1:2 keys_zone=proxy_cache_zone:8m max_size=500m inactive=1d;
 
 # テンポラリファイルのパス
-proxy_temp_path   /var/tmp/nginx; # テンポラリファイルのパス
+proxy_temp_path   {{ nginx__tmp_dir }}; # テンポラリファイルのパス
 
 # キャッシュに付与されるキー
 proxy_cache_key $scheme://$host$request_uri;

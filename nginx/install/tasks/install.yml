@@ -1,4 +1,4 @@
-- name: nginx depends library install
+- name: install nginx depends library
   tags:
     - nginx
     - nginx/install
@@ -17,19 +17,57 @@
     - nginx/install
   become: true
   file: >
-    path={{ nginx_build_work_directory }}
+    path={{ nginx__build_work_directory }}
     state=directory
 
-- name: nginx third party module config copy
+- name: copty nginx third party module config
   tags:
     - nginx
     - nginx/install
   become: true
   template: >
     src=third_party_modules.j2
-    dest={{ nginx_module_file_path }}
+    dest={{ nginx__module_file_path }}
 
-- name: nginx configure
+- name: check nginx pidfile directory
+  tags:
+    - nginx
+    - nginx/install
+  command: test -d {{ nginx__pidfile_dir }}
+  register: register__nginx__pidfile_dir
+  failed_when: register__nginx__pidfile_dir.rc not in [0,1]
+
+- name: create nginx pidfile directory
+  tags:
+    - nginx
+    - nginx/install
+  become: true
+  when: register__nginx__pidfile_dir.rc != 0
+  file: >
+    path={{ nginx__pidfile_dir }}
+    state=directory
+    owner={{ nginx__user }}
+
+- name: check nginx lock directory
+  tags:
+    - nginx
+    - nginx/install
+  command: test -d {{ nginx__lock_dir }}
+  register: register__nginx__lock_dir
+  failed_when: register__nginx__lock_dir.rc not in [0,1]
+
+- name: create nginx lock directory
+  tags:
+    - nginx
+    - nginx/install
+  become: true
+  when: register__nginx__lock_dir.rc != 0
+  file: >
+    path={{ nginx__lock_dir }}
+    state=directory
+    owner={{ nginx__user }}
+
+- name: configure nginx
   tags:
     - nginx
     - nginx/install
@@ -40,24 +78,24 @@
     export LUAJIT_LIB=/usr/local/lib
     export LUAJIT_INC=/usr/local/include/luajit-2.0
     nginx-build \
-      -v {{ nginx_version }} \
-      -d {{ nginx_build_work_directory }} \
-      -m {{ nginx_module_file_path }} \
+      -v {{ nginx__version }} \
+      -d {{ nginx__build_work_directory }} \
+      -m {{ nginx__module_file_path }} \
       -clear \
       -pcre \
       -zlib \
       -openssl \
       -sbin-path=/usr/sbin/nginx \
-      -conf-path=/etc/nginx/nginx.conf \
+      -conf-path={{ nginx__conf_dir }}/nginx.conf \
       -error-log-path={{ nginx__log_dir }}/error.log \
       -http-log-path={{ nginx__log_dir }}/access.log \
-      -http-client-body-temp-path=/var/lib/nginx/tmp/client_body \
-      -http-proxy-temp-path=/var/lib/nginx/tmp/proxy \
-      -http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi \
-      -pid-path=/var/run/nginx.pid \
-      -lock-path=/var/lock/subsys/nginx.lock \
-      -user=nginx \
-      -group=nginx \
+      -http-client-body-temp-path={{ nginx__tmp_dir }}/client_body \
+      -http-proxy-temp-path={{ nginx__tmp_dir }}/proxy \
+      -http-fastcgi-temp-path={{ nginx__tmp_dir }}/fastcgi \
+      -pid-path={{ nginx__pidfile_dir }}/nginx.pid \
+      -lock-path={{ nginx__lock_dir }}/nginx.lock \
+      -user={{ nginx__user }} \
+      -group={{ nginx__group }} \
       -with-debug \
       -with-file-aio \
       -with-pcre-jit \
@@ -74,14 +112,53 @@
       -with-http_v2_module \
       -with-ld-opt="-Wl,-rpath,/path/to/luajit-or-lua/lib" 
 
-- name: nginx install
+- name: install nginx
   tags:
     - nginx
     - nginx/install
   become: true
   shell: |
-     cd {{ nginx_make_work_directory }}
+     cd {{ nginx__make_work_directory }}
      make install
+
+- name: clear nginx work directory
+  tags:
+    - nginx
+    - nginx/install
+  become: true
+  file: >
+    path={{ nginx__build_work_directory }}
+    state=absent
+
+- name: create nginx log directory
+  tags:
+    - nginx
+    - nginx/install
+  become: true
+  file: >
+    path={{ nginx__log_dir }}
+    state=directory
+    owner={{ nginx__user }}
+
+- name: create nginx tmp directory
+  tags:
+    - nginx
+    - nginx/install
+  become: true
+  file: >
+    path={{ nginx__tmp_dir }}
+    state=directory
+    owner={{ nginx__user }}
+
+- name: create nginx cache directory
+  tags:
+    - nginx
+    - nginx/install
+  become: true
+  file: >
+    path={{ nginx__cache_dir }}
+    state=directory
+    owner={{ nginx__user }}
 
 - name: create nginx conf directories
   tags:
@@ -92,26 +169,12 @@
     path={{ item }}
     state=directory
   with_items:
-    - /etc/nginx/conf.d
-    - /etc/nginx/conf.d/server
-    - /etc/nginx/conf.d/upstream
-    - /etc/nginx/conf.d/location
-    - /etc/nginx/conf.d/location_proxy
-    - /etc/nginx/conf.d/lua
-
-- name: create nginx templates directories
-  tags:
-    - nginx
-    - nginx/install
-  become: true
-  file: >
-    path={{ item }}
-    state=directory
-  with_items:
-    - /etc/nginx/templates/server
-    - /etc/nginx/templates/upstream
-    - /etc/nginx/templates/location
-    - /etc/nginx/templates/location_proxy
+    - "{{ nginx__conf_dir }}/conf.d"
+    - "{{ nginx__conf_dir }}/conf.d/server"
+    - "{{ nginx__conf_dir }}/conf.d/upstream"
+    - "{{ nginx__conf_dir }}/conf.d/location"
+    - "{{ nginx__conf_dir }}/conf.d/location_proxy"
+    - "{{ nginx__conf_dir }}/conf.d/lua"
 
 - name: create nginx data directories
   tags:
@@ -124,8 +187,8 @@
     owner={{ nginx__user }}
     group={{ nginx__user }}
   with_items:
-    - /var/lib/nginx/tmp
-    - /var/cache/nginx
+    - "{{ nginx__tmp_dir }}"
+    - "{{ nginx__cache_dir }}"
 
 - name: nginx conf files copy
   tags:
@@ -134,7 +197,7 @@
   become: true
   template: >
     src=nginx.conf.j2
-    dest=/etc/nginx/nginx.conf
+    dest={{ nginx__conf_dir }}/nginx.conf
     mode=0755
 
 - name: nginx sysconfig copy

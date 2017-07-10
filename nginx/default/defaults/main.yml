@@ -1,7 +1,13 @@
 nginx__user: nginx
 nginx__user_uid: 1010
+nginx__group: nginx
+nginx__pidfile_dir: "/var/run"
+nginx__lock_dir: "/var/local/subsys"
+nginx__conf_dir: "/etc/nginx"
 nginx__log_dir: "/var/log/nginx"
 nginx__error_log_level: warn
+nginx__tmp_dir: "/var/lib/nginx/tmp"
+nginx__cache_dir: "/var/cache/nginx"
 nginx__worker_connections: 1024
 
 nginx__port: 80
