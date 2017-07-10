@@ -55,4 +55,4 @@
   when: php_fpm_listen_dir_directory_check.rc != 0
   shell: |
     mkdir -p /var/run/php-fpm
-    chown {{ nginx_user }}:{{ nginx_user }} /var/run/php-fpm
+    chown {{ nginx__user }}:{{ nginx__user }} /var/run/php-fpm

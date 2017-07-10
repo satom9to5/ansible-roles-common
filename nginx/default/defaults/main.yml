@@ -1,13 +1,13 @@
-nginx_user: nginx
-nginx_user_uid: 1010
-nginx_log_dir: "/var/log/nginx"
-nginx_error_log_level: warn
-nginx_worker_connections: 1024
+nginx__user: nginx
+nginx__user_uid: 1010
+nginx__log_dir: "/var/log/nginx"
+nginx__error_log_level: warn
+nginx__worker_connections: 1024
 
-nginx_port: 80
-nginx_root: "/var/www/html"
-nginx_charset: UTF-8
-nginx_charset_types:
+nginx__port: 80
+nginx__root: "/var/www/html"
+nginx__charset: UTF-8
+nginx__charset_types:
   - text/css
   - text/xml
   - text/plain
@@ -15,7 +15,7 @@ nginx_charset_types:
   - application/json
   - application/atom+xml
   - application/rss+xml
-nginx_log_format_ltsv: "
+nginx__log_format_ltsv: "
     'host_ip:' '$remote_addr'
     '\t' 'server_ip:' '$server_addr'
     '\t' 'host:' '$host'
@@ -34,10 +34,10 @@ nginx_log_format_ltsv: "
     '\t' 'cookie:' '$http_cookie'
     '\t' 'set_cookie:' '$sent_http_set_cookie'
 "
-nginx_log_format_type: ltsv
-nginx_log_format: "{{ nginx_log_format_ltsv }}"
+nginx__log_format_type: ltsv
+nginx__log_format: "{{ nginx__log_format_ltsv }}"
 
-nginx_install: true
+nginx__install: true
 
 nginx__proxy_protocol: http
 

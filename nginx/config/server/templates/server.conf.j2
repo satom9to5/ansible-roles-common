@@ -1,14 +1,14 @@
 server {
 {% include "pre_options.conf.j2" ignore missing %}
 {% if item.name == '' %}
-  listen {{ item.port | default(nginx_port, true) }} reuseport default_server;
+  listen {{ item.port | default(nginx__port, true) }} reuseport default_server;
   server_name _;
 {% else %}
-  listen {{ item.port | default(nginx_port, true) }};
+  listen {{ item.port | default(nginx__port, true) }};
   server_name {{ item.server_name | default(item.name, true) }};
 {% endif %}
 
-  root {{ item.root | default(nginx_root, true) }};
+  root {{ item.root | default(nginx__root, true) }};
 
   include /etc/nginx/conf.d/location_proxy/*.conf;
 {% if item.locations is defined and item.locations | length > 0 %}

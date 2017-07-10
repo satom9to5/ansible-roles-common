@@ -15,7 +15,7 @@ nginx_config_location__sets: []
 #     replacement: fuga
 #     flag: break
 nginx_config_location__rewrite_rules: []
-nginx_config_location__root: "{{ nginx_root }}" # rootディレクトリのパス
+nginx_config_location__root: "{{ nginx__root }}" # rootディレクトリのパス
 # try_filesでチェックするファイル一覧
 nginx_config_location__try_files_files: "$uri $uri/"
 nginx_config_location__try_files_uri: "{{ nginx_config_location__location_proxy }}" # try_filesの最終リダイレクトURL

@@ -49,8 +49,8 @@
       -openssl \
       -sbin-path=/usr/sbin/nginx \
       -conf-path=/etc/nginx/nginx.conf \
-      -error-log-path={{ nginx_log_dir }}/error.log \
-      -http-log-path={{ nginx_log_dir }}/access.log \
+      -error-log-path={{ nginx__log_dir }}/error.log \
+      -http-log-path={{ nginx__log_dir }}/access.log \
       -http-client-body-temp-path=/var/lib/nginx/tmp/client_body \
       -http-proxy-temp-path=/var/lib/nginx/tmp/proxy \
       -http-fastcgi-temp-path=/var/lib/nginx/tmp/fastcgi \
@@ -121,8 +121,8 @@
   file: >
     path={{ item }}
     state=directory
-    owner={{ nginx_user }}
-    group={{ nginx_user }}
+    owner={{ nginx__user }}
+    group={{ nginx__user }}
   with_items:
     - /var/lib/nginx/tmp
     - /var/cache/nginx

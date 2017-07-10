@@ -1,4 +1,4 @@
 dependencies:
   - role: common/nginx/default
   - role: common/nginx/install
-    when: "{{ nginx_install | bool }} == true"
+    when: "{{ nginx__install | bool }} == true"
