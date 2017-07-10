@@ -1,0 +1,18 @@
+- name: install supervisor
+  tags:
+    - supervisor
+    - supervisor/middleware/mysql
+  include_role:
+    name: common/supervisor/install
+  when: "{{ supervisor__install | bool }} == true"
+
+- name: copy supervisor config ini
+  tags:
+    - supervisor
+    - supervisor/config/ini
+  become: true
+  template: >
+    src=ini.j2
+    dest={{ supervisor__conf_dir }}/{{ supervisor__config_program__name }}.ini
+    mode=0755
+

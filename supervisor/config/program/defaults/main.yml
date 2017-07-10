@@ -1,0 +1,5 @@
+supervisor__config_program__name: ""
+supervisor__config_program__command: ""
+supervisor__config_program__user: ""
+supervisor__config_program__stdout_logfile: ""
+supervisor__config_program__stderr_logfile: ""

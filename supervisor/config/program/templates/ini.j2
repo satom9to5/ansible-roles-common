@@ -1,0 +1,16 @@
+[program:{{ supervisor__config_program__name }}]
+command = {{ supervisor__config_program__command }}
+{% if supervisor__config_program__user != '' %}
+user = {{ supervisor__config_program__user }}
+{% endif %}
+{% if supervisor__config_program__stdout_logfile != '' %}
+stdout_logfile = {{ supervisor__config_program__stdout_logfile }}
+{% endif %}
+{% if supervisor__config_program__stderr_logfile != '' %}
+stderr_logfile = {{ supervisor__config_program__stderr_logfile }}
+{% endif %}
+stdout_events_enabled = true
+stderr_events_enabled = true
+autostart = true
+autorestart = true
+stopasgroup = true
