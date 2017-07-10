@@ -1,9 +1,21 @@
-- name: MySQL supervisor ini copy
+- name: install MySQL server
   tags:
-    - supervisor
     - mysql
-  become: true
-  template: >
-    src=mysql.ini.j2
-    dest=/etc/supervisord.d/mysql.ini
-    mode=0755
+    - supervisor
+    - supervisor/middleware/mysql
+  include_role:
+    name: common/mysql/server/install
+
+# include_roleでsupervisorインストールされる
+- name: copy MySQL supervisor ini copy
+  tags:
+    - mysql
+    - supervisor
+    - supervisor/middleware/mysql
+  include_role:
+    name: common/supervisor/config/program
+  vars:
+    supervisor__user: "" # root必須
+    supervisor__config_program__name: mysql
+    supervisor__config_program__user: mysql
+    supervisor__config_program__command: /usr/bin/pidproxy {{ mysql__pidfile }} /usr/sbin/mysqld
