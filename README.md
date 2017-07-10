@@ -2,6 +2,10 @@
 default値を表すroleは「default」にする。
 「defaults」はansibleで使われるディレクトリ名なので、区別するために分けた。
 
+# name命名規則
+原則、動詞 + 対象とする。
+Ex: install nginx
+
 # 変数の命名規則
 
 - 単語の区切りはアンダースコア1文字で行う
