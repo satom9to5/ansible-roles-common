@@ -1,1 +1,0 @@
-supervisor_nginx__command: "{{ nginx__run_command }}"

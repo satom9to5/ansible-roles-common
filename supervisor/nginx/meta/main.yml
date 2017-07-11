@@ -1,6 +1,0 @@
-dependencies:
-  - role: common/supervisor/install
-    when: "{{ nginx__install | bool }} == true"
-  - role: common/nginx/default
-  - role: common/nginx/install
-    when: "{{ nginx__install | bool }} == true"

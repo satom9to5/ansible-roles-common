@@ -1,9 +1,0 @@
-- name: nginx supervisor ini copy
-  tags:
-    - supervisor
-    - nginx
-  become: true
-  template: >
-    src=nginx.ini.j2
-    dest=/etc/supervisord.d/nginx.ini
-    mode=0755

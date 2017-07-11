@@ -4,7 +4,7 @@
     - supervisor/middleware/mysql
   include_role:
     name: common/supervisor/install
-  when: "{{ supervisor__install | bool }} == true"
+  when: supervisor__install == true
 
 - name: copy supervisor config ini
   tags:
