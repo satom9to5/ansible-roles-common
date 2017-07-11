@@ -5,3 +5,5 @@ dependencies:
   - role: common/nginx/adduser
   - role: common/nginx/nginx-build
   - role: common/lua/luajit
+  - role: common/supervisor/middleware/nginx
+    when: nginx__on_supervisor == true

@@ -44,6 +44,7 @@ nginx__log_format_type: ltsv
 nginx__log_format: "{{ nginx__log_format_ltsv }}"
 
 nginx__install: true
+nginx__on_supervisor: false
 
 nginx__proxy_protocol: http
 

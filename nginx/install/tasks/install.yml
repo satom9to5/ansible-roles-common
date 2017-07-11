@@ -29,44 +29,6 @@
     src=third_party_modules.j2
     dest={{ nginx__module_file_path }}
 
-- name: check nginx pidfile directory
-  tags:
-    - nginx
-    - nginx/install
-  command: test -d {{ nginx__pidfile_dir }}
-  register: register__nginx__pidfile_dir
-  failed_when: register__nginx__pidfile_dir.rc not in [0,1]
-
-- name: create nginx pidfile directory
-  tags:
-    - nginx
-    - nginx/install
-  become: true
-  when: register__nginx__pidfile_dir.rc != 0
-  file: >
-    path={{ nginx__pidfile_dir }}
-    state=directory
-    owner={{ nginx__user }}
-
-- name: check nginx lock directory
-  tags:
-    - nginx
-    - nginx/install
-  command: test -d {{ nginx__lock_dir }}
-  register: register__nginx__lock_dir
-  failed_when: register__nginx__lock_dir.rc not in [0,1]
-
-- name: create nginx lock directory
-  tags:
-    - nginx
-    - nginx/install
-  become: true
-  when: register__nginx__lock_dir.rc != 0
-  file: >
-    path={{ nginx__lock_dir }}
-    state=directory
-    owner={{ nginx__user }}
-
 - name: configure nginx
   tags:
     - nginx
@@ -129,6 +91,44 @@
   file: >
     path={{ nginx__build_work_directory }}
     state=absent
+
+- name: check nginx pidfile directory
+  tags:
+    - nginx
+    - nginx/install
+  command: test -d {{ nginx__pidfile_dir }}
+  register: register__nginx__pidfile_dir
+  failed_when: register__nginx__pidfile_dir.rc not in [0,1]
+
+- name: create nginx pidfile directory
+  tags:
+    - nginx
+    - nginx/install
+  become: true
+  when: register__nginx__pidfile_dir.rc != 0
+  file: >
+    path={{ nginx__pidfile_dir }}
+    state=directory
+    owner={{ nginx__user }}
+
+- name: check nginx lock directory
+  tags:
+    - nginx
+    - nginx/install
+  command: test -d {{ nginx__lock_dir }}
+  register: register__nginx__lock_dir
+  failed_when: register__nginx__lock_dir.rc not in [0,1]
+
+- name: create nginx lock directory
+  tags:
+    - nginx
+    - nginx/install
+  become: true
+  when: register__nginx__lock_dir.rc != 0
+  file: >
+    path={{ nginx__lock_dir }}
+    state=directory
+    owner={{ nginx__user }}
 
 - name: create nginx log directory
   tags:

@@ -1,2 +1,2 @@
 dependencies:
-  - role: common/supervisor/default
+  - role: common/supervisor/install

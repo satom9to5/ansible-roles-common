@@ -1,2 +1,2 @@
 - include: install.yml
-  when: "{{ nginx__install | bool }}"
+  when: nginx__install == true

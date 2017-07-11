@@ -1,15 +1,4 @@
-- name: install nginx
-  tags:
-    - nginx
-    - supervisor
-    - supervisor/middleware/nginx
-  become: true
-  when: nginx__install == true
-  include_role:
-    name: common/nginx/install
-
-# include_roleでsupervisorインストールされる
-- name: copy nginx supervisor ini copy
+- name: copy nginx ini of supervisor copy
   tags:
     - nginx
     - supervisor
@@ -17,6 +6,7 @@
   include_role:
     name: common/supervisor/config/program
   vars:
-    supervisor__user: "" # root必須
     supervisor__config_program__name: nginx
     supervisor__config_program__command: "{{ supervisor__middleware_nginx__command }}"
+    supervisor__config_program__stdout_logfile: "{{ supervisor__log_dir }}/nginx_stdout.log"
+    supervisor__config_program__stderr_logfile: "{{ supervisor__log_dir }}/nginx_stderr.log"
