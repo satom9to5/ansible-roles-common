@@ -6,8 +6,16 @@ default値を表すroleは「default」にする。
 原則、動詞 + 対象とする。
 Ex: install nginx
 
-# 変数の命名規則
+# dependenciesとinclude_roleの使い分け
+必要なライブラリ・モジュールのインストールと、defaults値読み込みはdependencies
+インストール後の設定ファイル設置はinclude_role
 
+## 注意点
+Ver2.3時点で、include_role内でのdependenciesが実行されない様子。
+--list-tasksでは実行対象として含まれているのでバグだと思われる。
+仕方ないのでinclude_roleを使う際は、dependenciesに影響されない形になるよう注意する。
+
+# 変数の命名規則
 - 単語の区切りはアンダースコア1文字で行う
 - 大区分の区切りは「__」（アンダースコア2文字）で行う
 - roleに記載してある/,-は全てアンダースコアに変換する。
@@ -27,3 +35,7 @@ Ex: install nginx
 Global, Play, Hostの３種類が存在する。
 roleのdefaultsはPlayスコープ。roleを実行する度に初期化される様子。
 参考： http://docs.ansible.com/ansible/playbooks_variables.html#variable-scopes
+
+# Tips
+## ansible-playbook実行時
+- --list-tasksオプションを付与すると、実行予定のタスク一覧が表示される（playbookの実行はされない）
