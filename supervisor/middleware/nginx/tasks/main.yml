@@ -1,4 +1,4 @@
-- name: copy nginx ini of supervisor copy
+- name: copy nginx ini of supervisor
   tags:
     - nginx
     - supervisor
