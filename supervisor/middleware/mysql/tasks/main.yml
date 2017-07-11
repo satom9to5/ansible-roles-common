@@ -1,13 +1,4 @@
-- name: install MySQL server
-  tags:
-    - mysql
-    - supervisor
-    - supervisor/middleware/mysql
-  include_role:
-    name: common/mysql/server/install
-
-# include_roleでsupervisorインストールされる
-- name: copy MySQL supervisor ini copy
+- name: copy MySQL ini of supervisor
   tags:
     - mysql
     - supervisor
@@ -19,3 +10,5 @@
     supervisor__config_program__name: mysql
     supervisor__config_program__user: mysql
     supervisor__config_program__command: /usr/bin/pidproxy {{ mysql__pidfile }} /usr/sbin/mysqld
+    supervisor__config_program__stdout_logfile: "{{ supervisor__log_dir }}/mysql_stdout.log"
+    supervisor__config_program__stderr_logfile: "{{ supervisor__log_dir }}/mysql_stderr.log"

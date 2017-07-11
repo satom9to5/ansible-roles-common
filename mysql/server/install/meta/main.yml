@@ -1,3 +1,5 @@
 dependencies:
   - role: common/mysql/repo
   - role: common/mysql/default
+  - role: common/supervisor/middleware/mysql
+    when: mysql__on_supervisor == true

@@ -1,2 +1,4 @@
 dependencies:
   - role: common/mysql/default
+  - role: common/supervisor/install
+    supervisor__user: "" # root必須
