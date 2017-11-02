@@ -1,6 +1,7 @@
 - name: ncurses-devel install
   tags:
     - tmux
+  become: true
   yum: >
     name=ncurses-devel
     state=latest
@@ -15,6 +16,7 @@
 - name: libevent download
   tags:
     - tmux
+  become: true
   when: libevent_source_check.rc != 0
   get_url: >
     url=https://github.com/libevent/libevent/releases/download/release-{{ libevent_minor_version }}-stable/{{ libevent_fullname }}.tar.gz
@@ -30,6 +32,7 @@
 - name: libevent source directory remove
   tags:
     - tmux
+  become: true
   when: libevent_dir_check.rc == 0
   file: >
     path={{ libevent_path }}
@@ -38,11 +41,13 @@
 - name: libevent unarchive
   tags:
     - tmux
+  become: true
   shell: cd /usr/local/src && tar xvzf {{ libevent_path }}.tar.gz
 
 - name: libevent install
   tags:
     - tmux
+  become: true
   shell: |
     cd {{ libevent_path }}
     ./configure
@@ -59,9 +64,10 @@
 - name: tmux download
   tags:
     - tmux
+  become: true
   when: tmux_source_check.rc != 0
   get_url: >
-    url=http://downloads.sourceforge.net/tmux/{{ tmux_fullname }}.tar.gz
+    url=https://github.com/tmux/tmux/releases/download/{{ tmux_version }}/{{ tmux_fullname }}.tar.gz
     dest={{ tmux_path }}.tar.gz
 
 - name: tmux source directory check
@@ -74,6 +80,7 @@
 - name: tmux source directory remove
   tags:
     - tmux
+  become: true
   when: tmux_dir_check.rc == 0
   file: >
     path={{ tmux_path }}
@@ -82,11 +89,13 @@
 - name: tmux unarchive
   tags:
     - tmux
+  become: true
   shell: cd /usr/local/src && tar xvzf {{ tmux_path }}.tar.gz
 
 - name: tmux install
   tags:
     - tmux
+  become: true
   shell: |
     cd {{ tmux_path }}
     ./configure
