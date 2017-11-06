@@ -1,0 +1,5 @@
+terraform__version: 0.10.8
+terraform__directory: /usr/local/bin
+terraform__path: "{{ terraform__directory }}/terraform"
+
+terraform__download: false

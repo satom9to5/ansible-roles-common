@@ -1,0 +1,51 @@
+- name: terraform file check
+  tags:
+    - terraform
+  command: test -f {{ terraform__path }}
+  register: Register__terraform__path
+  failed_when: Register__terraform__path.rc not in [0,1]
+
+- name: terraform version check
+  tags:
+    - terraform
+  when: Register__terraform__path.rc == 0
+  shell: |
+    {{ terraform__path }} version | grep 'Terraform' | awk -F 'v' '{ print $2 }'
+  register: Register__terraform__current_version
+  failed_when: Register__terraform__current_version.rc not in [0,1]
+
+- name: terraform download check
+  tags:
+    - terraform
+  when: Register__terraform__path.rc != 0 or Register__terraform__current_version.stdout != terraform__version
+  set_fact:
+    terraform__download: true
+
+- name: terraform file download
+  tags:
+    - terraform
+  when: terraform__download
+  get_url: >
+    url="https://releases.hashicorp.com/terraform/{{ terraform__version }}/terraform_{{ terraform__version }}_{{ uname_kernel | lower }}_amd64.zip"
+    dest=/tmp/terraform.zip
+    force=yes
+
+- name: terraform unarchive
+  tags:
+    - terraform
+  become: true
+  when: terraform__download
+  unarchive: >
+    src=/tmp/terraform.zip
+    dest={{ terraform__directory }}
+    copy=no
+
+- name: delete terraform archive file
+  tags:
+    - terraform
+  become: true
+  when: terraform__download
+  file: >
+    path=/tmp/terraform.zip
+    state=absent
+
