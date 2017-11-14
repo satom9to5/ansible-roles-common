@@ -1,5 +1,5 @@
 dependencies:
-  - role: common/ruby/ruby-defaults
+  - role: common/ruby/default
   - role: common/ruby/gem/packages/bundler
   - role: common/ruby/gem/install
     gem__packages: 

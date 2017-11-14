@@ -1,3 +1,3 @@
 dependencies:
   - role: common/anyenv/anyenv
-  - role: common/ruby/ruby-defaults
+  - role: common/ruby/default

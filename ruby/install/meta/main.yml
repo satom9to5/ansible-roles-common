@@ -1,7 +1,7 @@
 dependencies:
   - role: common/profile
   - role: common/basic/archive
-  - role: common/ruby/ruby-defaults
+  - role: common/ruby/default
   - role: common/ruby/ruby-build # 通常時
     when: "{{ ruby__install | bool }} == true and {{ is_anyenv | bool }} == false"
   - role: common/anyenv/rbenv # rbenv使用時
