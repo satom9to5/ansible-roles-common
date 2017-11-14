@@ -1,0 +1,2 @@
+docker__local_path: "{{ lookup('env', 'HOME') }}/.docker"
+docker__config_json_path: "{{ docker__local_path }}/config.json"

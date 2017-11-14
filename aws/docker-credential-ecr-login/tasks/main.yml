@@ -1,0 +1,65 @@
+- name: install docker-credential-ecr-login
+  tags:
+    - aws
+    - aws/docker-credential-ecr-login
+  shell: |
+    {{ golang__path }}/bin/go get -u github.com/awslabs/docker-credential-ecr-login/ecr-login/cli/docker-credential-ecr-login
+
+- name: check ~/.docker directory
+  tags:
+    - aws
+    - aws/docker-credential-ecr-login
+  command: test -f {{ docker__local_path }} 
+  register: Register__docker__local_path
+  failed_when: Register__docker__local_path.rc not in [0,1]
+
+- name: create ~/.docker directory
+  tags:
+    - aws
+    - aws/docker-credential-ecr-login
+  when: Register__docker__local_path.rc != 0
+  file:
+    path: "{{ docker__local_path }}"
+    state: directory
+
+- name: check ~/.docker/config.json
+  tags:
+    - aws
+    - aws/docker-credential-ecr-login
+  command: test -f {{ docker__config_json_path }} 
+  register: Register__docker__config_json_path
+  failed_when: Register__docker__config_json_path.rc not in [0,1]
+
+- name: read ~/.docker/config.json
+  tags:
+    - aws
+    - aws/docker-credential-ecr-login
+  command: cat ${HOME}/.docker/config.json
+  register: Register__docker__config_json__result
+  when: Register__docker__config_json_path.rc == 0
+  changed_when: no
+
+- name: initial config_json
+  tags:
+    - aws
+    - aws/docker-credential-ecr-login
+  set_fact: 
+    docker__config_json: "{{ '{}' | from_json }}"
+
+- name: set config_json
+  tags:
+    - aws
+    - aws/docker-credential-ecr-login
+  when: Register__docker__config_json_path.rc == 0
+  set_fact: 
+    docker__config_json: "{{ Register__docker__config_json__result.stdout | from_json }}"
+
+- name: update ~/.docker/config.json
+  tags:
+    - aws
+    - aws/docker-credential-ecr-login
+  template:
+    src: config.json.j2
+    dest: ${HOME}/.docker/config.json
+    mode: 0644
+  when: "docker__config_json != docker__config_json | combine({ 'credsStore': 'ecr-login' })"

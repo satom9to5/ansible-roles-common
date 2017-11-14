@@ -1,0 +1,1 @@
+{{ docker__config_json | combine({ "credsStore": "ecr-login" }) | to_json }}

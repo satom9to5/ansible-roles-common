@@ -1,0 +1,3 @@
+dependencies:
+  - role: common/golang/install
+  - role: common/docker/default
