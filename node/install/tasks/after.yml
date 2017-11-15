@@ -16,7 +16,7 @@
     PATH: "{{ node__bin_path }}:{{ ansible_env.PATH }}"
   command: npm install -g npm-check-updates
 
-- name: yarm install
+- name: yarn install
   tags: 
     - node
     - node/install
