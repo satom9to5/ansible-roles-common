@@ -1,4 +1,4 @@
-node__version: 9.10.1
+node__version: 10.4.1
 node__path: /usr/local
 node__bin_path: "{{ Default__node__bin_path }}"
 node__install: true
