@@ -1,7 +1,7 @@
-- name: copy yum docker repository setting
-  tags: 
+- name: Docker repository install
+  tags:
     - docker
   become: true
-  template: >
-    src=docker.repo.j2
-    dest=/etc/yum.repos.d/docker.repo 
+  get_url: >
+    url={{ docker__repository_url }}
+    dest=/etc/yum.repos.d/docker-ce.repo

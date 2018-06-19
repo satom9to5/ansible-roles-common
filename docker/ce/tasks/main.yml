@@ -1,14 +1,14 @@
-- name: docker engine install
+- name: docker ce install
   tags:
     - docker
   become: true
   ignore_errors: yes
   yum: >
-    name=docker-engine
+    name=docker-ce
     state=latest
-    enablerepo=dockerrepo
+    enablerepo=docker-ce-stable
 
-- name: docker engine start
+- name: docker ce start
   tags:
     - docker
   become: true
