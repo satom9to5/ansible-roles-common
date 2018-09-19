@@ -1,3 +1,3 @@
 dependencies:
-  - { role: common/supervisor/install }
-  - { role: common/fluentd/install }
+  - role: common/supervisor/install
+  - role: common/fluentd/install

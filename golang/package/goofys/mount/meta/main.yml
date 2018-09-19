@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/golang/package/goofys/install }
+  - role: common/golang/package/goofys/install

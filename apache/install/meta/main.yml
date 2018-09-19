@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/apache/apache-defaults }
+  - role: common/apache/apache-defaults

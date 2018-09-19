@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/node/npm-pre }
+  - role: common/node/npm-pre

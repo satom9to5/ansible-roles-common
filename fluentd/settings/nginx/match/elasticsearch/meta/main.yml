@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/fluentd/config/match/elasticsearch }
+  - role: common/fluentd/config/match/elasticsearch

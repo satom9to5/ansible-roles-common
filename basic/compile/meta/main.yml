@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/yum/repos }
+  - role: common/yum/repos

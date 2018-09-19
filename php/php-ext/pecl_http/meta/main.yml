@@ -1,5 +1,5 @@
 dependencies:
-  - { role: common/php/php-defaults }
-  - { role: common/php/php-ext-pre }
-  - { role: common/php/php-ext/raphf }
-  - { role: common/php/php-ext/propro }
+  - role: common/php/php-defaults
+  - role: common/php/php-ext-pre
+  - role: common/php/php-ext/raphf
+  - role: common/php/php-ext/propro

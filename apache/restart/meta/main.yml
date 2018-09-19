@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/apache/install }
+  - role: common/apache/install

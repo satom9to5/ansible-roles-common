@@ -1,3 +1,3 @@
 dependencies:
-  - { role: common/nginx/default }
+  - role: common/nginx/default
   - { role: common/user/nologin/single, nologin_user_name: "{{ nginx__user }}", nologin_user_uid: "{{ nginx__user_uid }}" }

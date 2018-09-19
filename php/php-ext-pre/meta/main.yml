@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/php/install }
+  - role: common/php/install

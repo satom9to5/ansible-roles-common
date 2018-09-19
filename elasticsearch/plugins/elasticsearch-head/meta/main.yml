@@ -1,2 +1,2 @@
 dependencies:
-  - { role: common/elasticsearch/install }
+  - role: common/elasticsearch/install
