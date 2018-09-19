@@ -1,0 +1,27 @@
+- name: ecs-cli file check
+  tags:
+    - aws
+    - ecs-cli
+  command: test -f {{ ecs_cli__path }}
+  register: Register__ecs_cli__path
+  failed_when: Register__ecs_cli__path.rc not in [0,1]
+
+- name: ecs-cli download check
+  tags:
+    - aws
+    - ecs-cli
+  when: Register__ecs_cli__path.rc != 0
+  set_fact:
+    ecs_cli__download: true
+
+- name: ecs-cli file download
+  tags:
+    - aws
+    - ecs-cli
+  when: ecs_cli__download
+  become: true
+  get_url: >
+    url="https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-{{ uname_kernel | lower }}-amd64-latest"
+    dest={{ ecs_cli__path }}
+    mode=0755
+    force=yes

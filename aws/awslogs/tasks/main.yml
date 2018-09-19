@@ -1,0 +1,8 @@
+- name: pip packages install
+  tags:
+    - aws
+    - aws/awscli
+  become: true
+  pip: >
+    name=awslogs
+    state=latest
