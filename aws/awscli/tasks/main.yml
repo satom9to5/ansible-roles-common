@@ -3,11 +3,9 @@
     - aws
     - aws/awscli
   become: true
-  ignore_errors: yes
-  yum: >
+  pip: >
     name=awscli
     state=latest
-    enablerepo=epel
 
 - name: create .aws directory
   tags:
@@ -31,6 +29,7 @@
   tags:
     - aws
     - aws/awscli
+  when: aws_access_key_id != "" and aws_secret_key != ""
   template: >
     src=config.j2
     dest={{ aws_user_credential_directory }}/config
