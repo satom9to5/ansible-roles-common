@@ -1,0 +1,15 @@
+- name: latest node version check
+  tags:
+    - node
+    - node/install
+  shell: curl https://nodejs.org/en/download/current/ | grep 'Latest Current Version' | sed -e 's|^.*<strong>\(.*\)</strong>.*$|\1|g'
+  register: Register__node_install__latest_version
+  failed_when: Register__node_install__latest_version.rc not in [0,1]
+
+- name: set node__version 
+  tags:
+    - node
+    - node/install
+  when: Register__node_install__latest_version.rc == 0
+  set_fact: 
+    node__version: "{{ Register__node_install__latest_version.stdout }}"
