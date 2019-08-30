@@ -10,3 +10,18 @@
   with_items:
     - readline-devel
 
+- name: latest ruby version check
+  tags:
+    - ruby
+    - ruby/install
+  shell: curl https://www.ruby-lang.org/ja/downloads/ | grep 'https://cache.ruby-lang.org/pub/ruby' | head -1 | sed -e 's|^.*<a [^>]\+>Ruby \([^<]\+\)</a>.*$|\1|g'
+  register: Register__ruby_install__latest_version
+  failed_when: Register__ruby_install__latest_version.rc not in [0,1]
+
+- name: set ruby__version 
+  tags:
+    - ruby
+    - ruby/install
+  when: Register__ruby_install__latest_version.rc == 0
+  set_fact: 
+    ruby__version: "{{ Register__ruby_install__latest_version.stdout }}"
