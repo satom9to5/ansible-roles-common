@@ -5,6 +5,22 @@
   register: Register__terraform__path
   failed_when: Register__terraform__path.rc not in [0,1]
 
+- name: latest terraform version check
+  tags:
+    - terraform
+    - terraform/install
+  shell: curl --silent https://api.github.com/repos/hashicorp/terraform/releases/latest | jq -r .tag_name | sed 's|^v||g'
+  register: Register__terraform_install__latest_version
+  failed_when: Register__terraform_install__latest_version.rc not in [0,1]
+
+- name: set terraform__version 
+  tags:
+    - terraform
+    - terraform/install
+  when: Register__terraform_install__latest_version.rc == 0
+  set_fact: 
+    terraform__version: "{{ Register__terraform_install__latest_version.stdout }}"
+
 - name: terraform version check
   tags:
     - terraform
