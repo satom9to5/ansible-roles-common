@@ -1,4 +1,3 @@
-golang__version: 1.12.5
 golang__path: /usr/local/go
 golang__gopath: "{{ Default__golang_gopath }}"
 golang__bin_path: "{{ golang__gopath }}/bin:{{ golang__path }}/bin"

@@ -1,27 +1,74 @@
-- name: Golang installed check
+- name: Golang file check
   tags:
     - golang
-  command: test -d {{ golang__path }}
-  register: Register__golang_directory_check
-  failed_when: Register__golang_directory_check.rc not in [0,1]
+    - golang/install
+  command: test -f {{ golang__path }}
+  register: Register__golang__path
+  failed_when: Register__golang__path.rc not in [0,1]
+
+- name: latest Golang version check
+  tags:
+    - golang
+    - golang/install
+  shell: curl https://golang.org/dl/ | grep toggleVisible | head -1 | grep -oP 'go[0-9\.]+'
+  register: Register__golang_install__latest_version
+  failed_when: Register__golang_install__latest_version.rc not in [0,1]
+
+- name: set golang__version 
+  tags:
+    - golang
+    - golang/install
+  when: Register__golang_install__latest_version.rc == 0
+  set_fact: 
+    golang__version: "{{ Register__golang_install__latest_version.stdout }}"
+
+- name: Golang version check
+  tags:
+    - golang
+    - golang/install
+  when: Register__golang__path.rc == 0
+  shell: |
+    {{ golang__path }} version | grep -oP 'go[0-9\.]+'
+  register: Register__golang__current_version
+  failed_when: Register__golang__current_version.rc not in [0,1]
+
+- name: Golang download check
+  tags:
+    - golang
+    - golang/install
+  when: Register__golang__path.rc != 0 or Register__golang__current_version.stdout != golang__version
+  set_fact:
+    golang__download: true
 
 - name: Golang download
   tags:
    - golang
-  become: true
-  when: Register__golang_directory_check.rc != 0
+   - golang/install
+  when: golang__download
   get_url: >
-    url=https://golang.org/dl/go{{ golang__version }}.linux-amd64.tar.gz
-    dest={{ golang__path }}.tar.gz
+    url=https://golang.org/dl/{{ golang__version }}.linux-amd64.tar.gz
+    dest=/tmp/golang.tar.gz
 
 - name: Golang unarchive
   tags:
     - golang
+    - golang/install
   become: true
-  when: Register__golang_directory_check.rc != 0
-  shell: |
-    cd /usr/local/
-    tar xvzf {{ golang__path }}.tar.gz
+  when: golang__download
+  unarchive: >
+    src=/tmp/golang.tar.gz
+    dest=/usr/local
+    copy=no
+
+- name: delete Golang archive file
+  tags:
+    - golang
+    - golang/install
+  become: true
+  when: golang__download
+  file: >
+    path=/tmp/golang.zip
+    state=absent
 
 - name: copy export gopath environment shell
   tags:
