@@ -1,8 +1,107 @@
-- name: vim install
+- name: Vim file check
   tags:
     - vim
+  command: test -f {{ vim__path }}
+  register: Register__vim__path
+  failed_when: Register__vim__path.rc not in [0,1]
+
+- name: latest Vim version check
+  tags:
+    - vim
+    - vim/install
+  shell: curl --silent https://api.github.com/repos/vim/vim/tags | jq -r '.[0].name'
+  register: Register__vim_install__latest_version
+  failed_when: Register__vim_install__latest_version.rc not in [0,1]
+
+- name: set vim__version 
+  tags:
+    - vim
+    - vim/install
+  when: Register__vim_install__latest_version.rc == 0
+  set_fact: 
+    vim__version: "{{ Register__vim_install__latest_version.stdout }}"
+
+- name: set vim__source_directory 
+  tags:
+    - vim
+    - vim/install
+  when: Register__vim_install__latest_version.rc == 0
+  set_fact: 
+    vim__src_directory: "/usr/local/src/{{ Register__vim_install__latest_version.stdout | replace('v', 'vim-') }}"
+
+- name: current Vim version check
+  tags:
+    - vim
+  when: Register__vim__path.rc == 0
+  shell: |
+    {{ vim__path }} --version | head -2 | tr '\n' ' ' | awk -F '[ -]' '{ print "v"$6"."$(NF-1) }'
+  register: Register__vim__current_version
+  failed_when: Register__vim__current_version.rc not in [0,1]
+
+- name: Vim download check
+  tags:
+    - vim
+    - vim/install
+  when: Register__vim__path.rc != 0 or Register__vim__current_version.stdout != vim__version
+  set_fact:
+    vim__download: true
+
+- name: Vim source directory check
+  tags:
+    - vim
+    - vim/install
+  when: vim__download
+  command: test -d {{ vim__src_directory }}
+  register: register__vim__src_directory
+  failed_when: register__vim__src_directory.rc not in [0,1]
+
+- name: Vim source directory remove
+  tags:
+    - vim
+    - vim/install
   become: true
-  ignore_errors: yes
-  yum: >
-    name=vim-enhanced
-    state=latest
+  when: vim__download and register__vim__src_directory.rc == 0
+  file: >
+    path={{ vim__src_directory }}
+    state=absent
+
+- name: Vim file download
+  tags:
+    - vim
+    - vim/install
+  when: vim__download
+  get_url: >
+    url="https://github.com/vim/vim/archive/{{ vim__version }}.tar.gz"
+    dest=/tmp/vim.tar.gz
+    force=yes
+
+- name: Vim unarchive
+  tags:
+    - vim
+    - vim/install
+  become: true
+  when: vim__download
+  unarchive: >
+    src=/tmp/vim.tar.gz
+    dest=/usr/local/src
+    copy=no
+
+- name: Vim install
+  tags:
+    - vim
+    - vim/install
+  become: true
+  when: vim__download
+  shell: |
+    cd {{ vim__src_directory }} 
+    make prefix=/usr/local
+    make install prefix=/usr/local
+
+- name: delete Vim source archive file
+  tags:
+    - vim
+    - vim/install
+  when: vim__download
+  file: >
+    path=/tmp/vim.tar.gz
+    state=absent

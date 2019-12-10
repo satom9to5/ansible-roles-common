@@ -1,0 +1,4 @@
+vim__directory: /usr/local/bin
+vim__path: "{{ vim__directory }}/vim"
+
+vim__download: false
