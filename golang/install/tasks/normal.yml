@@ -40,6 +40,15 @@
   set_fact:
     golang__download: true
 
+- name: delete old Golang directory
+  tags:
+   - golang
+   - golang/install
+  when: golang__download
+  file: >
+    path=/usr/local/go
+    state=absent
+
 - name: Golang download
   tags:
    - golang
