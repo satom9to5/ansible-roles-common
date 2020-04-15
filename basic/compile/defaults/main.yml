@@ -2,6 +2,6 @@ autoconf_version: 2.69
 autoconf_fullname: "autoconf-{{ autoconf_version }}"
 autoconf_path: "/usr/local/src/{{ autoconf_fullname }}"
 
-automake_version: 1.15
+automake_version: 1.16.2
 automake_fullname: "automake-{{ automake_version }}"
 automake_path: "/usr/local/src/{{ automake_fullname }}"
