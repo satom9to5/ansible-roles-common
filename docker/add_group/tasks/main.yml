@@ -1,9 +1,0 @@
-- name: append user to docker group
-  tags:
-    - docker
-    - docker/add_group
-  become: true
-  user: >
-    name={{ docker_add_group__user | default(ansible_user_id, true) }}
-    group=docker
-    append=yes
