@@ -23,5 +23,6 @@
     - node/node-build
   become: true
   ignore_errors: yes # install.sh内でのエラー抑制
-  shell: |
-    {{ node__bin_path }}/node-build --definitions
+  environment:
+    PATH: "{{ node__bin_path }}:{{ ansible_env.PATH }}"
+  command: node-build --definitions

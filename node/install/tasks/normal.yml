@@ -3,8 +3,9 @@
     - node
     - node/install
   become: true
-  shell: |
-    {{ node__bin_path }}/node-build {{ node__version }} {{ node__path }}    
+  environment:
+    PATH: "{{ node__bin_path }}:{{ ansible_env.PATH }}"
+  command: node-build {{ node__version }} {{ node__path }}    
 
 - name: copy export node environment shell
   tags:
