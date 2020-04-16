@@ -2,28 +2,44 @@
   tags:
     - docker
     - docker/compose
-  command: test -f {{ docker_compose_path }}
-  register: docker_compose_file_check
-  failed_when: docker_compose_file_check.rc not in [0,1]
+  command: test -f {{ docker_compose__path }}
+  register: Register__docker_compose__path
+  failed_when: Register__docker_compose__path.rc not in [0,1]
+
+- name: latest docker-compose version check
+  tags:
+    - docker
+    - docker/compose
+  shell: curl --silent https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name | sed 's|^v||g'
+  register: Register__docker_compose_install__latest_version
+  failed_when: Register__docker_compose_install__latest_version.rc not in [0,1]
+
+- name: set docker_compose__version 
+  tags:
+    - docker
+    - docker/compose
+  when: Register__docker_compose_install__latest_version.rc == 0
+  set_fact: 
+    docker_compose__version: "{{ Register__docker_compose_install__latest_version.stdout }}"
 
 - name: docker-compose version check
   tags:
     - docker
     - docker/compose
-  when: docker_compose_file_check.rc == 0
+  when: Register__docker_compose__path.rc == 0
   shell: |
-    {{ docker_compose_path }} version | grep 'docker-compose version' | awk -F '[ ,]' '{ print $3 }'
-  register: docker_compose_version_check
-  failed_when: docker_compose_version_check.rc not in [0,1]
+    {{ docker_compose__path }} version | grep 'docker-compose version' | awk -F '[ ,]' '{ print $3 }'
+  register: Register__docker_compose__current_version
+  failed_when: Register__docker_compose__current_version.rc not in [0,1]
 
 - name: docker-compose file download
   tags:
     - docker
     - docker/compose
   become: true
-  when: docker_compose_file_check.rc != 0 or docker_compose_version_check.stdout != "{{ docker_compose_version }}"
+  when: Register__docker_compose__path.rc != 0 or Register__docker_compose__current_version.stdout != "{{ docker_compose__version }}"
   get_url: >
-    url="https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ uname_kernel }}-{{ uname_machine }}"
-    dest={{ docker_compose_path }}
+    url="https://github.com/docker/compose/releases/download/{{ docker_compose__version }}/docker-compose-{{ uname_kernel }}-{{ uname_machine }}"
+    dest={{ docker_compose__path }}
     mode=0755
     force=yes

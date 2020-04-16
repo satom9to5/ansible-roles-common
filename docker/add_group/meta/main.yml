@@ -1,2 +1,2 @@
 dependencies:
-  - role: common/docker/engine
+  - role: common/docker/ce
