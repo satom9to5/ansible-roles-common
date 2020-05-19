@@ -1,1 +1,3 @@
-aws_user_credential_directory: "{{ ansible_env.HOME }}/.aws"
+awscli__path: /usr/local/bin/aws
+awscli__download: false
+awscli__user_credential_directory: "{{ ansible_env.HOME }}/.aws"

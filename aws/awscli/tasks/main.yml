@@ -1,18 +1,88 @@
+- name: AWS CLI file check
+  tags:
+    - aws
+    - aws/awscli
+  command: test -f {{ awscli__path }}
+  register: Register__awscli__path
+  failed_when: Register__awscli__path.rc not in [0,1]
+
+- name: latest AWS CLI version check
+  tags:
+    - aws
+    - aws/awscli
+  shell: curl --silent https://api.github.com/repos/aws/aws-cli/tags | jq -r '.[].name | select(. | test("^2"))' | head -1
+  register: Register__awscli_install__latest_version
+  failed_when: Register__awscli_install__latest_version.rc not in [0,1]
+
+- name: set awscli__version 
+  tags:
+    - aws
+    - aws/awscli
+  when: Register__awscli_install__latest_version.rc == 0
+  set_fact: 
+    awscli__version: "{{ Register__awscli_install__latest_version.stdout }}"
+
+- name: AWS CLI version check
+  tags:
+    - aws
+    - aws/awscli
+  when: Register__awscli__path.rc == 0
+  shell: |
+    {{ awscli__path }} --version | awk -F '[ /]' '{ print $2 }'
+  register: Register__awscli__current_version
+  failed_when: Register__awscli__current_version.rc not in [0,1]
+
+- name: AWS CLI download check
+  tags:
+    - aws
+    - aws/awscli
+  when: Register__awscli__path.rc != 0 or Register__awscli__current_version.stdout != awscli__version
+  set_fact:
+    awscli__download: true
+
+- name: AWS CLI archive file download
+  tags:
+    - aws
+    - aws/awscli
+  when: awscli__download
+  get_url: >
+    url="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    dest=/tmp/awscli.zip
+    force=yes
+
+- name: AWS CLI unarchive
+  when: terraform__download
+    - aws
+    - aws/awscli
+  become: true
+  when: awscli__download
+  unarchive: >
+    src=/tmp/awscli.zip
+    dest=/tmp
+    copy=no
+
 - name: AWS CLI install 
   tags:
     - aws
     - aws/awscli
   become: true
-  pip: >
-    name=awscli
-    state=latest
+  when: Register__awscli__path.rc != 0
+  shell: /tmp/aws/install
+
+- name: AWS CLI update 
+  tags:
+    - aws
+    - aws/awscli
+  become: true
+  when: Register__awscli__path.rc == 0 and Register__awscli__current_version.stdout != awscli__version
+  shell: /tmp/aws/install --update
 
 - name: create .aws directory
   tags:
     - aws
     - aws/awscli
   file: >
-    path={{ aws_user_credential_directory }}
+    path={{ awscli__user_credential_directory }}
     state=directory
 
 - name: create .aws credentials
@@ -22,7 +92,7 @@
   when: aws_access_key_id != "" and aws_secret_key != ""
   template: >
     src=credentials.j2
-    dest={{ aws_user_credential_directory }}/credentials
+    dest={{ awscli__user_credential_directory }}/credentials
     mode=0600
 
 - name: create .aws config
@@ -32,5 +102,5 @@
   when: aws_access_key_id != "" and aws_secret_key != ""
   template: >
     src=config.j2
-    dest={{ aws_user_credential_directory }}/config
+    dest={{ awscli__user_credential_directory }}/config
     mode=0600
