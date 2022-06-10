@@ -6,11 +6,20 @@
   register: Register__golang__path
   failed_when: Register__golang__path.rc not in [0,1]
 
+- name: CPU architecture check
+  tags:
+    - golang
+    - golang/install
+  shell: |
+    [ "$(uname -m)" = "aarch64" ] && echo "arm64" || uname -m
+  register: Register__cpu_architecture
+  failed_when: Register__golang__path.rc not in [0,1]
+
 - name: latest Golang version check
   tags:
     - golang
     - golang/install
-  shell: curl https://golang.org/dl/ | grep toggleVisible | head -1 | grep -oP 'go[0-9\.]+'
+  shell: curl https://go.dev/dl/ | grep toggleVisible | head -1 | grep -oP 'go[0-9\.]+'
   register: Register__golang_install__latest_version
   failed_when: Register__golang_install__latest_version.rc not in [0,1]
 
@@ -42,8 +51,9 @@
 
 - name: delete old Golang directory
   tags:
-   - golang
-   - golang/install
+    - golang
+    - golang/install
+  become: true
   when: golang__download
   file: >
     path=/usr/local/go
@@ -51,11 +61,11 @@
 
 - name: Golang download
   tags:
-   - golang
-   - golang/install
+    - golang
+    - golang/install
   when: golang__download
   get_url: >
-    url=https://golang.org/dl/{{ golang__version }}.linux-amd64.tar.gz
+    url=https://go.dev/dl/{{ golang__version }}.linux-{{ Register__cpu_architecture.stdout }}.tar.gz
     dest=/tmp/golang.tar.gz
 
 - name: Golang unarchive
@@ -76,7 +86,7 @@
   become: true
   when: golang__download
   file: >
-    path=/tmp/golang.zip
+    path=/tmp/golang.tar.gz
     state=absent
 
 - name: copy export gopath environment shell
