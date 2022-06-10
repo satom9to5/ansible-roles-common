@@ -1,6 +1,6 @@
-tmux_version: 3.0a
+tmux_version: 3.2a
 tmux_fullname: "tmux-{{ tmux_version }}"
 tmux_path: "/usr/local/src/{{ tmux_fullname }}"
-libevent_minor_version: 2.1.11
+libevent_minor_version: 2.1.12
 libevent_fullname: "libevent-{{ libevent_minor_version }}-stable"
 libevent_path: "/usr/local/src/{{ libevent_fullname }}"

@@ -1,10 +1,12 @@
-- name: ncurses-devel install
+- name: tmux necessary package install
   tags:
     - tmux
   become: true
-  yum: >
-    name=ncurses-devel
-    state=latest
+  ignore_errors: yes
+  yum: name={{ item }} state=latest
+  with_items:
+    - ncurses-devel
+    - openssl-devel
 
 - name: libevent source file check
   tags:
