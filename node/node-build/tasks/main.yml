@@ -3,6 +3,8 @@
     - node
     - node/node-build
   become: true
+  environment:
+    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
   git: >
     repo=https://github.com/nodenv/node-build.git
     dest={{ node_build__path }}
