@@ -46,7 +46,7 @@
     - aws/awscli
   when: awscli__download
   get_url: >
-    url="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    url="https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip"
     dest=/tmp/awscli.zip
     force=yes
 
