@@ -3,6 +3,8 @@
     - ruby
     - ruby/ruby-build
   become: true
+  environment:
+    PATH: "/usr/local/bin:{{ ansible_env.PATH }}"
   git: >
     repo=https://github.com/rbenv/ruby-build.git
     dest={{ ruby_build_path }}
