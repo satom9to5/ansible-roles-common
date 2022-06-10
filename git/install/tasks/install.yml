@@ -9,6 +9,7 @@
     - which
     - patch
     - wget
+    - zlib-devel
     - openssl-devel
     - libcurl-devel
     - expat-devel
