@@ -1,1 +1,1 @@
-docker__repository_url: https://download.docker.com/linux/centos/docker-ce.repo
+docker__repository_url: https://download.docker.com/linux/fedora/docker-ce.repo

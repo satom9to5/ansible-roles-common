@@ -1,18 +1,22 @@
-- name: containerd.io install
-  tags:
-    - docker
-  become: true
-  yum:
-    name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.1.el7.x86_64.rpm
-    state: present
+#- name: containerd.io install
+#  tags:
+#    - docker
+#  become: true
+#  yum:
+#    name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.1.el7.x86_64.rpm
+#    state: present
 
 - name: docker ce install
   tags:
     - docker
   become: true
   ignore_errors: yes
-  yum:
-    name: docker-ce
+  dnf:
+    name: 
+      - docker-ce
+      - docker-ce-cli 
+      - docker-compose
+      - containerd.io
     state: latest
     enablerepo: docker-ce-stable
 
