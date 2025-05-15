@@ -13,7 +13,7 @@
   shell: |
     [ "$(uname -m)" = "aarch64" ] && echo "arm64" || uname -m
   register: Register__cpu_architecture
-  failed_when: Register__golang__path.rc not in [0,1]
+  failed_when: Register__cpu_architecture.rc not in [0,1]
 
 - name: latest Golang version check
   tags:
