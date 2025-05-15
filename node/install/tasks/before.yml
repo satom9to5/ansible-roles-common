@@ -2,7 +2,7 @@
   tags:
     - node
     - node/install
-  shell: curl https://nodejs.org/en/download/current/ | grep 'Latest Current Version' | sed -e 's|^.*<strong>\(.*\)</strong>.*$|\1|g'
+  shell: curl https://nodejs.org/en/download/ | grep -Eo '<span>v[0-9\.]+ \(LTS\)</span>' | sed -e 's|^<span>v||g' -e 's| .*$||g'
   register: Register__node_install__latest_version
   failed_when: Register__node_install__latest_version.rc not in [0,1]
 
